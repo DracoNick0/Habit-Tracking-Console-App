@@ -36,8 +36,8 @@ namespace Habit_Tracking_Console_App
                             case "task":
                                 this.taskManager.AddTask();
                                 break;
-                            default: 
-                                Console.Error.WriteLine("Cannot add \"" + inputArgs[1] + "\" does not exist, try again!");
+                            default:
+                                InvalidArguument(userInput, inputArgs, 1);
                                 break;
                         }
                         break;
@@ -45,7 +45,7 @@ namespace Habit_Tracking_Console_App
                         this.ExitCommand();
                         return false;
                     default: 
-                        Console.Error.WriteLine("The command \"" + userInput + "\" is not valid, try again!");
+                        InvalidCommand(userInput);
                         break;
                 }
             }
@@ -53,16 +53,26 @@ namespace Habit_Tracking_Console_App
             return true;
         }
 
-        public void HelpCommand()
+        private void HelpCommand()
         {
             Console.WriteLine("Commands:");
             Console.WriteLine(" - help: displays a list of commands for the user to input");
             Console.WriteLine(" - exit: exit the program");
         }
 
-        public void ExitCommand()
+        private void ExitCommand()
         {
             Console.WriteLine("See you again!");
+        }
+
+        private void InvalidCommand(string command)
+        {
+            Console.Error.WriteLine("The command \"" + command + "\" is not valid, try again!");
+        }
+
+        private void InvalidArguument(string command, string[] inputArgs, int index)
+        {
+            Console.Error.WriteLine("The argument \"" + inputArgs[index] + "\" in \"" + command + "\" is not valid, try again!");
         }
     }
 }
