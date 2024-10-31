@@ -1,8 +1,6 @@
 ﻿using Habit_Tracking_Console_App;
 
 Console.WriteLine("Welcome back!");
-
-
 string? userInput = string.Empty;
 
 do {

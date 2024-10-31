@@ -10,8 +10,10 @@
                 // Change user input to be digestable by the program
                 userInput = userInput.ToLower();
 
+                string[] inputArgs = userInput.Split(' ');
+
                 Console.Clear();
-                switch (userInput)
+                switch (inputArgs[0])
                 {
                     case "help":
                         Console.WriteLine("Commands:");
