@@ -1,24 +1,32 @@
 ﻿Console.WriteLine("Welcome back!");
 
 
-bool notExit = true;
+bool wantsToExit = false;
 string? userInput = string.Empty;
-while (notExit)
-{
 
+while (!wantsToExit)
+{
+    // Wait for user input
     userInput = Console.ReadLine();
+
     if (userInput != null)
     {
+        // Change user input to be digestable by the program
         userInput = userInput.ToLower();
 
+        Console.Clear();
         switch (userInput)
         {
             case "help":
                 Console.WriteLine("Commands:");
                 Console.WriteLine(" - help: displays a list of commands for the user to input");
                 break;
+            case "exit":
+                Console.WriteLine("See you again!");
+                wantsToExit = true;
+                break;
             default:
-                Console.Error.WriteLine("That command was not valid, try again!");
+                Console.Error.WriteLine("The command \"" + userInput + "\" is not valid, try again!");
                 break;
         }
     }
