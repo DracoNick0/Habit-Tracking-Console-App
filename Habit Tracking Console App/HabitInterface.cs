@@ -2,7 +2,11 @@
 {
     class HabitInterface
     {
+        HabitManager habitManager;
 
-
+        public HabitInterface()
+        {
+            this.habitManager = new HabitManager();
+        }
     }
 }
