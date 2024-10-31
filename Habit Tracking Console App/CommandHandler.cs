@@ -6,7 +6,7 @@ namespace Habit_Tracking_Console_App
     {
         public CommandHandler() { }
 
-        public static bool ExecuteCommand(string? userInput)
+        public bool ExecuteCommand(string? userInput)
         {
             if (userInput != null)
             {
@@ -40,24 +40,24 @@ namespace Habit_Tracking_Console_App
             return true;
         }
 
-        public static void HelpCommand()
+        public void HelpCommand()
         {
             Console.WriteLine("Commands:");
             Console.WriteLine(" - help: displays a list of commands for the user to input");
             Console.WriteLine(" - exit: exit the program");
         }
 
-        public static void AddHabitCommand()
+        public void AddHabitCommand()
         {
             Console.WriteLine("Add habit command invoked");
         }
 
-        public static void AddTaskCommand()
+        public void AddTaskCommand()
         {
             Console.WriteLine("Add task command invoked");
         }
 
-        public static void ExitCommand()
+        public void ExitCommand()
         {
             Console.WriteLine("See you again!");
         }
