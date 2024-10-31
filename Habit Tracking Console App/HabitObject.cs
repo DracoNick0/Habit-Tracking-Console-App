@@ -19,6 +19,16 @@
             this.completed = false;
         }
 
+        public HabitObject(string name, bool isGood, string description, int importance, DateTime endDate, bool completed)
+        {
+            this.name = name;
+            this.isGood = isGood;
+            this.description = description;
+            this.importance = importance;
+            this.endDate = endDate;
+            this.completed = completed;
+        }
+
         public string Name
         { 
             get { return this.name; }

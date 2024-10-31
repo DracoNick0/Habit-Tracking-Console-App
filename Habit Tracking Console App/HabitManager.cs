@@ -15,6 +15,7 @@
             {
                 this.habits.Add(habit.Name, habit);
                 Console.WriteLine("Habit \"" + habit.Name + "\" was added.");
+                return true;
             }
             else
             {
@@ -23,6 +24,11 @@
 
 
             return false;
+        }
+
+        public bool CreateHabit(string name, bool isGood, string description, int importance, DateTime endDate, bool completed)
+        {
+            return AddHabit(new HabitObject(name, isGood, description, importance, endDate, completed));
         }
     }
 }
