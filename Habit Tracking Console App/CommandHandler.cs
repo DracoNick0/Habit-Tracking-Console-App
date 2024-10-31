@@ -1,4 +1,6 @@
-﻿namespace Habit_Tracking_Console_App
+﻿using System.Runtime.CompilerServices;
+
+namespace Habit_Tracking_Console_App
 {
     class CommandHandler
     {
@@ -16,18 +18,16 @@
                 switch (inputArgs[0])
                 {
                     case "help":
-                        Console.WriteLine("Commands:");
-                        Console.WriteLine(" - help: displays a list of commands for the user to input");
-                        Console.WriteLine(" - exit: exit the program");
+                        HelpCommand();
                         break;
                     case "add":
                         switch (inputArgs[1])
                         {
                             case "habit":
-                                Console.WriteLine("Add habit command invoked");
+                                AddHabitCommand();
                                 break;
                             case "task":
-                                Console.WriteLine("Add task command invoked");
+                                AddTaskCommand();
                                 break;
                             default:
                                 Console.Error.WriteLine("Cannot add \"" + inputArgs[1] + "\" does not exist, try again!");
@@ -35,7 +35,7 @@
                         }
                         break;
                     case "exit":
-                        Console.WriteLine("See you again!");
+                        ExitCommand();
                         return false;
                     default:
                         Console.Error.WriteLine("The command \"" + userInput + "\" is not valid, try again!");
@@ -44,6 +44,28 @@
             }
 
             return true;
+        }
+
+        public static void HelpCommand()
+        {
+            Console.WriteLine("Commands:");
+            Console.WriteLine(" - help: displays a list of commands for the user to input");
+            Console.WriteLine(" - exit: exit the program");
+        }
+
+        public static void AddHabitCommand()
+        {
+            Console.WriteLine("Add habit command invoked");
+        }
+
+        public static void AddTaskCommand()
+        {
+            Console.WriteLine("Add task command invoked");
+        }
+
+        public static void ExitCommand()
+        {
+            Console.WriteLine("See you again!");
         }
     }
 }
