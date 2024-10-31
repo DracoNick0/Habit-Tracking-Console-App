@@ -17,28 +17,22 @@ namespace Habit_Tracking_Console_App
                 Console.Clear();
                 switch (inputArgs[0])
                 {
-                    case "help":
-                        HelpCommand();
+                    case "help": HelpCommand();
                         break;
                     case "add":
                         switch (inputArgs[1])
                         {
-                            case "habit":
-                                AddHabitCommand();
+                            case "habit": AddHabitCommand();
                                 break;
-                            case "task":
-                                AddTaskCommand();
+                            case "task": AddTaskCommand();
                                 break;
-                            default:
-                                Console.Error.WriteLine("Cannot add \"" + inputArgs[1] + "\" does not exist, try again!");
+                            default: Console.Error.WriteLine("Cannot add \"" + inputArgs[1] + "\" does not exist, try again!");
                                 break;
                         }
                         break;
-                    case "exit":
-                        ExitCommand();
+                    case "exit": ExitCommand();
                         return false;
-                    default:
-                        Console.Error.WriteLine("The command \"" + userInput + "\" is not valid, try again!");
+                    default: Console.Error.WriteLine("The command \"" + userInput + "\" is not valid, try again!");
                         break;
                 }
             }
