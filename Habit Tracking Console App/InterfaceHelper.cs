@@ -28,7 +28,33 @@
             }
         }
 
+        public static string PromptForNotNullInput(string prompt)
+        {
+            string? userInput = null;
 
+            Console.Write(prompt);
+            while ((userInput = Console.ReadLine()) == null)
+            {
+                Console.WriteLine("Input was null, try again!");
+                Console.Write(prompt);
+            }
+
+            return userInput;
+        }
+
+        public static string PromptForNotEmptyInput(string prompt)
+        {
+            string? userInput = null;
+
+            Console.Write(prompt);
+            while ((userInput = Console.ReadLine()) == string.Empty || userInput == null)
+            {
+                Console.WriteLine("Input was null, try again!");
+                Console.Write(prompt);
+            }
+
+            return userInput;
+        }
 
     }
 }
