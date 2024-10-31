@@ -2,7 +2,7 @@
 {
     class HabitObject
     {
-        private string habit;
+        private string name;
         private bool isGood;
         private string description;
         private int importance;
@@ -11,7 +11,7 @@
 
         public HabitObject()
         {
-            this.habit = string.Empty;
+            this.name = string.Empty;
             this.isGood = true;
             this.description = string.Empty;
             this.importance = 0;
@@ -19,10 +19,10 @@
             this.completed = false;
         }
 
-        public string Habit
+        public string Name
         { 
-            get { return this.habit; }
-            set { this.habit = value; }
+            get { return this.name; }
+            set { this.name = value; }
         }
 
         public bool IsGood

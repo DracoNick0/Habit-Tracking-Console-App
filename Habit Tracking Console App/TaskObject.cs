@@ -2,7 +2,7 @@
 {
     class TaskObject
     {
-        private string task;
+        private string name;
         private string description;
         private int importance;
         private DateTime startDate;
@@ -11,7 +11,7 @@
 
         public TaskObject()
         {
-            this.task = string.Empty;
+            this.name = string.Empty;
             this.description = string.Empty;
             this.importance = 0;
             this.startDate = DateTime.Now;
@@ -19,10 +19,10 @@
             this.completed = false;
         }
 
-        public string Task
+        public string Name
         { 
-            get { return this.task; }
-            set { this.task = value; }
+            get { return this.name; }
+            set { this.name = value; }
         }
 
         public string Description
