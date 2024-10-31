@@ -3,7 +3,8 @@
 Console.WriteLine("Welcome back!");
 string? userInput = string.Empty;
 
-do {
+do
+{
     // Wait for user input
     userInput = Console.ReadLine();
 

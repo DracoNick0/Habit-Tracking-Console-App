@@ -4,12 +4,12 @@
     {
         public CommandHandler() { }
 
-        public static bool ExecuteCommand(string? userInput) {
+        public static bool ExecuteCommand(string? userInput)
+        {
             if (userInput != null)
             {
                 // Change user input to be digestable by the program
                 userInput = userInput.ToLower();
-
                 string[] inputArgs = userInput.Split(' ');
 
                 Console.Clear();
@@ -19,6 +19,20 @@
                         Console.WriteLine("Commands:");
                         Console.WriteLine(" - help: displays a list of commands for the user to input");
                         Console.WriteLine(" - exit: exit the program");
+                        break;
+                    case "add":
+                        switch (inputArgs[1])
+                        {
+                            case "habit":
+                                Console.WriteLine("Add habit command invoked");
+                                break;
+                            case "task":
+                                Console.WriteLine("Add task command invoked");
+                                break;
+                            default:
+                                Console.Error.WriteLine("Cannot add \"" + inputArgs[1] + "\" does not exist, try again!");
+                                break;
+                        }
                         break;
                     case "exit":
                         Console.WriteLine("See you again!");
