@@ -11,10 +11,10 @@
 
         public bool AddHabit(HabitObject habit)
         {
-            if (!this.habits.ContainsKey(habit.Habit))
+            if (!this.habits.ContainsKey(habit.Name))
             {
-                this.habits.Add(habit.Habit, habit);
-                Console.WriteLine("Habit \"" + habit.Habit + "\" was added.");
+                this.habits.Add(habit.Name, habit);
+                Console.WriteLine("Habit \"" + habit.Name + "\" was added.");
             }
             else
             {
