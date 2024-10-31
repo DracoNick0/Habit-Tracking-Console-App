@@ -2,22 +2,11 @@
 {
     class HabitObject
     {
-        // Name of habit.
         private string habit;
-
-        // Is this a good habit?
         private bool isGood;
-
-        // Description of the habit.
         private string description;
-
-        // How important is this habit?
         private int importance;
-
-        // When to stop tracking this habit.
         private DateTime endDate;
-
-        // Was this habit done today?
         private bool completed;
 
         public HabitObject()
