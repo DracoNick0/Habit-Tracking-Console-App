@@ -4,7 +4,14 @@ namespace Habit_Tracking_Console_App
 {
     class CommandHandler
     {
-        public CommandHandler() { }
+        HabitManager habitManager;
+        TaskManager taskManager;
+
+        public CommandHandler()
+        {
+            this.habitManager = new HabitManager();
+            this.taskManager = new TaskManager();
+        }
 
         public bool ExecuteCommand(string? userInput)
         {
@@ -24,10 +31,10 @@ namespace Habit_Tracking_Console_App
                         switch (inputArgs[1])
                         {
                             case "habit":
-                                this.AddHabitCommand();
+                                this.habitManager.AddHabit();
                                 break;
                             case "task":
-                                this.AddTaskCommand();
+                                this.taskManager.AddTask();
                                 break;
                             default: 
                                 Console.Error.WriteLine("Cannot add \"" + inputArgs[1] + "\" does not exist, try again!");
@@ -51,16 +58,6 @@ namespace Habit_Tracking_Console_App
             Console.WriteLine("Commands:");
             Console.WriteLine(" - help: displays a list of commands for the user to input");
             Console.WriteLine(" - exit: exit the program");
-        }
-
-        public void AddHabitCommand()
-        {
-            Console.WriteLine("Add habit command invoked");
-        }
-
-        public void AddTaskCommand()
-        {
-            Console.WriteLine("Add task command invoked");
         }
 
         public void ExitCommand()
