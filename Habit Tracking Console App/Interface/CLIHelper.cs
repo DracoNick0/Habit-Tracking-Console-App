@@ -2,15 +2,6 @@
 {
     class CLIHelper
     {
-        public static void Prompt(string prompt = "")
-        {
-            if (!string.IsNullOrEmpty(prompt))
-            {
-                Console.WriteLine($" {prompt}");
-            }
-            Console.Write(" > ");
-        }
-
         public static void Message(string prompt)
         {
             Console.WriteLine($" {prompt}");
@@ -18,15 +9,27 @@
 
         public static void Error(string errorMsg)
         {
-            Console.WriteLine($" Error: {errorMsg}");
+            Message($"Error: {errorMsg}");
         }
 
         public static void Info(string infoMsg)
         {
-            Console.WriteLine($" <{infoMsg}>");
+            Message($"<{infoMsg}>");
         }
 
-        public static string PromptForNotNullInput(string prompt)
+        public static void Prompt(params string[] prompt)
+        {
+            if (prompt.Length != 0)
+            {
+                for (int i = 0; i < prompt.Length; i++)
+                {
+                    Message($"{prompt[i]}");
+                }
+            }
+            Console.Write(" > ");
+        }
+
+        public static string PromptForNotNullInput(params string[] prompt)
         {
             string? userInput = null;
 
@@ -42,7 +45,7 @@
             return userInput;
         }
 
-        public static string PromptForNotEmptyInput(string prompt)
+        public static string PromptForNotEmptyInput(params string[] prompt)
         {
             string? userInput = null;
 
@@ -58,7 +61,7 @@
             return userInput;
         }
 
-        public static bool PromptForTrueFalseInput(string prompt)
+        public static bool PromptForTrueFalseInput(params string[] prompt)
         {
             string? userInput = null;
 
@@ -82,7 +85,7 @@
             }
         }
 
-        public static int PromptForIntInput(string prompt)
+        public static int PromptForIntInput(params string[] prompt)
         {
             string? userInput = null;
             int output;

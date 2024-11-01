@@ -28,16 +28,17 @@ namespace Habit_Tracking_Console_App.Interface
         {
             string? userInput;
 
-            string prompt = "<If a detail is incorrect, type it's name to change the property, otherwise press enter.>\n";
-            prompt += "Habit details:\n";
-            prompt += "- Name: " + name + "\n";
-            prompt += "- Desc: " + description + "\n";
-            prompt += "- IsGood: " + isGood + "\n";
-            prompt += "- Importance: " + importance + "\n";
+            List<string> prompt = new List<string>();
+            prompt.Add("<If a detail is incorrect, type it's name to change the property, otherwise press enter.>");
+            prompt.Add("Habit details:");
+            prompt.Add($"- Name: {name}");
+            prompt.Add($"- Desc: {description}");
+            prompt.Add($"- IsGood: {isGood}");
+            prompt.Add($"- Importance: {importance}");
 
             while (true)
             {
-                userInput = CLIHelper.PromptForNotNullInput(prompt);
+                userInput = CLIHelper.PromptForNotNullInput(prompt.ToArray());
                 userInput.ToLower();
 
                 switch (userInput)
