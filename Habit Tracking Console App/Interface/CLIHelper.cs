@@ -2,16 +2,40 @@
 {
     class CLIHelper
     {
+        public static void Prompt(string prompt = "")
+        {
+            if (!string.IsNullOrEmpty(prompt))
+            {
+                Console.WriteLine($" {prompt}");
+            }
+            Console.Write(" > ");
+        }
+
+        public static void Message(string prompt)
+        {
+            Console.WriteLine($" {prompt}");
+        }
+
+        public static void Error(string errorMsg)
+        {
+            Console.WriteLine($" Error: {errorMsg}");
+        }
+
+        public static void Info(string infoMsg)
+        {
+            Console.WriteLine($" <{infoMsg}>");
+        }
+
         public static string PromptForNotNullInput(string prompt)
         {
             string? userInput = null;
 
-            Console.Write(prompt);
+            Prompt(prompt);
             while ((userInput = Console.ReadLine()) == null)
             {
                 Console.Clear();
-                Console.WriteLine(" <Input was null, try again!>");
-                Console.Write(prompt);
+                Error("Input was null, try again!");
+                Prompt(prompt);
             }
 
             Console.Clear();
@@ -22,12 +46,12 @@
         {
             string? userInput = null;
 
-            Console.Write(prompt);
+            Prompt(prompt);
             while (string.IsNullOrEmpty(userInput = Console.ReadLine()))
             {
                 Console.Clear();
-                Console.WriteLine(" <Input was empty, try again!>");
-                Console.Write(prompt);
+                Error("Input was empty, try again!");
+                Prompt(prompt);
             }
 
             Console.Clear();
@@ -52,7 +76,7 @@
                         Console.Clear();
                         return false;
                     default:
-                        Console.WriteLine(" <Input was not valid, try again!>");
+                        Error("Input was not valid, try again!");
                         break;
                 }
             }
@@ -63,12 +87,12 @@
             string? userInput = null;
             int output;
 
-            Console.Write(prompt);
+            Prompt(prompt);
             while (string.IsNullOrEmpty(userInput = Console.ReadLine()) || !int.TryParse(userInput, out output))
             {
                 Console.Clear();
-                Console.WriteLine(" <Input was not valid, try again!>");
-                Console.Write(prompt);
+                Error("Input was not valid, try again!");
+                Prompt(prompt);
             }
 
             Console.Clear();

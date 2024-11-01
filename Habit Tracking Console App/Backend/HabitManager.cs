@@ -19,12 +19,12 @@ namespace Habit_Tracking_Console_App.Backend
             if (!habits.ContainsKey(habit.Name))
             {
                 habits.Add(habit.Name, habit);
-                Console.WriteLine(" <Habit \"" + habit.Name + "\" was added.>");
+                CLIHelper.Info($"Habit \"{habit.Name}\" was added.");
                 return true;
             }
             else
             {
-                Console.Error.WriteLine(" <A habit with the same name already exists, please try again.>");
+                CLIHelper.Info("A habit with the same name already exists, please try again.");
             }
 
 
@@ -34,7 +34,7 @@ namespace Habit_Tracking_Console_App.Backend
         public bool CreateHabit()
         {
             HabitObject newHabit = habitInterface.HabitCreator();
-            Console.WriteLine(" <Habit " + newHabit.Name + " was created successfully.>");
+            CLIHelper.Info($"Habit {newHabit.Name} was created successfully.");
             return AddHabit(newHabit);
         }
     }
