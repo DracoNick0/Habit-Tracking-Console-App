@@ -31,7 +31,7 @@ namespace Habit_Tracking_Console_App
                         switch (inputArgs[1])
                         {
                             case "habit":
-                                //this.habitManager.AddHabit();
+                                this.habitManager.AddHabit();
                                 break;
                             case "task":
                                 this.taskManager.AddTask();

@@ -2,10 +2,12 @@
 {
     class HabitManager
     {
+        private HabitInterface habitInterface;
         Dictionary<string, HabitObject> habits;
 
         public HabitManager()
         {
+            this.habitInterface = new HabitInterface();
             this.habits = new Dictionary<string, HabitObject>();
         }
 

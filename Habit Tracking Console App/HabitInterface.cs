@@ -5,14 +5,9 @@ namespace Habit_Tracking_Console_App
 {
     class HabitInterface
     {
-        HabitManager habitManager;
+        public HabitInterface() { }
 
-        public HabitInterface()
-        {
-            this.habitManager = new HabitManager();
-        }
-
-        public bool HabitCreator()
+        public HabitObject HabitCreator()
         {
             string name, description;
             bool isGood;
@@ -28,9 +23,7 @@ namespace Habit_Tracking_Console_App
 
             this.PromptForHabitCorrection(ref name, ref description, ref isGood, ref importance);
 
-            this.habitManager.AddHabit(new HabitObject(name, isGood, description, importance));
-
-            return true;
+            return new HabitObject(name, isGood, description, importance);
         }
 
         private bool PromptForHabitCorrection(ref string name, ref string description, ref bool isGood, ref int importance)
