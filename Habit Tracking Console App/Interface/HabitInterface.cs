@@ -12,8 +12,7 @@ namespace Habit_Tracking_Console_App.Interface
             bool isGood;
             int importance;
 
-            Console.WriteLine("You can make changes to the habit after answering the following prompts.");
-            Console.Write("Enter the name of the habit: ");
+            Console.WriteLine(" <You can make changes to the habit after answering the following prompts.>");
 
             name = PromptForName();
             description = PromptForDescription();
@@ -29,9 +28,9 @@ namespace Habit_Tracking_Console_App.Interface
         {
             string? userInput;
 
-            string prompt = "If a detail is incorrect, type it's name to change the property, otherwise press enter.\n";
-            prompt += "Habit details:\n";
-            prompt += " - Name: " + name + "\n";
+            string prompt = " <If a detail is incorrect, type it's name to change the property, otherwise press enter.>\n";
+            prompt += " Habit details:\n";
+            prompt += "  - Name: " + name + "\n";
             prompt += " - Desc: " + description + "\n";
             prompt += " - IsGood: " + isGood + "\n";
             prompt += " - Importance: " + importance + "\n";
@@ -66,19 +65,19 @@ namespace Habit_Tracking_Console_App.Interface
 
         private string PromptForName()
         {
-            string namePrompt = "Enter the name of the habit: ";
+            string namePrompt = " Enter the name of the habit: \n" + " > ";
             return InterfaceHelper.PromptForNotEmptyInput(namePrompt);
         }
 
         private string PromptForDescription()
         {
-            string descriptionPrompt = "Enter the description of the habit: ";
+            string descriptionPrompt = " Enter the description of the habit: \n" + " > ";
             return InterfaceHelper.PromptForNotEmptyInput(descriptionPrompt);
         }
 
         private bool PromptForIsGood()
         {
-            string isGoodPrompt = "Is this a good habit, enter true or false: ";
+            string isGoodPrompt = " Is this a good habit, enter true or false: \n" + " > ";
             return InterfaceHelper.PromptForTrueFalseInput(isGoodPrompt);
         }
 
@@ -86,11 +85,11 @@ namespace Habit_Tracking_Console_App.Interface
         {
             int? importance = null;
 
-            string importancePrompt = "If 1 is trivial and 5 is of utmost importance, enter the digit that represents the habits importance: ";
+            string importancePrompt = " If 1 is trivial and 5 is of utmost importance, enter the digit that represents the habits importance: \n" + " > ";
             while ((importance = InterfaceHelper.PromptForIntInput(importancePrompt)) == null || 1 > importance || importance > 5)
             {
                 Console.Clear();
-                Console.WriteLine("Input was not valid, try again!");
+                Console.WriteLine(" Input was not valid, try again!");
             }
 
             return (int)importance;

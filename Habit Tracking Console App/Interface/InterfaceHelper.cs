@@ -10,10 +10,11 @@
             while ((userInput = Console.ReadLine()) == null)
             {
                 Console.Clear();
-                Console.WriteLine("Input was null, try again!");
+                Console.WriteLine(" <Input was null, try again!>");
                 Console.Write(prompt);
             }
 
+            Console.Clear();
             return userInput;
         }
 
@@ -25,10 +26,11 @@
             while (string.IsNullOrEmpty(userInput = Console.ReadLine()))
             {
                 Console.Clear();
-                Console.WriteLine("Input was empty, try again!");
+                Console.WriteLine(" <Input was empty, try again!>");
                 Console.Write(prompt);
             }
 
+            Console.Clear();
             return userInput;
         }
 
@@ -50,7 +52,7 @@
                         Console.Clear();
                         return false;
                     default:
-                        Console.WriteLine("Input was not valid, try again!");
+                        Console.WriteLine(" <Input was not valid, try again!>");
                         break;
                 }
             }
@@ -65,10 +67,11 @@
             while (string.IsNullOrEmpty(userInput = Console.ReadLine()) || !int.TryParse(userInput, out output))
             {
                 Console.Clear();
-                Console.WriteLine("Input was not valid, try again!");
+                Console.WriteLine(" <Input was not valid, try again!>");
                 Console.Write(prompt);
             }
 
+            Console.Clear();
             return output;
         }
     }
