@@ -1,4 +1,4 @@
-﻿namespace Habit_Tracking_Console_App
+﻿namespace Habit_Tracking_Console_App.Objects
 {
     class HabitObject
     {
@@ -10,11 +10,11 @@
 
         public HabitObject()
         {
-            this.name = string.Empty;
-            this.isGood = true;
-            this.description = string.Empty;
-            this.importance = 0;
-            this.completed = false;
+            name = string.Empty;
+            isGood = true;
+            description = string.Empty;
+            importance = 0;
+            completed = false;
         }
 
         public HabitObject(string name, bool isGood, string description, int importance)
@@ -23,37 +23,37 @@
             this.isGood = isGood;
             this.description = description;
             this.importance = importance;
-            this.completed = false;
+            completed = false;
         }
 
         public string Name
-        { 
-            get { return this.name; }
-            set { this.name = value; }
+        {
+            get { return name; }
+            set { name = value; }
         }
 
         public bool IsGood
         {
-            get { return this.isGood; }
-            set { this.isGood = value; }
+            get { return isGood; }
+            set { isGood = value; }
         }
 
         public string Description
         {
-            get { return this.description; }
-            set { this.description = value; }
+            get { return description; }
+            set { description = value; }
         }
 
         public int Imporatance
         {
-            get { return this.importance; }
-            set { this.importance = value; }
+            get { return importance; }
+            set { importance = value; }
         }
 
         public bool Completed
-        { 
-            get { return this.completed; }
-            set { this.completed = value; }
+        {
+            get { return completed; }
+            set { completed = value; }
         }
 
     }

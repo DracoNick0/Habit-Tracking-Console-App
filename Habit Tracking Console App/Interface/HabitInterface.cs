@@ -1,7 +1,6 @@
-﻿using System.Diagnostics.Metrics;
-using System.Xml.Linq;
+﻿using Habit_Tracking_Console_App.Objects;
 
-namespace Habit_Tracking_Console_App
+namespace Habit_Tracking_Console_App.Interface
 {
     class HabitInterface
     {
@@ -21,7 +20,7 @@ namespace Habit_Tracking_Console_App
             isGood = PromptForIsGood();
             importance = PromptForImportance();
 
-            this.PromptForHabitCorrection(ref name, ref description, ref isGood, ref importance);
+            PromptForHabitCorrection(ref name, ref description, ref isGood, ref importance);
 
             return new HabitObject(name, isGood, description, importance);
         }

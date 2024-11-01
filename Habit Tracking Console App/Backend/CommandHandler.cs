@@ -1,6 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 
-namespace Habit_Tracking_Console_App
+namespace Habit_Tracking_Console_App.Backend
 {
     class CommandHandler
     {
@@ -9,8 +9,8 @@ namespace Habit_Tracking_Console_App
 
         public CommandHandler()
         {
-            this.habitManager = new HabitManager();
-            this.taskManager = new TaskManager();
+            habitManager = new HabitManager();
+            taskManager = new TaskManager();
         }
 
         public bool ExecuteCommand(string? userInput)
@@ -24,17 +24,17 @@ namespace Habit_Tracking_Console_App
                 Console.Clear();
                 switch (inputArgs[0])
                 {
-                    case "help": 
-                        this.HelpCommand();
+                    case "help":
+                        HelpCommand();
                         break;
                     case "add":
                         switch (inputArgs[1])
                         {
                             case "habit":
-                                this.habitManager.AddHabit();
+                                habitManager.CreateHabit();
                                 break;
                             case "task":
-                                this.taskManager.AddTask();
+                                taskManager.AddTask();
                                 break;
                             default:
                                 InvalidArguument(userInput, inputArgs, 1);
@@ -42,9 +42,9 @@ namespace Habit_Tracking_Console_App
                         }
                         break;
                     case "exit":
-                        this.ExitCommand();
+                        ExitCommand();
                         return false;
-                    default: 
+                    default:
                         InvalidCommand(userInput);
                         break;
                 }

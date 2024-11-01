@@ -1,4 +1,4 @@
-﻿namespace Habit_Tracking_Console_App
+﻿namespace Habit_Tracking_Console_App.Interface
 {
     class InterfaceHelper
     {
@@ -60,7 +60,7 @@
         {
             string? userInput = null;
             int output;
-            
+
             Console.Write(prompt);
             while (string.IsNullOrEmpty(userInput = Console.ReadLine()) || !int.TryParse(userInput, out output))
             {

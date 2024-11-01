@@ -1,4 +1,7 @@
-﻿namespace Habit_Tracking_Console_App
+﻿using Habit_Tracking_Console_App.Interface;
+using Habit_Tracking_Console_App.Objects;
+
+namespace Habit_Tracking_Console_App.Backend
 {
     class HabitManager
     {
@@ -7,15 +10,15 @@
 
         public HabitManager()
         {
-            this.habitInterface = new HabitInterface();
-            this.habits = new Dictionary<string, HabitObject>();
+            habitInterface = new HabitInterface();
+            habits = new Dictionary<string, HabitObject>();
         }
 
-        public bool AddHabit(HabitObject habit)
+        private bool AddHabit(HabitObject habit)
         {
-            if (!this.habits.ContainsKey(habit.Name))
+            if (!habits.ContainsKey(habit.Name))
             {
-                this.habits.Add(habit.Name, habit);
+                habits.Add(habit.Name, habit);
                 Console.WriteLine("Habit \"" + habit.Name + "\" was added.");
                 return true;
             }
@@ -28,7 +31,7 @@
             return false;
         }
 
-        public bool CreateHabit(string name, bool isGood, string description, int importance)
+        public bool CreateHabit()
         {
             HabitObject newHabit = habitInterface.HabitCreator();
             return AddHabit(newHabit);
