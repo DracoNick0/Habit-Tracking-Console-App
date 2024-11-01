@@ -49,11 +49,25 @@
             Console.Write(prompt);
             while ((userInput = Console.ReadLine()) == string.Empty || userInput == null)
             {
-                Console.WriteLine("Input was null, try again!");
+                Console.Clear();
+                Console.WriteLine("Input was empty, try again!");
                 Console.Write(prompt);
             }
 
             return userInput;
+        }
+
+        public static bool PromptTrueFalseInput()
+        {
+            string? userInput = null;
+
+            while (true)
+            {
+                Console.Clear();
+
+                //switch
+            }
+
         }
 
     }

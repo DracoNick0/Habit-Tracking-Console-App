@@ -1,4 +1,6 @@
-﻿namespace Habit_Tracking_Console_App
+﻿using System.Diagnostics.Metrics;
+
+namespace Habit_Tracking_Console_App
 {
     class HabitInterface
     {
@@ -11,8 +13,15 @@
 
         public bool HabitCreator()
         {
-            Console.WriteLine("You can make changes to the habit after the following prompts.");
+            //string name, description;
+            //DateTime endDate;
+            //bool isGood;
+            //int importance;
+
+            Console.WriteLine("You can make changes to the habit after answering the following prompts.");
             Console.Write("Enter the name of the habit: ");
+            //name = InterfaceHelper.PromptForNotEmptyInput("Enter the name of the habit: ");
+            //description = InterfaceHelper.PromptForNotEmptyInput("Enter the description of the habit: ");
 
             return true;
         }
