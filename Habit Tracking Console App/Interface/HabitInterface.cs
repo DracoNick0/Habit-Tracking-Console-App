@@ -37,7 +37,7 @@ namespace Habit_Tracking_Console_App.Interface
 
             while (true)
             {
-                userInput = InterfaceHelper.PromptForNotNullInput(prompt);
+                userInput = CLIHelper.PromptForNotNullInput(prompt);
                 userInput.ToLower();
 
                 switch (userInput)
@@ -66,19 +66,19 @@ namespace Habit_Tracking_Console_App.Interface
         private string PromptForName()
         {
             string namePrompt = " Enter the name of the habit: \n" + " > ";
-            return InterfaceHelper.PromptForNotEmptyInput(namePrompt);
+            return CLIHelper.PromptForNotEmptyInput(namePrompt);
         }
 
         private string PromptForDescription()
         {
             string descriptionPrompt = " Enter the description of the habit: \n" + " > ";
-            return InterfaceHelper.PromptForNotEmptyInput(descriptionPrompt);
+            return CLIHelper.PromptForNotEmptyInput(descriptionPrompt);
         }
 
         private bool PromptForIsGood()
         {
             string isGoodPrompt = " Is this a good habit, enter true or false: \n" + " > ";
-            return InterfaceHelper.PromptForTrueFalseInput(isGoodPrompt);
+            return CLIHelper.PromptForTrueFalseInput(isGoodPrompt);
         }
 
         private int PromptForImportance()
@@ -86,7 +86,7 @@ namespace Habit_Tracking_Console_App.Interface
             int? importance = null;
 
             string importancePrompt = " If 1 is trivial and 5 is of utmost importance, enter the digit that represents the habits importance: \n" + " > ";
-            while ((importance = InterfaceHelper.PromptForIntInput(importancePrompt)) == null || 1 > importance || importance > 5)
+            while ((importance = CLIHelper.PromptForIntInput(importancePrompt)) == null || 1 > importance || importance > 5)
             {
                 Console.Clear();
                 Console.WriteLine(" Input was not valid, try again!");

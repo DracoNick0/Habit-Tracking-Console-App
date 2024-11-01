@@ -1,6 +1,6 @@
 ﻿namespace Habit_Tracking_Console_App.Interface
 {
-    class InterfaceHelper
+    class CLIHelper
     {
         public static string PromptForNotNullInput(string prompt)
         {
