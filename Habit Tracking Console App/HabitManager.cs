@@ -30,7 +30,8 @@
 
         public bool CreateHabit(string name, bool isGood, string description, int importance)
         {
-            return AddHabit(new HabitObject(name, isGood, description, importance));
+            HabitObject newHabit = habitInterface.HabitCreator();
+            return AddHabit(newHabit);
         }
     }
 }
