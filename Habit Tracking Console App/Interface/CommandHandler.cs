@@ -1,7 +1,6 @@
-﻿using Habit_Tracking_Console_App.Interface;
-using System.Runtime.CompilerServices;
+﻿using Habit_Tracking_Console_App.Backend;
 
-namespace Habit_Tracking_Console_App.Backend
+namespace Habit_Tracking_Console_App.Interface
 {
     class CommandHandler
     {

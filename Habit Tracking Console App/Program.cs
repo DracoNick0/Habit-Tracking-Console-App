@@ -1,5 +1,4 @@
-﻿using Habit_Tracking_Console_App.Backend;
-using Habit_Tracking_Console_App.Interface;
+﻿using Habit_Tracking_Console_App.Interface;
 
 CommandHandler commandHandler = new CommandHandler();
 string? userInput = string.Empty;
