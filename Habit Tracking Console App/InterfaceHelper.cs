@@ -22,7 +22,7 @@
             string? userInput = null;
 
             Console.Write(prompt);
-            while ((userInput = Console.ReadLine()) == string.Empty || userInput == null)
+            while (string.IsNullOrEmpty(userInput = Console.ReadLine()))
             {
                 Console.Clear();
                 Console.WriteLine("Input was empty, try again!");
@@ -54,6 +54,22 @@
                         break;
                 }
             }
+        }
+
+        public static int PromptForIntInput(string prompt)
+        {
+            string? userInput = null;
+            int output;
+            
+            Console.Write(prompt);
+            while (string.IsNullOrEmpty(userInput = Console.ReadLine()) || !int.TryParse(userInput, out output))
+            {
+                Console.Clear();
+                Console.WriteLine("Input was not valid, try again!");
+                Console.Write(prompt);
+            }
+
+            return output;
         }
     }
 }
