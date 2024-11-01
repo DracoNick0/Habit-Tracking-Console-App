@@ -26,9 +26,9 @@
             return false;
         }
 
-        public bool CreateHabit(string name, bool isGood, string description, int importance, DateTime endDate, bool completed)
+        public bool CreateHabit(string name, bool isGood, string description, int importance)
         {
-            return AddHabit(new HabitObject(name, isGood, description, importance, endDate, completed));
+            return AddHabit(new HabitObject(name, isGood, description, importance));
         }
     }
 }

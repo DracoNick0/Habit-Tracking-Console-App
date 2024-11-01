@@ -13,15 +13,30 @@ namespace Habit_Tracking_Console_App
 
         public bool HabitCreator()
         {
-            //string name, description;
-            //DateTime endDate;
-            //bool isGood;
-            //int importance;
+            string name, description;
+            bool isGood;
+            int? importance = null;
 
             Console.WriteLine("You can make changes to the habit after answering the following prompts.");
             Console.Write("Enter the name of the habit: ");
-            //name = InterfaceHelper.PromptForNotEmptyInput("Enter the name of the habit: ");
-            //description = InterfaceHelper.PromptForNotEmptyInput("Enter the description of the habit: ");
+
+            string namePrompt = "Enter the name of the habit: ";
+            name = InterfaceHelper.PromptForNotEmptyInput(namePrompt);
+
+            string descriptionPrompt = "Enter the description of the habit: ";
+            description = InterfaceHelper.PromptForNotEmptyInput(descriptionPrompt);
+
+            string isGoodPrompt = "Is the habit a good habit? ";
+            isGood = InterfaceHelper.PromptForTrueFalseInput(isGoodPrompt);
+
+            string importancePrompt = "If 1 is trivial and 5 is of utmost importance, enter the digit that represents the importance of this habit: ";
+            while ((importance = InterfaceHelper.PromptForIntInput(importancePrompt)) == null || 1 > importance || importance > 5)
+            {
+                Console.Clear();
+                Console.WriteLine("Input was not valid, try again!");
+            }
+
+            this.habitManager.AddHabit(new HabitObject(name, isGood, description, (int)importance));
 
             return true;
         }

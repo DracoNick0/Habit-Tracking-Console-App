@@ -6,7 +6,6 @@
         private bool isGood;
         private string description;
         private int importance;
-        private DateTime endDate;
         private bool completed;
 
         public HabitObject()
@@ -15,18 +14,16 @@
             this.isGood = true;
             this.description = string.Empty;
             this.importance = 0;
-            this.endDate = DateTime.MaxValue;
             this.completed = false;
         }
 
-        public HabitObject(string name, bool isGood, string description, int importance, DateTime endDate, bool completed)
+        public HabitObject(string name, bool isGood, string description, int importance)
         {
             this.name = name;
             this.isGood = isGood;
             this.description = description;
             this.importance = importance;
-            this.endDate = endDate;
-            this.completed = completed;
+            this.completed = false;
         }
 
         public string Name
@@ -51,12 +48,6 @@
         {
             get { return this.importance; }
             set { this.importance = value; }
-        }
-
-        public DateTime EndDate
-        {
-            get { return this.endDate; }
-            set { this.endDate = value; }
         }
 
         public bool Completed
