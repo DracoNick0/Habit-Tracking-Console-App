@@ -2,19 +2,33 @@
 {
     class CLIHelper
     {
-        public static void Message(string prompt)
+        public static void MsgForWindow(string message, string cutoff = "")
+        {
+            int width = Console.WindowWidth - 2;
+
+            if (message.Length > width)
+            {
+                Msg(message.Substring(0, width - cutoff.Length) + cutoff);
+            }
+            else
+            {
+                Msg(message);
+            }
+        }
+
+        public static void Msg(string prompt)
         {
             Console.WriteLine($" {prompt}");
         }
 
         public static void Error(string errorMsg)
         {
-            Message($"Error: {errorMsg}");
+            Msg($"Error: {errorMsg}");
         }
 
         public static void Info(string infoMsg)
         {
-            Message($"<{infoMsg}>");
+            Msg($"<{infoMsg}>");
         }
 
         public static void Prompt(params string[] prompt)
@@ -23,7 +37,7 @@
             {
                 foreach (string line in prompt)
                 {
-                    Message($"{line}");
+                    Msg($"{line}");
                 }
             }
             Console.Write(" > ");

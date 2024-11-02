@@ -2,7 +2,7 @@
 
 CommandHandler commandHandler = new CommandHandler();
 string? userInput = string.Empty;
-CLIHelper.Message("Welcome back!");
+CLIHelper.Msg("Welcome back!");
 
 do
 {

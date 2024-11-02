@@ -55,14 +55,14 @@ namespace Habit_Tracking_Console_App.Interface
 
         private void HelpCommand()
         {
-            CLIHelper.Message("Commands:");
-            CLIHelper.Message("- help: displays a list of commands for the user to input");
-            CLIHelper.Message("- exit: exit the program");
+            CLIHelper.Msg("Commands:");
+            CLIHelper.Msg("- help: displays a list of commands for the user to input");
+            CLIHelper.Msg("- exit: exit the program");
         }
 
         private void ExitCommand()
         {
-            CLIHelper.Message("See you again!");
+            CLIHelper.Msg("See you again!");
         }
 
         private void InvalidCommand(string command)
