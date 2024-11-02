@@ -84,7 +84,7 @@ namespace Habit_Tracking_Console_App.Interface
             }
         }
 
-        public void PromptForHabitEdit()
+        public HabitObject PromptForHabitObject()
         {
             string userInput;
             List<HabitObject> habits = this.habitManager.getHabits();
@@ -98,10 +98,14 @@ namespace Habit_Tracking_Console_App.Interface
 
                 if (habitNames.Contains(userInput))
                 {
-                    this.PromptForHabitCorrection(habits.First(habit => habit.Name == userInput));
-                    return;
+                    return habits.First(habit => habit.Name == userInput);
                 }
             }
+        }
+
+        public void PromptForHabitEdit()
+        {
+            this.PromptForHabitCorrection(PromptForHabitObject());
         }
 
         private bool PromptForHabitCorrection(HabitObject habitObject)
