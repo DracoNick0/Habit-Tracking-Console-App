@@ -11,6 +11,7 @@
 
         public static void ExecuteStoredActions()
         {
+            Console.Clear();
             foreach (Action action in previousActions)
             {
                 action.Invoke();
