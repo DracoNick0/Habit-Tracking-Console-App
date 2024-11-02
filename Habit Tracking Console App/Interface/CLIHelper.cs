@@ -8,12 +8,10 @@
 
             if (message.Length > width)
             {
-                Msg(message.Substring(0, width - cutoff.Length) + cutoff);
+                message = message.Substring(0, width - cutoff.Length) + cutoff;
             }
-            else
-            {
-                Msg(message);
-            }
+            
+            Msg(message);
         }
 
         public static void Msg(string prompt)
