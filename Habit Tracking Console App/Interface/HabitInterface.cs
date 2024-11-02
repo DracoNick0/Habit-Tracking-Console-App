@@ -13,49 +13,57 @@ namespace Habit_Tracking_Console_App.Interface
 
         public void DisplayAllHabits(bool displayIsGood = true, bool displayDescription = true, bool displayImportance = true, bool displayCompletion = true)
         {
-            string isGood = "", importance = "", completion = "";
 
             List<HabitObject> habits = this.habitManager.getHabits();
 
-            foreach (HabitObject habit in habits)
+            if (habits.Count > 0)
+            {
+                string isGood = "", importance = "", completion = "";
+                foreach (HabitObject habit in habits)
+                {
+                    CLIHelper.MsgForWindow("+", "+", "+", '-');
+                    if (displayCompletion)
+                    {
+                        if (habit.Completed)
+                        {
+                            completion = "Complete";
+                        }
+                        else
+                        {
+                            completion = "Incomplete";
+                        }
+                    }
+
+                    if (displayIsGood)
+                    {
+                        if (habit.IsGood)
+                        {
+                            isGood = "Positive Habit";
+                        }
+                        else
+                        {
+                            isGood = "Negative Habit";
+                        }
+                    }
+
+                    if (displayImportance)
+                    {
+                        importance = habit.Imporatance.ToString();
+                    }
+
+                    CLIHelper.MsgForWindow($"| Habit: {habit.Name} ", "...|", $"{completion} |");
+                    CLIHelper.MsgForWindow($"| Importance: {importance} ", "...|", $"({isGood}) |");
+
+                    if (displayDescription)
+                    {
+                        CLIHelper.MsgForWindow($"| Desc: {habit.Description} ", "...|", "|");
+                    }
+                }
+            }
+            else
             {
                 CLIHelper.MsgForWindow("+", "+", "+", '-');
-                if (displayCompletion)
-                {
-                    if (habit.Completed)
-                    {
-                        completion = "Complete";
-                    }
-                    else
-                    {
-                        completion = "Incomplete";
-                    }
-                }
-
-                if (displayIsGood)
-                {
-                    if (habit.IsGood)
-                    {
-                        isGood = "Positive Habit";
-                    }
-                    else
-                    {
-                        isGood = "Negative Habit";
-                    }
-                }
-
-                if (displayImportance)
-                {
-                    importance = habit.Imporatance.ToString();
-                }
-
-                CLIHelper.MsgForWindow($"| Habit: {habit.Name} ", "...|", $"{completion} |");
-                CLIHelper.MsgForWindow($"| Importance: {importance} ", "...|", $"({isGood}) |");
-
-                if (displayDescription)
-                {
-                    CLIHelper.MsgForWindow($"| Desc: {habit.Description} ", "...|", "|");
-                }
+                CLIHelper.MsgForWindow($"| Empty", "...|", "|");
             }
 
             CLIHelper.MsgForWindow("+", "+", "+", '-');
@@ -111,6 +119,11 @@ namespace Habit_Tracking_Console_App.Interface
         public void PromptForHabitEdit()
         {
             this.PromptForHabitCorrection(PromptForHabitObject());
+        }
+
+        public void SaveHabits()
+        {
+            this.habitManager.SaveHabits();
         }
 
         private bool PromptForHabitCorrection(HabitObject habitObject)

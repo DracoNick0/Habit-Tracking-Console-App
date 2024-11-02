@@ -113,6 +113,7 @@
 
         private void ExitCommand()
         {
+            this.habitInterface.SaveHabits();
             CLIHelper.Msg("See you again!");
         }
 

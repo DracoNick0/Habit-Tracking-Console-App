@@ -1,18 +1,18 @@
-﻿using Habit_Tracking_Console_App.Interface;
+﻿using Habit_Tracking_Console_App.Backend.Storage;
+using Habit_Tracking_Console_App.Interface;
 using Habit_Tracking_Console_App.Objects;
 
 namespace Habit_Tracking_Console_App.Backend
 {
     class HabitManager
     {
+        private StorageManager storageManager;
         private Dictionary<string, HabitObject> habits;
 
         public HabitManager()
         {
-            this.habits = new Dictionary<string, HabitObject>();
-
-            this.habits["Temp"] = new HabitObject("Temp", true, "This is a temporary object!", 1);
-            this.habits["Temp2"] = new HabitObject("Temp2", false, "This is a temporary object!", 5);
+            this.storageManager = new StorageManager();
+            this.habits = this.storageManager.RetrieveHabits().ToDictionary(habit => habit.Name);
         }
 
         public bool AddHabit(HabitObject habit)
@@ -42,6 +42,11 @@ namespace Habit_Tracking_Console_App.Backend
             {
                 return false;
             }
+        }
+
+        public void SaveHabits()
+        {
+            this.storageManager.SaveHabits(new List<HabitObject>(habits.Values));
         }
 
         public List<HabitObject> getHabits()
