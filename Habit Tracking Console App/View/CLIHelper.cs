@@ -6,41 +6,76 @@ namespace Habit_Tracking_Console_App.View
     {
         public const int maxStringLength = 50;
 
+        /// <summary>
+        /// Writes a prompt to the console and logs the action.
+        /// </summary>
+        /// <param name="prompt">The message displayed to the user.</param>
         public static void Write(string prompt)
         {
-            Console.Write($" {prompt}");
-            ActionLogger.AddAction(() => Console.Write($" {prompt}"));
+            Console.Write($"{prompt}");
+            ActionLogger.AddAction(() => Console.Write($"{prompt}"));
         }
 
+        /// <summary>
+        /// Writelines a prompt to the console and logs the action.
+        /// </summary>
+        /// <param name="prompt">The message displayed to the user.</param>
         public static void WriteLine(string prompt)
         {
-            Console.WriteLine($" {prompt}");
-            ActionLogger.AddAction(() => Console.WriteLine($" {prompt}"));
+            Console.WriteLine($"{prompt}");
+            ActionLogger.AddAction(() => Console.WriteLine($"{prompt}"));
         }
 
+        /// <summary>
+        /// Clears the console and clears all stored actions in the action logger.
+        /// </summary>
         public static void Clear()
         {
             Console.Clear();
             ActionLogger.ClearStoredActions();
         }
 
+        /// <summary>
+        /// Reads a line of input from the console and returns it as a string?.
+        /// </summary>
+        /// <returns>Input from the user.</returns>
         public static string? ReadLine()
         {
             return Console.ReadLine();
         }
 
+        /// <summary>
+        /// Prints a prompt to the console with a space preceding the message.
+        /// </summary>
+        /// <param name="prompt"></param>
         public static void Msg(string prompt)
         {
             WriteLine($" {prompt}");
         }
 
+        /// <summary>
+        /// Calls StorableMsgForWindow and logs the action.
+        /// </summary>
+        /// <param name="message">The main message to display.</param>
+        /// <param name="cutoff">Optional. A string to append at the end if the final message exceeds the maximum length.</param>
+        /// <param name="trail">Optional. A string to display at the end of the formatted message.</param>
+        /// <param name="filler">Optional. A character used to fill the space if the message is shorter than the defined length.</param>
+        /// <param name="maxLength">Optional. The maximum length of the output message. If set to -1, it is calculated based on the message length and trailing string.</param>
         public static void MsgForWindow(string message, string cutoff = "", string trail = "", char filler = ' ', int maxLength = maxStringLength)
         {
-            ActionLogger.AddAction(() => StorableMsgForWindow(message, cutoff, trail, filler, maxLength));
-
             StorableMsgForWindow(message, cutoff, trail, filler, maxLength);
+
+            ActionLogger.AddAction(() => StorableMsgForWindow(message, cutoff, trail, filler, maxLength));
         }
 
+        /// <summary>
+        /// Formats and writes a message to the console, ensuring it fits within the current window width or maximum length. Can include a trailing message and custom filler text.
+        /// </summary>
+        /// <param name="message">The main message to display.</param>
+        /// <param name="cutoff">Optional. A string to append at the end if the final message exceeds the maximum length.</param>
+        /// <param name="trail">Optional. A string to display at the end of the formatted message.</param>
+        /// <param name="filler">Optional. A character used to fill the space if the message is shorter than the defined length.</param>
+        /// <param name="maxLength">Optional. The maximum length of the output message. If set to -1, it is calculated based on the message length and trailing string.</param>
         public static void StorableMsgForWindow(string message, string cutoff = "", string trail = "", char filler = ' ', int maxLength = maxStringLength)
         {
             string finalMessage = message;
@@ -68,16 +103,28 @@ namespace Habit_Tracking_Console_App.View
             Console.WriteLine($" {finalMessage}");
         }
 
+        /// <summary>
+        /// Writelines a message in the format of an error.
+        /// </summary>
+        /// <param name="errorMsg">The message.</param>
         public static void Error(string errorMsg)
         {
             Msg($"Error: {errorMsg}");
         }
 
+        /// <summary>
+        /// Writelines a message in the format of an info message.
+        /// </summary>
+        /// <param name="infoMsg">The message.</param>
         public static void Info(string infoMsg)
         {
             Msg($"({infoMsg})");
         }
 
+        /// <summary>
+        /// Prints a prompt and suggests user input.
+        /// </summary>
+        /// <param name="prompt">One or more strings to display as the prompt.</param>
         public static void Prompt(params string[] prompt)
         {
             if (prompt.Length != 0)
@@ -90,6 +137,11 @@ namespace Habit_Tracking_Console_App.View
             Write(" > ");
         }
 
+        /// <summary>
+        /// Prompts the user for input until given a non-null input.
+        /// </summary>
+        /// <param name="prompt">One or more strings to display as the prompt.</param>
+        /// <returns>Non-null user input.</returns>
         public static string PromptForNotNullInput(params string[] prompt)
         {
             string? userInput = null;
@@ -106,6 +158,11 @@ namespace Habit_Tracking_Console_App.View
             return userInput;
         }
 
+        /// <summary>
+        /// Prompts the user for input until given a non-empty input.
+        /// </summary>
+        /// <param name="prompt">One or more strings to display as the prompt.</param>
+        /// <returns>Non-empty user input.</returns>
         public static string PromptForNotEmptyInput(params string[] prompt)
         {
             string? userInput = null;
@@ -122,6 +179,11 @@ namespace Habit_Tracking_Console_App.View
             return userInput;
         }
 
+        /// <summary>
+        /// Prompts the user for input until given a boolean input.
+        /// </summary>
+        /// <param name="prompt">One or more strings to display as the prompt.</param>
+        /// <returns>Boolean user input.</returns>
         public static bool PromptForTrueFalseInput(params string[] prompt)
         {
             string? userInput = null;
@@ -146,6 +208,11 @@ namespace Habit_Tracking_Console_App.View
             }
         }
 
+        /// <summary>
+        /// Prompts the user for input until given an integer input.
+        /// </summary>
+        /// <param name="prompt">One or more strings to display as the prompt.</param>
+        /// <returns>Integer user input.</returns>
         public static int PromptForIntInput(params string[] prompt)
         {
             string? userInput = null;
