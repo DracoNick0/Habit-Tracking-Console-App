@@ -11,7 +11,7 @@ namespace Habit_Tracking_Console_App.Interface
             this.habitManager = new HabitManager();
         }
 
-        public bool PromptForHabitCreation()
+        public void PromptForHabitCreation()
         {
             string name, description;
             bool isGood;
@@ -26,9 +26,10 @@ namespace Habit_Tracking_Console_App.Interface
 
             PromptForHabitCorrection(ref name, ref description, ref isGood, ref importance);
 
-            this.habitManager.AddHabit(new HabitObject(name, isGood, description, importance));
-
-            return true;
+            if(CLIHelper.PromptForTrueFalseInput("Save this habit?"))
+            {
+                this.habitManager.AddHabit(new HabitObject(name, isGood, description, importance));
+            }
         }
 
         public void DisplayAllHabits()
