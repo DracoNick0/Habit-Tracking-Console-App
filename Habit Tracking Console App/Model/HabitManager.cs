@@ -1,8 +1,7 @@
-﻿using Habit_Tracking_Console_App.Backend.Storage;
-using Habit_Tracking_Console_App.Interface;
-using Habit_Tracking_Console_App.Objects;
+﻿using Habit_Tracking_Console_App.Model.Storage;
+using Habit_Tracking_Console_App.View;
 
-namespace Habit_Tracking_Console_App.Backend
+namespace Habit_Tracking_Console_App.Model
 {
     class HabitManager
     {
@@ -11,8 +10,8 @@ namespace Habit_Tracking_Console_App.Backend
 
         public HabitManager()
         {
-            this.storageManager = new StorageManager();
-            this.habits = this.storageManager.RetrieveHabits().ToDictionary(habit => habit.Name);
+            storageManager = new StorageManager();
+            habits = storageManager.RetrieveHabits().ToDictionary(habit => habit.Name);
         }
 
         public bool AddHabit(HabitObject habit)
@@ -35,7 +34,7 @@ namespace Habit_Tracking_Console_App.Backend
         {
             if (habits.ContainsKey(habitName))
             {
-                this.habits.Remove(habitName);
+                habits.Remove(habitName);
                 return true;
             }
             else
@@ -46,12 +45,12 @@ namespace Habit_Tracking_Console_App.Backend
 
         public void SaveHabits()
         {
-            this.storageManager.SaveHabits(new List<HabitObject>(habits.Values));
+            storageManager.SaveHabits(new List<HabitObject>(habits.Values));
         }
 
         public List<HabitObject> getHabits()
         {
-            return new List<HabitObject>(this.habits.Values);
+            return new List<HabitObject>(habits.Values);
         }
     }
 }

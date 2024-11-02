@@ -1,4 +1,6 @@
-﻿namespace Habit_Tracking_Console_App.Interface
+﻿using Habit_Tracking_Console_App.View;
+
+namespace Habit_Tracking_Console_App.ViewModel
 {
     class MainCommandHandler
     {
@@ -64,7 +66,7 @@
             switch (inputArgs[1])
             {
                 case "habit":
-                    this.habitInterface.PromptForHabitCreation();
+                    habitInterface.PromptForHabitCreation();
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -77,7 +79,7 @@
             switch (inputArgs[1])
             {
                 case "habit":
-                    this.habitInterface.PromptForHabitDelete();
+                    habitInterface.PromptForHabitDelete();
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -90,7 +92,7 @@
             switch (inputArgs[1])
             {
                 case "habit":
-                    this.habitInterface.PromptForHabitView();
+                    habitInterface.PromptForHabitView();
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -103,7 +105,7 @@
             switch (inputArgs[1])
             {
                 case "habit":
-                    this.habitInterface.DisplayAllHabits();
+                    habitInterface.DisplayAllHabits();
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -116,7 +118,7 @@
             switch (inputArgs[1])
             {
                 case "habit":
-                    this.habitInterface.PromptForHabitEdit();
+                    habitInterface.PromptForHabitEdit();
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -126,7 +128,7 @@
 
         private void ExitCommand()
         {
-            this.habitInterface.SaveHabits();
+            habitInterface.SaveHabits();
             CLIHelper.Msg("See you again!");
         }
 

@@ -1,11 +1,10 @@
-﻿using Habit_Tracking_Console_App.Objects;
-using System.Text.Json;
+﻿using System.Text.Json;
 
-namespace Habit_Tracking_Console_App.Backend.Storage
+namespace Habit_Tracking_Console_App.Model.Storage
 {
     class StorageManager
     {
-        private const string habitStoragePath = @"../../../Backend/Storage/Habit_Storage.json";
+        private const string habitStoragePath = @"../../../Model/Storage/Habit_Storage.json";
 
         public StorageManager() { }
 

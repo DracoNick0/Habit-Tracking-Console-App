@@ -1,7 +1,6 @@
-﻿using Habit_Tracking_Console_App.Backend;
-using Habit_Tracking_Console_App.Objects;
+﻿using Habit_Tracking_Console_App.Model;
 
-namespace Habit_Tracking_Console_App.Interface
+namespace Habit_Tracking_Console_App.View
 {
     class HabitInterface
     {
@@ -9,13 +8,13 @@ namespace Habit_Tracking_Console_App.Interface
 
         public HabitInterface()
         {
-            this.habitManager = new HabitManager();
+            habitManager = new HabitManager();
         }
 
         public void DisplayAllHabits(bool displayIsGood = true, bool displayDescription = true, bool displayImportance = true, bool displayCompletion = true)
         {
 
-            List<HabitObject> habits = this.habitManager.getHabits();
+            List<HabitObject> habits = habitManager.getHabits();
 
             if (habits.Count > 0)
             {
@@ -93,19 +92,19 @@ namespace Habit_Tracking_Console_App.Interface
 
             if (CLIHelper.PromptForTrueFalseInput("Save this habit?"))
             {
-                this.habitManager.AddHabit(newHabit);
+                habitManager.AddHabit(newHabit);
             }
         }
 
         public HabitObject PromptForHabitObject()
         {
             string userInput;
-            List<HabitObject> habits = this.habitManager.getHabits();
+            List<HabitObject> habits = habitManager.getHabits();
             List<string> habitNames = habits.Select(habit => habit.Name).ToList();
 
             while (true)
             {
-                this.DisplayAllHabits();
+                DisplayAllHabits();
 
                 userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
 
@@ -118,17 +117,17 @@ namespace Habit_Tracking_Console_App.Interface
 
         public void PromptForHabitDelete()
         {
-            this.habitManager.RemoveHabit(PromptForHabitObject().Name);
+            habitManager.RemoveHabit(PromptForHabitObject().Name);
         }
 
         public void PromptForHabitEdit()
         {
-            this.PromptForHabitCorrection(PromptForHabitObject());
+            PromptForHabitCorrection(PromptForHabitObject());
         }
 
         public void SaveHabits()
         {
-            this.habitManager.SaveHabits();
+            habitManager.SaveHabits();
         }
 
         private bool PromptForHabitCorrection(HabitObject habitObject)

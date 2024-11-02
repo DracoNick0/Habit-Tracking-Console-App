@@ -1,5 +1,6 @@
-﻿using Habit_Tracking_Console_App.Backend;
-using Habit_Tracking_Console_App.Interface;
+﻿using Habit_Tracking_Console_App.Model;
+using Habit_Tracking_Console_App.View;
+using Habit_Tracking_Console_App.ViewModel;
 
 // Monitor if the console is resized, then execute previous actions.
 ConsoleResizeMonitor monitor = new ConsoleResizeMonitor();

@@ -1,6 +1,6 @@
-﻿using Habit_Tracking_Console_App.Backend;
+﻿using Habit_Tracking_Console_App.Model;
 
-namespace Habit_Tracking_Console_App.Interface
+namespace Habit_Tracking_Console_App.View
 {
     class CLIHelper
     {
