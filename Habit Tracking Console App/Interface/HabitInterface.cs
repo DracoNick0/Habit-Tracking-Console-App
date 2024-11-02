@@ -48,20 +48,38 @@ namespace Habit_Tracking_Console_App.Interface
             }
         }
 
+        public void PromptForHabitEdit()
+        {
+            string userInput;
+            List<HabitObject> habits = this.habitManager.getHabits();
+            List<string> habitNames = habits.Select(habit => habit.Name).ToList();
+
+            while (true)
+            {
+                userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
+
+                if (habitNames.Contains(userInput))
+                {
+                    this.PromptForHabitCorrection(habits.First(habit => habit.Name == userInput));
+                    return;
+                }
+            }
+        }
+
         private bool PromptForHabitCorrection(HabitObject habitObject)
         {
             string? userInput;
 
-            List<string> prompt = new List<string>();
-            prompt.Add("<If a detail is incorrect, type it's name to change the property, otherwise press enter.>");
-            prompt.Add("Habit details:");
-            prompt.Add($"- Name: {habitObject.Name}");
-            prompt.Add($"- Desc: {habitObject.Description}");
-            prompt.Add($"- IsGood: {habitObject.IsGood}");
-            prompt.Add($"- Importance: {habitObject.Imporatance}");
-
             while (true)
             {
+                List<string> prompt = new List<string>();
+                prompt.Add("<If a detail is incorrect, type it's name to change the property, otherwise press enter.>");
+                prompt.Add("Habit details:");
+                prompt.Add($"- Name: {habitObject.Name}");
+                prompt.Add($"- Desc: {habitObject.Description}");
+                prompt.Add($"- IsGood: {habitObject.IsGood}");
+                prompt.Add($"- Importance: {habitObject.Imporatance}");
+
                 userInput = CLIHelper.PromptForNotNullInput(prompt.ToArray());
                 userInput.ToLower();
 

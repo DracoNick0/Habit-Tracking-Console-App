@@ -47,6 +47,19 @@ namespace Habit_Tracking_Console_App.Interface
                                 break;
                         }
                         break;
+
+                    case "edit":
+                        switch (inputArgs[1])
+                        {
+                            case "habit":
+                                habitInterface.PromptForHabitEdit();
+                                break;
+                            default:
+                                InvalidArgument(userInput, inputArgs, 1);
+                                break;
+                        }
+                        break;
+
                     case "exit":
                         ExitCommand();
                         return false;
