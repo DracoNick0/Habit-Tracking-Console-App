@@ -2,6 +2,11 @@
 {
     class CLIHelper
     {
+        public static void Msg(string prompt)
+        {
+            Console.WriteLine($" {prompt}");
+        }
+
         public static void MsgForWindow(string message, string cutoff = "")
         {
             int width = Console.WindowWidth - 2;
@@ -12,11 +17,6 @@
             }
             
             Msg(message);
-        }
-
-        public static void Msg(string prompt)
-        {
-            Console.WriteLine($" {prompt}");
         }
 
         public static void Error(string errorMsg)
