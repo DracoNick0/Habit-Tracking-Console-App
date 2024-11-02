@@ -11,6 +11,20 @@ namespace Habit_Tracking_Console_App.Interface
             this.habitManager = new HabitManager();
         }
 
+        public void DisplayAllHabits()
+        {
+            List<HabitObject> habits = this.habitManager.getHabits();
+
+            foreach (HabitObject habit in habits)
+            {
+                CLIHelper.MsgForWindow("+----------------------------------------+", "+");
+                CLIHelper.MsgForWindow($"|Habit: {habit.Name}", "...|", "|", 42);
+                CLIHelper.MsgForWindow($"|Importance: {habit.Imporatance}", "...|", "|", 42);
+            }
+
+            CLIHelper.MsgForWindow("+----------------------------------------+", "+");
+        }
+
         public void PromptForHabitCreation()
         {
             string name, description;
@@ -30,20 +44,6 @@ namespace Habit_Tracking_Console_App.Interface
             {
                 this.habitManager.AddHabit(new HabitObject(name, isGood, description, importance));
             }
-        }
-
-        public void DisplayAllHabits()
-        {
-            List<HabitObject> habits = this.habitManager.getHabits();
-
-            foreach(HabitObject habit in habits)
-            {
-                CLIHelper.MsgForWindow("+----------------------------------------+", "+");
-                CLIHelper.MsgForWindow($"|Habit: {habit.Name}", "...|", "|", 42);
-                CLIHelper.MsgForWindow($"|Importance: {habit.Imporatance}", "...|", "|", 42);
-            }
-            
-            CLIHelper.MsgForWindow("+----------------------------------------+", "+");
         }
 
         private bool PromptForHabitCorrection(ref string name, ref string description, ref bool isGood, ref int importance)
