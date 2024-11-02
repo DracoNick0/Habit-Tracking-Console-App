@@ -19,7 +19,7 @@ namespace Habit_Tracking_Console_App.Interface
             {
                 CLIHelper.MsgForWindow("+----------------------------------------+", "+");
                 CLIHelper.MsgForWindow($"|Habit: {habit.Name}", "...|", "|", 42);
-                CLIHelper.MsgForWindow($"|Importance: {habit.Imporatance}", "...|", "|", 42);
+                //CLIHelper.MsgForWindow($"|Importance: {habit.Imporatance}", "...|", "|", 42);
             }
 
             CLIHelper.MsgForWindow("+----------------------------------------+", "+");
@@ -56,6 +56,8 @@ namespace Habit_Tracking_Console_App.Interface
 
             while (true)
             {
+                this.DisplayAllHabits();
+
                 userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
 
                 if (habitNames.Contains(userInput))
