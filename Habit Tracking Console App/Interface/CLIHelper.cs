@@ -1,5 +1,4 @@
 ﻿using Habit_Tracking_Console_App.Backend;
-using System.Runtime.CompilerServices;
 
 namespace Habit_Tracking_Console_App.Interface
 {
