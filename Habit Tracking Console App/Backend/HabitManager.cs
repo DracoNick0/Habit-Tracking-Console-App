@@ -14,12 +14,18 @@ namespace Habit_Tracking_Console_App.Backend
             habits = new Dictionary<string, HabitObject>();
         }
 
+        public bool CreateHabit()
+        {
+            HabitObject newHabit = habitInterface.PromptForHabitCreation();
+            CLIHelper.Info($"Habit {newHabit.Name} was created successfully.");
+            return AddHabit(newHabit);
+        }
+
         private bool AddHabit(HabitObject habit)
         {
             if (!habits.ContainsKey(habit.Name))
             {
                 habits.Add(habit.Name, habit);
-                CLIHelper.Info($"Habit \"{habit.Name}\" was added.");
                 return true;
             }
             else
@@ -29,13 +35,6 @@ namespace Habit_Tracking_Console_App.Backend
 
 
             return false;
-        }
-
-        public bool CreateHabit()
-        {
-            HabitObject newHabit = habitInterface.HabitCreator();
-            CLIHelper.Info($"Habit {newHabit.Name} was created successfully.");
-            return AddHabit(newHabit);
         }
     }
 }

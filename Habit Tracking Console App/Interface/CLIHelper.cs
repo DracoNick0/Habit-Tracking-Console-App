@@ -21,9 +21,9 @@
         {
             if (prompt.Length != 0)
             {
-                for (int i = 0; i < prompt.Length; i++)
+                foreach (string line in prompt)
                 {
-                    Message($"{prompt[i]}");
+                    Message($"{line}");
                 }
             }
             Console.Write(" > ");

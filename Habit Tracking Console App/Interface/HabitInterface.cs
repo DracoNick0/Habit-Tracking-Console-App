@@ -6,7 +6,7 @@ namespace Habit_Tracking_Console_App.Interface
     {
         public HabitInterface() { }
 
-        public HabitObject HabitCreator()
+        public HabitObject PromptForHabitCreation()
         {
             string name, description;
             bool isGood;
