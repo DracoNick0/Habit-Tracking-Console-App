@@ -1,12 +1,17 @@
-﻿using Habit_Tracking_Console_App.Objects;
+﻿using Habit_Tracking_Console_App.Backend;
+using Habit_Tracking_Console_App.Objects;
 
 namespace Habit_Tracking_Console_App.Interface
 {
     class HabitInterface
     {
-        public HabitInterface() { }
+        private HabitManager habitManager;
+        public HabitInterface()
+        {
+            this.habitManager = new HabitManager();
+        }
 
-        public HabitObject PromptForHabitCreation()
+        public bool PromptForHabitCreation()
         {
             string name, description;
             bool isGood;
@@ -21,16 +26,20 @@ namespace Habit_Tracking_Console_App.Interface
 
             PromptForHabitCorrection(ref name, ref description, ref isGood, ref importance);
 
-            return new HabitObject(name, isGood, description, importance);
+            this.habitManager.AddHabit(new HabitObject(name, isGood, description, importance));
+
+            return true;
         }
 
-        public void DisplayAllHabits(List<HabitObject> habits)
+        public void DisplayAllHabits()
         {
+            List<HabitObject> habits = this.habitManager.getHabits();
+
             foreach(HabitObject habit in habits)
             {
                 CLIHelper.MsgForWindow("+----------------------------------------+", "+");
-                CLIHelper.MsgForWindow($" |Habit: {habit.Name}", "...|", "|", 42);
-                CLIHelper.MsgForWindow($" |Importance: {habit.Imporatance}", "...|", "|", 42);
+                CLIHelper.MsgForWindow($"|Habit: {habit.Name}", "...|", "|", 42);
+                CLIHelper.MsgForWindow($"|Importance: {habit.Imporatance}", "...|", "|", 42);
             }
             
             CLIHelper.MsgForWindow("+----------------------------------------+", "+");

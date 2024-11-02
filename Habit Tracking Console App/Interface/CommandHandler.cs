@@ -4,12 +4,12 @@ namespace Habit_Tracking_Console_App.Interface
 {
     class CommandHandler
     {
-        HabitManager habitManager;
+        HabitInterface habitInterface;
         TaskManager taskManager;
 
         public CommandHandler()
         {
-            habitManager = new HabitManager();
+            habitInterface = new HabitInterface();
             taskManager = new TaskManager();
         }
 
@@ -31,7 +31,7 @@ namespace Habit_Tracking_Console_App.Interface
                         switch (inputArgs[1])
                         {
                             case "habit":
-                                habitManager.CreateHabit();
+                                habitInterface.PromptForHabitCreation();
                                 break;
                             case "task":
                                 taskManager.AddTask();
@@ -45,6 +45,7 @@ namespace Habit_Tracking_Console_App.Interface
                         switch (inputArgs[1])
                         {
                             case "habit":
+                                habitInterface.DisplayAllHabits();
                                 break;
                             case "task":
                                 break;
