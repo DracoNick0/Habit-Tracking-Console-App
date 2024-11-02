@@ -5,12 +5,10 @@ namespace Habit_Tracking_Console_App.Interface
     class CommandHandler
     {
         HabitInterface habitInterface;
-        TaskManager taskManager;
 
         public CommandHandler()
         {
             habitInterface = new HabitInterface();
-            taskManager = new TaskManager();
         }
 
         public bool ExecuteCommand(string? userInput)
@@ -33,9 +31,6 @@ namespace Habit_Tracking_Console_App.Interface
                             case "habit":
                                 habitInterface.PromptForHabitCreation();
                                 break;
-                            case "task":
-                                taskManager.AddTask();
-                                break;
                             default:
                                 InvalidArgument(userInput, inputArgs, 1);
                                 break;
@@ -46,8 +41,6 @@ namespace Habit_Tracking_Console_App.Interface
                         {
                             case "habit":
                                 habitInterface.DisplayAllHabits();
-                                break;
-                            case "task":
                                 break;
                             default:
                                 InvalidArgument(userInput, inputArgs, 1);
