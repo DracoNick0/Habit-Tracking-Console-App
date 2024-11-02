@@ -2,15 +2,23 @@
 
 namespace Habit_Tracking_Console_App.ViewModel
 {
+    /// <summary>
+    /// Handles the main commands input by the user.
+    /// </summary>
     class MainCommandHandler
     {
         HabitInterface habitInterface;
 
         public MainCommandHandler()
         {
-            habitInterface = new HabitInterface();
+            this.habitInterface = new HabitInterface();
         }
 
+        /// <summary>
+        /// Executes the functions associated with the command imputed.
+        /// </summary>
+        /// <param name="userInput">The command.</param>
+        /// <returns>False to close program, true to keep running.</returns>
         public bool ExecuteCommand(string? userInput)
         {
             if (userInput != null)
@@ -49,6 +57,10 @@ namespace Habit_Tracking_Console_App.ViewModel
             return true;
         }
 
+        /// <summary>
+        /// Displays a list of commands the user can enter.
+        /// Text should be given and executed in View. ***************************************************************************************************
+        /// </summary>
         private void HelpCommand()
         {
             CLIHelper.Msg("Available Commands:");
@@ -61,12 +73,17 @@ namespace Habit_Tracking_Console_App.ViewModel
             CLIHelper.Msg("- edit <item>: creates an item(eg. habit, task)");
         }
 
+        /// <summary>
+        /// Calls functions that are under the category of 'create'.
+        /// </summary>
+        /// <param name="userInput">The user input.</param>
+        /// <param name="inputArgs">User input split by the char ' '.</param>
         private void CreateCommand(string userInput, params string[] inputArgs)
         {
             switch (inputArgs[1])
             {
                 case "habit":
-                    habitInterface.PromptForHabitCreation();
+                    this.habitInterface.PromptForHabitCreation();
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -74,12 +91,17 @@ namespace Habit_Tracking_Console_App.ViewModel
             }
         }
 
+        /// <summary>
+        /// Calls functions that are under the category of 'delete'.
+        /// </summary>
+        /// <param name="userInput">The user input.</param>
+        /// <param name="inputArgs">User input split by the char ' '.</param>
         private void DeleteCommand(string userInput, params string[] inputArgs)
         {
             switch (inputArgs[1])
             {
                 case "habit":
-                    habitInterface.PromptForHabitDelete();
+                    this.habitInterface.PromptForHabitDelete();
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -87,12 +109,17 @@ namespace Habit_Tracking_Console_App.ViewModel
             }
         }
 
+        /// <summary>
+        /// Calls functions that are under the category of 'view'.
+        /// </summary>
+        /// <param name="userInput">The user input.</param>
+        /// <param name="inputArgs">User input split by the char ' '.</param>
         private void ViewCommand(string userInput, params string[] inputArgs)
         {
             switch (inputArgs[1])
             {
                 case "habit":
-                    habitInterface.PromptForHabitView();
+                    this.habitInterface.PromptForHabitView();
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -100,12 +127,17 @@ namespace Habit_Tracking_Console_App.ViewModel
             }
         }
 
+        /// <summary>
+        /// Calls functions that are under the category of 'show'.
+        /// </summary>
+        /// <param name="userInput">The user input.</param>
+        /// <param name="inputArgs">User input split by the char ' '.</param>
         private void ShowCommand(string userInput, params string[] inputArgs)
         {
             switch (inputArgs[1])
             {
                 case "habit":
-                    habitInterface.DisplayAllHabits();
+                    this.habitInterface.DisplayAllHabits();
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -113,12 +145,17 @@ namespace Habit_Tracking_Console_App.ViewModel
             }
         }
 
+        /// <summary>
+        /// Calls functions that are under the category of 'edit'.
+        /// </summary>
+        /// <param name="userInput">The user input.</param>
+        /// <param name="inputArgs">User input split by the char ' '.</param>
         private void EditCommand(string userInput, params string[] inputArgs)
         {
             switch (inputArgs[1])
             {
                 case "habit":
-                    habitInterface.PromptForHabitEdit();
+                    this.habitInterface.PromptForHabitEdit();
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -126,17 +163,31 @@ namespace Habit_Tracking_Console_App.ViewModel
             }
         }
 
+        /// <summary>
+        /// Saves all habits and closes the program.
+        /// </summary>
         private void ExitCommand()
         {
-            habitInterface.SaveHabits();
+            this.habitInterface.SaveHabits();
             CLIHelper.Msg("See you again!");
         }
 
+        /// <summary>
+        /// Prints an error notification regarding an invalid command.
+        /// Text should be given and executed in View. ***************************************************************************************************
+        /// </summary>
+        /// <param name="command">The user inputted command.</param>
         private void InvalidCommand(string command)
         {
             CLIHelper.Error($"The command \"{command}\" is not valid, try again!");
         }
 
+        /// <summary>
+        /// Prints an error notification regarding an invalid argument.
+        /// Text should be given and executed in View. ***************************************************************************************************
+        /// </summary>
+        /// <param name="command">The user inputted command.</param>
+        /// <param name="inputArgs">User input split by the char ' '.</param>
         private void InvalidArgument(string command, string[] inputArgs, int index)
         {
             CLIHelper.Error($"The argument \"{inputArgs[index]}\" in \"{command}\" is not valid, try again!");
