@@ -38,25 +38,27 @@ namespace Habit_Tracking_Console_App.Interface
             isGood = PromptForIsGood();
             importance = PromptForImportance();
 
-            PromptForHabitCorrection(ref name, ref description, ref isGood, ref importance);
+            HabitObject newHabit = new HabitObject(name, isGood, description, importance);
+
+            PromptForHabitCorrection(newHabit);
 
             if(CLIHelper.PromptForTrueFalseInput("Save this habit?"))
             {
-                this.habitManager.AddHabit(new HabitObject(name, isGood, description, importance));
+                this.habitManager.AddHabit(newHabit);
             }
         }
 
-        private bool PromptForHabitCorrection(ref string name, ref string description, ref bool isGood, ref int importance)
+        private bool PromptForHabitCorrection(HabitObject habitObject)
         {
             string? userInput;
 
             List<string> prompt = new List<string>();
             prompt.Add("<If a detail is incorrect, type it's name to change the property, otherwise press enter.>");
             prompt.Add("Habit details:");
-            prompt.Add($"- Name: {name}");
-            prompt.Add($"- Desc: {description}");
-            prompt.Add($"- IsGood: {isGood}");
-            prompt.Add($"- Importance: {importance}");
+            prompt.Add($"- Name: {habitObject.Name}");
+            prompt.Add($"- Desc: {habitObject.Description}");
+            prompt.Add($"- IsGood: {habitObject.IsGood}");
+            prompt.Add($"- Importance: {habitObject.Imporatance}");
 
             while (true)
             {
@@ -66,21 +68,21 @@ namespace Habit_Tracking_Console_App.Interface
                 switch (userInput)
                 {
                     case "name":
-                        name = PromptForName();
+                        habitObject.Name = PromptForName();
                         break;
                     case "desc":
-                        description = PromptForDescription();
+                        habitObject.Description = PromptForDescription();
                         break;
                     case "isgood":
-                        isGood = PromptForIsGood();
+                        habitObject.IsGood = PromptForIsGood();
                         break;
                     case "importance":
-                        importance = PromptForImportance();
+                        habitObject.Imporatance = PromptForImportance();
                         break;
                     case "":
                         return true;
                     default:
-                        Console.Error.WriteLine("Input was not valid, try again!");
+                        CLIHelper.Error("Input was not valid, try again!");
                         break;
                 }
             }
