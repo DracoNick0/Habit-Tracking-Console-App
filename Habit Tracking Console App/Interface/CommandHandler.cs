@@ -26,6 +26,9 @@
                     case "create":
                         CreateCommand(userInput, inputArgs);
                         break;
+                    case "delete":
+                        DeleteCommand(userInput, inputArgs);
+                        break;
                     case "show":
                         ShowCommand(userInput, inputArgs);
                         break;
@@ -61,6 +64,19 @@
             {
                 case "habit":
                     this.habitInterface.PromptForHabitCreation();
+                    break;
+                default:
+                    InvalidArgument(userInput, inputArgs, 1);
+                    break;
+            }
+        }
+
+        private void DeleteCommand(string userInput, params string[] inputArgs)
+        {
+            switch (inputArgs[1])
+            {
+                case "habit":
+                    this.habitInterface.PromptForHabitDelete();
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
