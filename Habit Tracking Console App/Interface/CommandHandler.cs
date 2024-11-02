@@ -50,9 +50,9 @@
         private void HelpCommand()
         {
             CLIHelper.Msg("Available Commands:");
-            CLIHelper.WriteLine(new string('-', Console.WindowWidth - 1));
+            CLIHelper.MsgForWindow("", "", "", '-', int.MaxValue);
             CLIHelper.Msg("- help: displays a list of commands for the user to input");
-            CLIHelper.Msg("- exit: exit the program");
+            CLIHelper.Msg("- exit: saves and exits the program");
             CLIHelper.Msg("- show <item>: displays all items in category(eg. habit, task)");
             CLIHelper.Msg("- create <item>: creates an item(eg. habit, task)");
             CLIHelper.Msg("- delete <item>: deletes an item(eg. habit, task)");

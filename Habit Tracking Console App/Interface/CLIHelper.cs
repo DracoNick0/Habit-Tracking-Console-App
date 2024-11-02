@@ -75,7 +75,7 @@ namespace Habit_Tracking_Console_App.Interface
 
         public static void Info(string infoMsg)
         {
-            Msg($"<{infoMsg}>");
+            Msg($"({infoMsg})");
         }
 
         public static void Prompt(params string[] prompt)
