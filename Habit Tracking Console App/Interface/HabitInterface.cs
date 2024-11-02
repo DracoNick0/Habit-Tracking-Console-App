@@ -30,21 +30,11 @@ namespace Habit_Tracking_Console_App.Interface
             foreach(HabitObject habit in habits)
             {
                 CLIHelper.MsgForWindow("+----------------------------------------+", "+");
-
-                string leading = $"|Habit: {habit.Name}";
-                string trailing = "|";
-
-                int fillerCount = 40 - leading.Length - trailing.Length;
-                string line = leading + new string(' ', fillerCount) + trailing;
-
-                CLIHelper.MsgForWindow($"line", "|");
+                CLIHelper.MsgForWindow($" |Habit: {habit.Name}", "...|", "|", 42);
+                CLIHelper.MsgForWindow($" |Importance: {habit.Imporatance}", "...|", "|", 42);
             }
             
             CLIHelper.MsgForWindow("+----------------------------------------+", "+");
-        }
-
-        public void DisplayHabit()
-        {
         }
         */
 

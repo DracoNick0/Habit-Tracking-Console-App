@@ -10,8 +10,11 @@ namespace Habit_Tracking_Console_App.Backend
 
         public HabitManager()
         {
-            habitInterface = new HabitInterface();
-            habits = new Dictionary<string, HabitObject>();
+            this.habitInterface = new HabitInterface();
+            this.habits = new Dictionary<string, HabitObject>();
+
+            this.habits["Temp"] = new HabitObject("Temp", true, "This is a temporary object!", 1);
+            this.habits["Temp2"] = new HabitObject("Temp2", false, "This is a temporary object!", 5);
         }
 
         public bool CreateHabit()

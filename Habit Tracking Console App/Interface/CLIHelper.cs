@@ -7,8 +7,13 @@
             Console.WriteLine($" {prompt}");
         }
 
-        public static void MsgForWindow(string message, string cutoff = "", int maxLength = int.MaxValue, string trail = "", char filler = ' ')
+        public static void MsgForWindow(string message, string cutoff = "", string trail = "", int maxLength = -1, char filler = ' ')
         {
+            if (maxLength == -1)
+            {
+                maxLength = message.Length + trail.Length;
+            }
+
             maxLength = Math.Min(maxLength, Console.WindowWidth - 1); // Formats the final string to either the window width or the user defined maxLength.
             int fillerCount = maxLength - message.Length - trail.Length;
 
