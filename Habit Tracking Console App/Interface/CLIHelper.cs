@@ -7,16 +7,24 @@
             Console.WriteLine($" {prompt}");
         }
 
-        public static void MsgForWindow(string message, string cutoff = "")
+        public static void MsgForWindow(string message, string cutoff = "", int maxLength = int.MaxValue, string trail = "", char filler = ' ')
         {
-            int width = Console.WindowWidth - 2;
+            maxLength = Math.Min(maxLength, Console.WindowWidth - 1); // Formats the final string to either the window width or the user defined maxLength.
+            int fillerCount = maxLength - message.Length - trail.Length;
 
-            if (message.Length > width)
+            if (fillerCount > 0)
             {
-                message = message.Substring(0, width - cutoff.Length) + cutoff;
+                string fillerStr = new string(filler, fillerCount); // Makes string that will fill the empty space.
+                message = message + fillerStr + trail;
             }
-            
-            Msg(message);
+            else if (fillerCount < 0)
+            {
+                message += trail;
+                message = message.Substring(0, maxLength - cutoff.Length); // Make space for cutoff
+                message += cutoff;
+            }
+
+            CLIHelper.Msg($"{message}");
         }
 
         public static void Error(string errorMsg)
