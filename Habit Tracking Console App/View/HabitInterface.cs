@@ -2,6 +2,9 @@
 
 namespace Habit_Tracking_Console_App.View
 {
+    /// <summary>
+    /// Contains functions that prompt for interactions with habits.
+    /// </summary>
     class HabitInterface
     {
         private HabitManager habitManager;
@@ -11,6 +14,13 @@ namespace Habit_Tracking_Console_App.View
             habitManager = new HabitManager();
         }
 
+        /// <summary>
+        /// Displays all habits.
+        /// </summary>
+        /// <param name="displayIsGood">Determines if the isGood variable is displayed.</param>
+        /// <param name="displayDescription">Determines if the description variable is displayed.</param>
+        /// <param name="displayImportance">Determines if the importance variable is displayed.</param>
+        /// <param name="displayCompletion">Determines if the completion variable is displayed.</param>
         public void DisplayAllHabits(bool displayIsGood = true, bool displayDescription = true, bool displayImportance = true, bool displayCompletion = true)
         {
 
@@ -73,6 +83,10 @@ namespace Habit_Tracking_Console_App.View
         {
         }
 
+        /// <summary>
+        /// Prints prompts to allow the user to create a habit object.
+        /// Calls to functions that create the babit and add it to the dynamic storage. ********************************************************************************************************
+        /// </summary>
         public void PromptForHabitCreation()
         {
             string name, description;
@@ -96,6 +110,10 @@ namespace Habit_Tracking_Console_App.View
             }
         }
 
+        /// <summary>
+        /// Prompts the user for the name of a habit, then returns the corresponding habit.
+        /// </summary>
+        /// <returns>The habit object corresponding to the name provided.</returns>
         public HabitObject PromptForHabitObject()
         {
             string userInput;
@@ -115,22 +133,36 @@ namespace Habit_Tracking_Console_App.View
             }
         }
 
+        /// <summary>
+        /// Prompts the user for the name of a habit, then calls a function that removes the habit from the dynamic storage.
+        /// </summary>
         public void PromptForHabitDelete()
         {
             habitManager.RemoveHabit(PromptForHabitObject().Name);
         }
 
+        /// <summary>
+        /// Prompts the user for the name of a habit, then prints prompts to allow the user to edit the habit object.
+        /// </summary>
         public void PromptForHabitEdit()
         {
             PromptForHabitCorrection(PromptForHabitObject());
         }
 
+        /// <summary>
+        /// Calls the habit manager to save the habits in the dynamic storage.
+        /// Should not be called in the view, should be called in the view model *************************************************************************
+        /// </summary>
         public void SaveHabits()
         {
             habitManager.SaveHabits();
         }
 
-        private bool PromptForHabitCorrection(HabitObject habitObject)
+        /// <summary>
+        /// Prints prompts to allow the user to edit the habit object.
+        /// </summary>
+        /// <param name="habitObject">The habit object being edited.</param>
+        private void PromptForHabitCorrection(HabitObject habitObject)
         {
             string? userInput;
 
@@ -162,7 +194,7 @@ namespace Habit_Tracking_Console_App.View
                         habitObject.Imporatance = PromptForImportance();
                         break;
                     case "":
-                        return true;
+                        return;
                     default:
                         CLIHelper.Error("Input was not valid, try again!");
                         break;
@@ -170,24 +202,40 @@ namespace Habit_Tracking_Console_App.View
             }
         }
 
+        /// <summary>
+        /// Prompts the user for the name of a habit.
+        /// </summary>
+        /// <returns>User input.</returns>
         private string PromptForName()
         {
             string namePrompt = "Enter the name of the habit: ";
             return CLIHelper.PromptForNotEmptyInput(namePrompt);
         }
 
+        /// <summary>
+        /// Prompts the user for the description of a habit.
+        /// </summary>
+        /// <returns>User input.</returns>
         private string PromptForDescription()
         {
             string descriptionPrompt = "Enter the description of the habit: ";
             return CLIHelper.PromptForNotEmptyInput(descriptionPrompt);
         }
 
+        /// <summary>
+        /// Prompts the user for the polarity of a habit.
+        /// </summary>
+        /// <returns>User input.</returns>
         private bool PromptForIsGood()
         {
             string isGoodPrompt = "Is this a good habit, enter true or false: ";
             return CLIHelper.PromptForTrueFalseInput(isGoodPrompt);
         }
 
+        /// <summary>
+        /// Prompts the user for the importance of a habit.
+        /// </summary>
+        /// <returns>User input.</returns>
         private int PromptForImportance()
         {
             int? importance = null;
