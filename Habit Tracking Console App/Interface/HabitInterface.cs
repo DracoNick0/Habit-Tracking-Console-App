@@ -11,7 +11,7 @@ namespace Habit_Tracking_Console_App.Interface
             this.habitManager = new HabitManager();
         }
 
-        public void DisplayAllHabits()
+        public void DisplayAllHabits(bool displayIsGood = false, bool displayDescription = false, bool displayImportance = false, bool displayCompletion = true)
         {
             List<HabitObject> habits = this.habitManager.getHabits();
 
@@ -19,7 +19,22 @@ namespace Habit_Tracking_Console_App.Interface
             {
                 CLIHelper.MsgForWindow("+----------------------------------------+", "+");
                 CLIHelper.MsgForWindow($"|Habit: {habit.Name}", "...|", "|", 42);
-                //CLIHelper.MsgForWindow($"|Importance: {habit.Imporatance}", "...|", "|", 42);
+                if (displayIsGood)
+                {
+                    CLIHelper.MsgForWindow($"|IsGood: {habit.IsGood}", "...|", "|", 42);
+                }
+                if (displayDescription)
+                {
+                    CLIHelper.MsgForWindow($"|Importance: {habit.Description}", "...|", "|", 42);
+                }
+                if (displayImportance)
+                {
+                    CLIHelper.MsgForWindow($"|Importance: {habit.Imporatance}", "...|", "|", 42);
+                }
+                if (displayCompletion)
+                {
+                    CLIHelper.MsgForWindow($"|Importance: {habit.Completed}", "...|", "|", 42);
+                }
             }
 
             CLIHelper.MsgForWindow("+----------------------------------------+", "+");
