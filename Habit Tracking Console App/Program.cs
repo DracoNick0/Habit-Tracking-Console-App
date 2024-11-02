@@ -15,7 +15,7 @@ do
     CLIHelper.Prompt();
 
     // Wait for user input
-    userInput = Console.ReadLine();
+    userInput = CLIHelper.ReadLine();
 
     // Execute the users input
 } while (commandHandler.ExecuteCommand(userInput));

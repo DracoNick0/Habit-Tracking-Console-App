@@ -12,7 +12,7 @@
         public static void ExecuteStoredActions()
         {
             Console.Clear();
-            foreach (Action action in previousActions)
+            foreach (var action in previousActions)
             {
                 action.Invoke();
             }

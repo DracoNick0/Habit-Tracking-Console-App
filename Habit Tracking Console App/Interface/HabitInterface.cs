@@ -169,7 +169,7 @@ namespace Habit_Tracking_Console_App.Interface
             string importancePrompt = "If 1 is trivial and 5 is of utmost importance, enter the digit that represents the habits importance: ";
             while ((importance = CLIHelper.PromptForIntInput(importancePrompt)) == null || 1 > importance || importance > 5)
             {
-                Console.Clear();
+                CLIHelper.Clear();
                 CLIHelper.Error("Input was not valid, try again!");
             }
 

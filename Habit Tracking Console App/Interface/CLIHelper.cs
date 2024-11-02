@@ -1,4 +1,5 @@
-﻿using System.Runtime.CompilerServices;
+﻿using Habit_Tracking_Console_App.Backend;
+using System.Runtime.CompilerServices;
 
 namespace Habit_Tracking_Console_App.Interface
 {
@@ -6,34 +7,88 @@ namespace Habit_Tracking_Console_App.Interface
     {
         public const int maxStringLength = 50;
 
-        public static void Msg(string prompt)
+        public static void Write(string prompt)
+        {
+            Console.Write($" {prompt}");
+            ActionLogger.AddAction(() => Console.Write($" {prompt}"));
+        }
+
+        public static void WriteLine(string prompt)
         {
             Console.WriteLine($" {prompt}");
+            ActionLogger.AddAction(() => Console.WriteLine($" {prompt}"));
+        }
+
+        public static void Clear()
+        {
+            Console.Clear();
+            ActionLogger.ClearStoredActions();
+        }
+
+        public static string? ReadLine()
+        {
+            return Console.ReadLine();
+        }
+
+        public static void Msg(string prompt)
+        {
+            WriteLine($" {prompt}");
         }
 
         public static void MsgForWindow(string message, string cutoff = "", string trail = "", char filler = ' ', int maxLength = maxStringLength)
         {
+            ActionLogger.AddAction(() => StorableMsgForWindow(message, cutoff, trail, filler, maxLength));
+            
+            string finalMessage = message;
+
             if (maxLength == -1)
             {
-                maxLength = message.Length + trail.Length;
+                maxLength = finalMessage.Length + trail.Length;
             }
 
             maxLength = Math.Min(maxLength, Console.WindowWidth - 1); // Formats the final string to either the window width or the user defined maxLength.
-            int fillerCount = maxLength - message.Length - trail.Length;
+            int fillerCount = maxLength - finalMessage.Length - trail.Length;
 
             if (fillerCount > 0)
             {
                 string fillerStr = new string(filler, fillerCount); // Makes string that will fill the empty space.
-                message = message + fillerStr + trail;
+                finalMessage = finalMessage + fillerStr + trail;
             }
             else if (fillerCount < 0)
             {
-                message += trail;
-                message = message.Substring(0, maxLength - cutoff.Length); // Make space for cutoff
-                message += cutoff;
+                finalMessage += trail;
+                finalMessage = finalMessage.Substring(0, maxLength - cutoff.Length); // Make space for cutoff
+                finalMessage += cutoff;
             }
 
-            CLIHelper.Msg($"{message}");
+            Console.WriteLine($" {finalMessage}");
+        }
+
+        public static void StorableMsgForWindow(string message, string cutoff = "", string trail = "", char filler = ' ', int maxLength = maxStringLength)
+        {
+            string finalMessage = message;
+
+            if (maxLength == -1)
+            {
+                maxLength = finalMessage.Length + trail.Length;
+            }
+
+            maxLength = Math.Min(maxLength, Console.WindowWidth - 1); // Formats the final string to either the window width or the user defined maxLength.
+            int fillerCount = maxLength - finalMessage.Length - trail.Length;
+
+            if (fillerCount > 0)
+            {
+                string fillerStr = new string(filler, fillerCount); // Makes string that will fill the empty space.
+                finalMessage = finalMessage + fillerStr + trail;
+            }
+            else if (fillerCount < 0)
+            {
+                finalMessage += trail;
+                finalMessage = finalMessage.Substring(0, maxLength - cutoff.Length); // Make space for cutoff
+                finalMessage += cutoff;
+            }
+
+            Console.WriteLine($" {finalMessage}");
         }
 
         public static void Error(string errorMsg)
@@ -55,7 +110,7 @@ namespace Habit_Tracking_Console_App.Interface
                     Msg($"{line}");
                 }
             }
-            Console.Write(" > ");
+            Write(" > ");
         }
 
         public static string PromptForNotNullInput(params string[] prompt)
@@ -63,14 +118,14 @@ namespace Habit_Tracking_Console_App.Interface
             string? userInput = null;
 
             Prompt(prompt);
-            while ((userInput = Console.ReadLine()) == null)
+            while ((userInput = ReadLine()) == null)
             {
-                Console.Clear();
+                Clear();
                 Error("Input was null, try again!");
                 Prompt(prompt);
             }
 
-            Console.Clear();
+            Clear();
             return userInput;
         }
 
@@ -79,14 +134,14 @@ namespace Habit_Tracking_Console_App.Interface
             string? userInput = null;
 
             Prompt(prompt);
-            while (string.IsNullOrEmpty(userInput = Console.ReadLine()))
+            while (string.IsNullOrEmpty(userInput = ReadLine()))
             {
-                Console.Clear();
+                Clear();
                 Error("Input was empty, try again!");
                 Prompt(prompt);
             }
 
-            Console.Clear();
+            Clear();
             return userInput;
         }
 
@@ -102,10 +157,10 @@ namespace Habit_Tracking_Console_App.Interface
                 switch (userInput)
                 {
                     case string s when s == "true" || s == "y" || s == "yes":
-                        Console.Clear();
+                        Clear();
                         return true;
                     case string s when s == "false" || s == "n" || s == "no":
-                        Console.Clear();
+                        Clear();
                         return false;
                     default:
                         Error("Input was not valid, try again!");
@@ -120,14 +175,14 @@ namespace Habit_Tracking_Console_App.Interface
             int output;
 
             Prompt(prompt);
-            while (string.IsNullOrEmpty(userInput = Console.ReadLine()) || !int.TryParse(userInput, out output))
+            while (string.IsNullOrEmpty(userInput = ReadLine()) || !int.TryParse(userInput, out output))
             {
-                Console.Clear();
+                Clear();
                 Error("Input was not valid, try again!");
                 Prompt(prompt);
             }
 
-            Console.Clear();
+            Clear();
             return output;
         }
     }

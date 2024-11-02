@@ -17,7 +17,7 @@
                 userInput = userInput.ToLower();
                 string[] inputArgs = userInput.Split(' ');
 
-                Console.Clear();
+                CLIHelper.Clear();
                 switch (inputArgs[0])
                 {
                     case "help":
@@ -47,7 +47,7 @@
         private void HelpCommand()
         {
             CLIHelper.Msg("Available Commands:");
-            Console.WriteLine(new string('-', Console.WindowWidth - 1));
+            CLIHelper.WriteLine(new string('-', Console.WindowWidth - 1));
             CLIHelper.Msg("- help: displays a list of commands for the user to input");
             CLIHelper.Msg("- exit: exit the program");
             CLIHelper.Msg("- show <item>: displays all items in category(eg. habit, task)");
