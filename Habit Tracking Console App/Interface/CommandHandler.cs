@@ -26,40 +26,14 @@ namespace Habit_Tracking_Console_App.Interface
                         HelpCommand();
                         break;
                     case "create":
-                        switch (inputArgs[1])
-                        {
-                            case "habit":
-                                habitInterface.PromptForHabitCreation();
-                                break;
-                            default:
-                                InvalidArgument(userInput, inputArgs, 1);
-                                break;
-                        }
+                        CreateCommand(userInput, inputArgs);
                         break;
                     case "show":
-                        switch (inputArgs[1])
-                        {
-                            case "habit":
-                                habitInterface.DisplayAllHabits(true, true, true, true);
-                                break;
-                            default:
-                                InvalidArgument(userInput, inputArgs, 1);
-                                break;
-                        }
+                        ShowCommand(userInput, inputArgs);
                         break;
-
                     case "edit":
-                        switch (inputArgs[1])
-                        {
-                            case "habit":
-                                habitInterface.PromptForHabitEdit();
-                                break;
-                            default:
-                                InvalidArgument(userInput, inputArgs, 1);
-                                break;
-                        }
+                        EditCommand(userInput, inputArgs);
                         break;
-
                     case "exit":
                         ExitCommand();
                         return false;
@@ -78,8 +52,48 @@ namespace Habit_Tracking_Console_App.Interface
             Console.WriteLine(new string('-', Console.WindowWidth - 1));
             CLIHelper.Msg("- help: displays a list of commands for the user to input");
             CLIHelper.Msg("- exit: exit the program");
-            CLIHelper.Msg("- create <item>: creates an item(eg. habit, task)");
             CLIHelper.Msg("- show <item>: displays all items in category(eg. habit, task)");
+            CLIHelper.Msg("- create <item>: creates an item(eg. habit, task)");
+            CLIHelper.Msg("- edit <item>: creates an item(eg. habit, task)");
+        }
+
+        private void CreateCommand(string userInput, params string[] inputArgs)
+        {
+            switch (inputArgs[1])
+            {
+                case "habit":
+                    this.habitInterface.PromptForHabitCreation();
+                    break;
+                default:
+                    InvalidArgument(userInput, inputArgs, 1);
+                    break;
+            }
+        }
+
+        private void ShowCommand(string userInput, params string[] inputArgs)
+        {
+            switch (inputArgs[1])
+            {
+                case "habit":
+                    this.habitInterface.DisplayAllHabits(true, true, true, true);
+                    break;
+                default:
+                    InvalidArgument(userInput, inputArgs, 1);
+                    break;
+            }
+        }
+
+        private void EditCommand(string userInput, params string[] inputArgs)
+        {
+            switch (inputArgs[1])
+            {
+                case "habit":
+                    this.habitInterface.PromptForHabitEdit();
+                    break;
+                default:
+                    InvalidArgument(userInput, inputArgs, 1);
+                    break;
+            }
         }
 
         private void ExitCommand()
