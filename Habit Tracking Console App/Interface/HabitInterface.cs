@@ -48,7 +48,7 @@ namespace Habit_Tracking_Console_App.Interface
                 {
                     importance = habit.Imporatance.ToString();
                 }
-                
+
                 CLIHelper.MsgForWindow($"| Habit: {habit.Name} ", "...|", $"{completion} |");
                 CLIHelper.MsgForWindow($"| Importance: {importance} ", "...|", $"({isGood}) |");
 
@@ -78,7 +78,7 @@ namespace Habit_Tracking_Console_App.Interface
 
             PromptForHabitCorrection(newHabit);
 
-            if(CLIHelper.PromptForTrueFalseInput("Save this habit?"))
+            if (CLIHelper.PromptForTrueFalseInput("Save this habit?"))
             {
                 this.habitManager.AddHabit(newHabit);
             }
@@ -101,6 +101,11 @@ namespace Habit_Tracking_Console_App.Interface
                     return habits.First(habit => habit.Name == userInput);
                 }
             }
+        }
+
+        public void PromptForHabitDelete()
+        {
+            this.habitManager.RemoveHabit(PromptForHabitObject().Name);
         }
 
         public void PromptForHabitEdit()

@@ -31,6 +31,19 @@ namespace Habit_Tracking_Console_App.Backend
             return false;
         }
 
+        public bool RemoveHabit(string habitName)
+        {
+            if (habits.ContainsKey(habitName))
+            {
+                this.habits.Remove(habitName);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public List<HabitObject> getHabits()
         {
             return new List<HabitObject>(this.habits.Values);
