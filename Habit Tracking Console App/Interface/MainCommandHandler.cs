@@ -1,10 +1,10 @@
 ﻿namespace Habit_Tracking_Console_App.Interface
 {
-    class CommandHandler
+    class MainCommandHandler
     {
         HabitInterface habitInterface;
 
-        public CommandHandler()
+        public MainCommandHandler()
         {
             habitInterface = new HabitInterface();
         }
@@ -78,6 +78,19 @@
             {
                 case "habit":
                     this.habitInterface.PromptForHabitDelete();
+                    break;
+                default:
+                    InvalidArgument(userInput, inputArgs, 1);
+                    break;
+            }
+        }
+
+        private void ViewCommand(string userInput, params string[] inputArgs)
+        {
+            switch (inputArgs[1])
+            {
+                case "habit":
+                    this.habitInterface.PromptForHabitView();
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);

@@ -6,6 +6,7 @@ namespace Habit_Tracking_Console_App.Interface
     class HabitInterface
     {
         private HabitManager habitManager;
+
         public HabitInterface()
         {
             this.habitManager = new HabitManager();
@@ -67,6 +68,10 @@ namespace Habit_Tracking_Console_App.Interface
             }
 
             CLIHelper.MsgForWindow("+", "+", "+", '-');
+        }
+
+        public void PromptForHabitView()
+        {
         }
 
         public void PromptForHabitCreation()
