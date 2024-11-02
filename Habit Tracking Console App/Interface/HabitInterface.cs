@@ -49,12 +49,12 @@ namespace Habit_Tracking_Console_App.Interface
                     importance = habit.Imporatance.ToString();
                 }
                 
-                CLIHelper.MsgForWindow($"| Habit: {habit.Name}", "...|", $"{completion} |");
-                CLIHelper.MsgForWindow($"| Importance: {importance}", "...|", $"({isGood}) |");
+                CLIHelper.MsgForWindow($"| Habit: {habit.Name} ", "...|", $"{completion} |");
+                CLIHelper.MsgForWindow($"| Importance: {importance} ", "...|", $"({isGood}) |");
 
                 if (displayDescription)
                 {
-                    CLIHelper.MsgForWindow($"| Desc: {habit.Description}", "...|", "|");
+                    CLIHelper.MsgForWindow($"| Desc: {habit.Description} ", "...|", "|");
                 }
             }
 
