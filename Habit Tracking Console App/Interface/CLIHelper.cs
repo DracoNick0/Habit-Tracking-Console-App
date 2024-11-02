@@ -38,30 +38,8 @@ namespace Habit_Tracking_Console_App.Interface
         public static void MsgForWindow(string message, string cutoff = "", string trail = "", char filler = ' ', int maxLength = maxStringLength)
         {
             ActionLogger.AddAction(() => StorableMsgForWindow(message, cutoff, trail, filler, maxLength));
-            
-            string finalMessage = message;
 
-            if (maxLength == -1)
-            {
-                maxLength = finalMessage.Length + trail.Length;
-            }
-
-            maxLength = Math.Min(maxLength, Console.WindowWidth - 1); // Formats the final string to either the window width or the user defined maxLength.
-            int fillerCount = maxLength - finalMessage.Length - trail.Length;
-
-            if (fillerCount > 0)
-            {
-                string fillerStr = new string(filler, fillerCount); // Makes string that will fill the empty space.
-                finalMessage = finalMessage + fillerStr + trail;
-            }
-            else if (fillerCount < 0)
-            {
-                finalMessage += trail;
-                finalMessage = finalMessage.Substring(0, maxLength - cutoff.Length); // Make space for cutoff
-                finalMessage += cutoff;
-            }
-
-            Console.WriteLine($" {finalMessage}");
+            StorableMsgForWindow(message, cutoff, trail, filler, maxLength);
         }
 
         public static void StorableMsgForWindow(string message, string cutoff = "", string trail = "", char filler = ' ', int maxLength = maxStringLength)
