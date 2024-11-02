@@ -61,9 +61,12 @@ namespace Habit_Tracking_Console_App.Interface
 
         private void HelpCommand()
         {
-            CLIHelper.Msg("Commands:");
+            CLIHelper.Msg("Available Commands:");
+            Console.WriteLine(new string('-', Console.WindowWidth - 1));
             CLIHelper.Msg("- help: displays a list of commands for the user to input");
             CLIHelper.Msg("- exit: exit the program");
+            CLIHelper.Msg("- create <item>: creates an item(eg. habit, task)");
+            CLIHelper.Msg("- show <item>: displays all items in category(eg. habit, task)");
         }
 
         private void ExitCommand()
