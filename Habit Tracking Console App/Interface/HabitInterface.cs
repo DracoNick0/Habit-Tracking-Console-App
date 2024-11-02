@@ -11,7 +11,7 @@ namespace Habit_Tracking_Console_App.Interface
             this.habitManager = new HabitManager();
         }
 
-        public void DisplayAllHabits(bool displayIsGood = false, bool displayDescription = false, bool displayImportance = false, bool displayCompletion = true)
+        public void DisplayAllHabits(bool displayIsGood = true, bool displayDescription = true, bool displayImportance = true, bool displayCompletion = true)
         {
             string isGood = "", importance = "", completion = "";
 

@@ -55,6 +55,7 @@
             CLIHelper.Msg("- exit: exit the program");
             CLIHelper.Msg("- show <item>: displays all items in category(eg. habit, task)");
             CLIHelper.Msg("- create <item>: creates an item(eg. habit, task)");
+            CLIHelper.Msg("- delete <item>: deletes an item(eg. habit, task)");
             CLIHelper.Msg("- edit <item>: creates an item(eg. habit, task)");
         }
 
@@ -89,7 +90,7 @@
             switch (inputArgs[1])
             {
                 case "habit":
-                    this.habitInterface.DisplayAllHabits(true, true, true, true);
+                    this.habitInterface.DisplayAllHabits();
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
