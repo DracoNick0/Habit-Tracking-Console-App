@@ -13,31 +13,52 @@ namespace Habit_Tracking_Console_App.Interface
 
         public void DisplayAllHabits(bool displayIsGood = false, bool displayDescription = false, bool displayImportance = false, bool displayCompletion = true)
         {
+            string isGood = "", importance = "", completion = "";
+
             List<HabitObject> habits = this.habitManager.getHabits();
 
             foreach (HabitObject habit in habits)
             {
-                CLIHelper.MsgForWindow("+----------------------------------------+", "+");
-                CLIHelper.MsgForWindow($"|Habit: {habit.Name}", "...|", "|", 42);
-                if (displayIsGood)
-                {
-                    CLIHelper.MsgForWindow($"|IsGood: {habit.IsGood}", "...|", "|", 42);
-                }
-                if (displayDescription)
-                {
-                    CLIHelper.MsgForWindow($"|Importance: {habit.Description}", "...|", "|", 42);
-                }
-                if (displayImportance)
-                {
-                    CLIHelper.MsgForWindow($"|Importance: {habit.Imporatance}", "...|", "|", 42);
-                }
+                CLIHelper.MsgForWindow("+", "+", "+", '-');
                 if (displayCompletion)
                 {
-                    CLIHelper.MsgForWindow($"|Importance: {habit.Completed}", "...|", "|", 42);
+                    if (habit.Completed)
+                    {
+                        completion = "Complete";
+                    }
+                    else
+                    {
+                        completion = "Incomplete";
+                    }
+                }
+
+                if (displayIsGood)
+                {
+                    if (habit.IsGood)
+                    {
+                        isGood = "Positive Habit";
+                    }
+                    else
+                    {
+                        isGood = "Negative Habit";
+                    }
+                }
+
+                if (displayImportance)
+                {
+                    importance = habit.Imporatance.ToString();
+                }
+                
+                CLIHelper.MsgForWindow($"| Habit: {habit.Name}", "...|", $"{completion} |");
+                CLIHelper.MsgForWindow($"| Importance: {importance}", "...|", $"({isGood}) |");
+
+                if (displayDescription)
+                {
+                    CLIHelper.MsgForWindow($"| Desc: {habit.Description}", "...|", "|");
                 }
             }
 
-            CLIHelper.MsgForWindow("+----------------------------------------+", "+");
+            CLIHelper.MsgForWindow("+", "+", "+", '-');
         }
 
         public void PromptForHabitCreation()

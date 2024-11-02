@@ -1,6 +1,4 @@
-﻿using Habit_Tracking_Console_App.Backend;
-
-namespace Habit_Tracking_Console_App.Interface
+﻿namespace Habit_Tracking_Console_App.Interface
 {
     class CommandHandler
     {

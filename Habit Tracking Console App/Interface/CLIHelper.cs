@@ -1,13 +1,17 @@
-﻿namespace Habit_Tracking_Console_App.Interface
+﻿using System.Runtime.CompilerServices;
+
+namespace Habit_Tracking_Console_App.Interface
 {
     class CLIHelper
     {
+        public const int maxStringLength = 50;
+
         public static void Msg(string prompt)
         {
             Console.WriteLine($" {prompt}");
         }
 
-        public static void MsgForWindow(string message, string cutoff = "", string trail = "", int maxLength = -1, char filler = ' ')
+        public static void MsgForWindow(string message, string cutoff = "", string trail = "", char filler = ' ', int maxLength = maxStringLength)
         {
             if (maxLength == -1)
             {
