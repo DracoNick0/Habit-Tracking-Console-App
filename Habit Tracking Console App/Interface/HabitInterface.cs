@@ -24,7 +24,6 @@ namespace Habit_Tracking_Console_App.Interface
             return new HabitObject(name, isGood, description, importance);
         }
 
-        /*
         public void DisplayAllHabits(List<HabitObject> habits)
         {
             foreach(HabitObject habit in habits)
@@ -36,7 +35,6 @@ namespace Habit_Tracking_Console_App.Interface
             
             CLIHelper.MsgForWindow("+----------------------------------------+", "+");
         }
-        */
 
         private bool PromptForHabitCorrection(ref string name, ref string description, ref bool isGood, ref int importance)
         {

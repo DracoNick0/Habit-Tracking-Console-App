@@ -37,7 +37,19 @@ namespace Habit_Tracking_Console_App.Interface
                                 taskManager.AddTask();
                                 break;
                             default:
-                                InvalidArguument(userInput, inputArgs, 1);
+                                InvalidArgument(userInput, inputArgs, 1);
+                                break;
+                        }
+                        break;
+                    case "showall":
+                        switch (inputArgs[1])
+                        {
+                            case "habit":
+                                break;
+                            case "task":
+                                break;
+                            default:
+                                InvalidArgument(userInput, inputArgs, 1);
                                 break;
                         }
                         break;
@@ -70,7 +82,7 @@ namespace Habit_Tracking_Console_App.Interface
             CLIHelper.Error($"The command \"{command}\" is not valid, try again!");
         }
 
-        private void InvalidArguument(string command, string[] inputArgs, int index)
+        private void InvalidArgument(string command, string[] inputArgs, int index)
         {
             CLIHelper.Error($"The argument \"{inputArgs[index]}\" in \"{command}\" is not valid, try again!");
         }
