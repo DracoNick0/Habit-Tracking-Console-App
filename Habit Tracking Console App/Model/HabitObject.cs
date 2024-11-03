@@ -44,7 +44,7 @@
             set { description = value; }
         }
 
-        public int Imporatance
+        public int Importance
         {
             get { return importance; }
             set { importance = value; }

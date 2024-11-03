@@ -46,7 +46,7 @@ namespace Habit_Tracking_Console_App.View
 
                     if (displayImportance)
                     {
-                        importance = habit.Imporatance.ToString();
+                        importance = habit.Importance.ToString();
                     }
 
                     CLIHelper.MsgForWindow($"| [{completion}] Habit: {habit.Name} ", "...|", "|");
@@ -96,18 +96,10 @@ namespace Habit_Tracking_Console_App.View
         }
 
         /// <summary>
-        /// Prompts the user for the name of a habit, then prints prompts to allow the user to edit the habit object.
-        /// </summary>
-        public void PromptForHabitEdit(List<HabitObject> habits)
-        {
-            PromptForHabitCorrection(PromptForHabitObject(habits));
-        }
-
-        /// <summary>
         /// Prints prompts to allow the user to edit the habit object.
         /// </summary>
         /// <param name="habitObject">The habit object being edited.</param>
-        public void PromptForHabitCorrection(HabitObject habitObject)
+        public void PromptForHabitCorrection(ref string name, ref string desc, ref bool isGood, ref int importance)
         {
             string? userInput;
 
@@ -116,27 +108,26 @@ namespace Habit_Tracking_Console_App.View
                 List<string> prompt = new List<string>();
                 prompt.Add("<If a detail is incorrect, type it's name to change the property, otherwise press enter.>");
                 prompt.Add("Habit details:");
-                prompt.Add($"- Name: {habitObject.Name}");
-                prompt.Add($"- Desc: {habitObject.Description}");
-                prompt.Add($"- IsGood: {habitObject.IsGood}");
-                prompt.Add($"- Importance: {habitObject.Imporatance}");
+                prompt.Add($"- Name: {name}");
+                prompt.Add($"- Desc: {desc}");
+                prompt.Add($"- IsGood: {isGood}");
+                prompt.Add($"- Importance: {importance}");
 
-                userInput = CLIHelper.PromptForNotNullInput(prompt.ToArray());
-                userInput.ToLower();
+                userInput = CLIHelper.PromptForNotNullInput(prompt.ToArray()).ToLower();
 
                 switch (userInput)
                 {
                     case "name":
-                        habitObject.Name = PromptForName();
+                        name = PromptForName();
                         break;
                     case "desc":
-                        habitObject.Description = PromptForDescription();
+                        desc = PromptForDescription();
                         break;
                     case "isgood":
-                        habitObject.IsGood = PromptForIsGood();
+                        isGood = PromptForIsGood();
                         break;
                     case "importance":
-                        habitObject.Imporatance = PromptForImportance();
+                        importance = PromptForImportance();
                         break;
                     case "":
                         return;

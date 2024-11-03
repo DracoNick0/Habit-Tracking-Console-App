@@ -108,17 +108,15 @@ namespace Habit_Tracking_Console_App.ViewModel
 
                     CLIHelper.Info("You can make changes to the habit after answering the following prompts.");
 
+                    // Get new habit details.
                     name = this.habitInterface.PromptForName();
                     description = this.habitInterface.PromptForDescription();
                     isGood = this.habitInterface.PromptForIsGood();
                     importance = this.habitInterface.PromptForImportance();
 
-                    HabitObject newHabit = new HabitObject(name, isGood, description, importance);
 
-                    if (CLIHelper.PromptForTrueFalseInput("Save this habit?"))
-                    {
-                        this.habitInterface.PromptForHabitCorrection(newHabit);
-                    }
+                    this.habitInterface.PromptForHabitCorrection(ref name, ref description, ref isGood, ref importance);
+                    HabitObject newHabit = new HabitObject(name, isGood, description, importance);
 
                     this.dynamicStorage.Add(newHabit);
                     break;
@@ -194,7 +192,19 @@ namespace Habit_Tracking_Console_App.ViewModel
             switch (inputArgs[1])
             {
                 case "habit":
-                    this.habitInterface.PromptForHabitEdit(this.dynamicStorage.getHabits());
+                    HabitObject habit = this.habitInterface.PromptForHabitObject(this.dynamicStorage.getHabits());
+
+                    string name = habit.Name;
+                    string description = habit.Description;
+                    bool isGood = habit.IsGood;
+                    int importance = habit.Importance;
+
+                    this.habitInterface.PromptForHabitCorrection(ref name, ref description, ref isGood, ref importance);
+
+                    habit.Name = name;
+                    habit.Description = description;
+                    habit.IsGood = isGood;
+                    habit.Importance = importance;
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
