@@ -133,7 +133,7 @@ namespace Habit_Tracking_Console_App.View
         /// <param name="prompt">One or more strings to display as the prompt.</param>
         public static string? Prompt(params string[] prompt)
         {
-            Msg($"{prompt}");
+            Msg(prompt);
             Write(" > ");
             return Console.ReadLine();
         }
