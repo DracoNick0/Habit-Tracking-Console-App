@@ -24,12 +24,11 @@ namespace Habit_Tracking_Console_App.View
         /// <param name="displayCompletion">Determines if the completion variable is displayed.</param>
         public void DisplayAllHabits(bool displayIsGood = true, bool displayDescription = true, bool displayImportance = true, bool displayCompletion = true)
         {
-
             List<HabitObject> habits = dynamicStorage.getHabits();
 
             if (habits.Count > 0)
             {
-                string isGood = "", importance = "", completion = "";
+                string isGood = "", importance = "", completion = " ";
                 foreach (HabitObject habit in habits)
                 {
                     CLIHelper.MsgForWindow("+", "+", "+", '-');
@@ -37,11 +36,7 @@ namespace Habit_Tracking_Console_App.View
                     {
                         if (habit.Completed)
                         {
-                            completion = "Complete";
-                        }
-                        else
-                        {
-                            completion = "Incomplete";
+                            completion = "x";
                         }
                     }
 
@@ -62,7 +57,7 @@ namespace Habit_Tracking_Console_App.View
                         importance = habit.Imporatance.ToString();
                     }
 
-                    CLIHelper.MsgForWindow($"| Habit: {habit.Name} ", "...|", $"{completion} |");
+                    CLIHelper.MsgForWindow($"| [{completion}] Habit: {habit.Name} ", "...|", "|");
                     CLIHelper.MsgForWindow($"| Importance: {importance} ", "...|", $"({isGood}) |");
 
                     if (displayDescription)

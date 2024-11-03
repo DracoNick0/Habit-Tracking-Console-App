@@ -14,7 +14,7 @@ namespace Habit_Tracking_Console_App.ViewModel
             this.habitInterface = new HabitInterface();
         }
 
-        public void Main()
+        public void Run()
         {
             string? userInput = string.Empty;
 

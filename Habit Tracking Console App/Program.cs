@@ -9,7 +9,7 @@ CLIHelper.Msg("Hello World!");
 
 // Run the main application.
 MainCommandHandler commandHandler = new MainCommandHandler();
-commandHandler.Main();
+commandHandler.Run();
 
 // Terminate process.
 CLIHelper.Msg("See you again!");
