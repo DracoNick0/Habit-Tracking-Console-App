@@ -7,13 +7,13 @@ namespace Habit_Tracking_Console_App.ViewModel
     /// <summary>
     /// Handles the main commands input by the user.
     /// </summary>
-    class MainCommandHandler
+    class CommandHandler
     {
         private DynamicStorageManager dynamicStorage;
         private HabitInterface habitInterface;
         private Action topText;
 
-        public MainCommandHandler()
+        public CommandHandler()
         {
             this.dynamicStorage = new DynamicStorageManager();
             this.habitInterface = new HabitInterface();

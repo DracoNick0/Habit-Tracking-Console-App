@@ -8,7 +8,7 @@ ConsoleResizeMonitor monitor = new ConsoleResizeMonitor();
 CLIHelper.Msg("Hello World!");
 
 // Run the main application.
-MainCommandHandler commandHandler = new MainCommandHandler();
+CommandHandler commandHandler = new CommandHandler();
 commandHandler.Run();
 
 // Terminate process.
