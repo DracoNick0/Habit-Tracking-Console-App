@@ -155,6 +155,7 @@ namespace Habit_Tracking_Console_App.Commander
                 switch (inputArgs[1])
                 {
                     case "habit":
+                    case "habits":
                         this.topText = (() => this.habitInterface.DisplayAllHabits(this.dynamicStorage.getHabits()));
                         break;
                     default:
