@@ -135,6 +135,10 @@ namespace Habit_Tracking_Console_App.PrintHelpers
             }
         }
 
+        /// <summary>
+        /// Prompts the user for the recurrence of a habit.
+        /// </summary>
+        /// <returns>User input.</returns>
         public RecurrenceEnum PromptForRecurrence()
         {
             while (true)
@@ -158,6 +162,10 @@ namespace Habit_Tracking_Console_App.PrintHelpers
             }
         }
 
+        /// <summary>
+        /// Prompts the user for the occurrence of a habit.
+        /// </summary>
+        /// <returns>User input.</returns>
         public int PromptForOccurrence()
         {
             int occurence = -1;

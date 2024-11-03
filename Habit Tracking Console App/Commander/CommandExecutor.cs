@@ -91,6 +91,10 @@ namespace Habit_Tracking_Console_App.Commander
             habit.Edit(name, importance, isGood, description, recurrence, occurrences);
         }
 
+        /// <summary>
+        /// Prompts the user for a habit to mark as complete, then marks the habit as complete.
+        /// </summary>
+        /// <returns>If habit was marked successfully.</returns>
         public bool PromptAndDoHabit()
         {
             List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
@@ -105,6 +109,10 @@ namespace Habit_Tracking_Console_App.Commander
             return false;
         }
 
+        /// <summary>
+        /// Prompts the user for a habit to mark as incomplete, then marks the habit as incomplete.
+        /// </summary>
+        /// <returns>If habit was marked successfully.</returns>
         public bool PromptAndUndoHabit()
         {
             List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();

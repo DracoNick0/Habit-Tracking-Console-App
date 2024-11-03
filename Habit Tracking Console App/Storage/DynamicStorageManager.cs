@@ -17,6 +17,16 @@ namespace Habit_Tracking_Console_App.Storage
             habits = persistentStorageManager.RetrieveHabits().ToDictionary(habit => habit.Name);
         }
 
+        /// <summary>
+        /// Takes all details of a habit and creates a habit with those details.
+        /// </summary>
+        /// <param name="name">The name of the habit.</param>
+        /// <param name="importance">The importance of the habit.</param>
+        /// <param name="isGood">If the habit is positive.</param>
+        /// <param name="description">The description of the habit.</param>
+        /// <param name="recurrence">The recurrence of the habit.</param>
+        /// <param name="occurrence">The occurrences within the recurrence interval of the habit.</param>
+        /// <returns></returns>
         public bool CreateHabit(string name, int importance, bool isGood, string description, RecurrenceEnum recurrence, int occurrence)
         {
             if (!habits.ContainsKey(name))
@@ -78,6 +88,11 @@ namespace Habit_Tracking_Console_App.Storage
             persistentStorageManager.SaveHabits(new List<HabitObject>(habits.Values));
         }
 
+        /// <summary>
+        /// Marks the habit with the specified name as complete.
+        /// </summary>
+        /// <param name="habitName">The habits name.</param>
+        /// <returns>If the habit was successfully marked.</returns>
         public bool DoHabit(string habitName)
         {
             if (habits.ContainsKey(habitName))
@@ -90,7 +105,12 @@ namespace Habit_Tracking_Console_App.Storage
                 return false;
             }
         }
-
+        
+        /// <summary>
+        /// Marks the habit with the specified name as incomplete.
+        /// </summary>
+        /// <param name="habitName">The habits name.</param>
+        /// <returns>If the habit was successfully marked.</returns>
         public bool UndoHabit(string habitName)
         {
             if (habits.ContainsKey(habitName))
@@ -104,11 +124,21 @@ namespace Habit_Tracking_Console_App.Storage
             }
         }
 
+        /// <summary>
+        /// Returns if the habit exists in the dictionary.
+        /// </summary>
+        /// <param name="habitName">The name of the habit.</param>
+        /// <returns>True if habit exists, otherwise false.</returns>
         public bool HabitExists(string habitName)
         {
             return habits.ContainsKey(habitName);
         }
 
+        /// <summary>
+        /// Returns the habit object with the name specified.
+        /// </summary>
+        /// <param name="userInput">User input.</param>
+        /// <returns>The habit object, otherwise null.</returns>
         public HabitObject? GetHabitObject(string userInput)
         {
             if (habits.ContainsKey(userInput))
