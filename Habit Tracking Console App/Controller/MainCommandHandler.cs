@@ -127,6 +127,7 @@ namespace Habit_Tracking_Console_App.ViewModel
             }
         }
 
+        /*
         /// <summary>
         /// Calls functions that are under the category of 'view'.
         /// </summary>
@@ -144,6 +145,7 @@ namespace Habit_Tracking_Console_App.ViewModel
                     break;
             }
         }
+        */
 
         /// <summary>
         /// Calls functions that are under the category of 'show'.
@@ -191,7 +193,7 @@ namespace Habit_Tracking_Console_App.ViewModel
 
         /// <summary>
         /// Prints an error notification regarding an invalid command.
-        /// Text should be given and executed in View. ***************************************************************************************************
+        /// Text should be given and executed in View.
         /// </summary>
         /// <param name="command">The user inputted command.</param>
         private void InvalidCommand(string command)
@@ -201,7 +203,7 @@ namespace Habit_Tracking_Console_App.ViewModel
 
         /// <summary>
         /// Prints an error notification regarding an invalid argument.
-        /// Text should be given and executed in View. ***************************************************************************************************
+        /// Text should be given and executed in View.
         /// </summary>
         /// <param name="command">The user inputted command.</param>
         /// <param name="inputArgs">User input split by the char ' '.</param>

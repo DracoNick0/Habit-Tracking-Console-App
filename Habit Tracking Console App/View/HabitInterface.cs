@@ -67,14 +67,16 @@ namespace Habit_Tracking_Console_App.View
             CLIHelper.MsgForWindow("+", "+", "+", '-');
         }
 
+        /*
         public void PromptForHabitView()
         {
         }
+        */
 
         /// <summary>
         /// Prompts user for new habit object details and returns the created object.
         /// </summary>
-        /// <returns>Created habit object.</returns>
+        /// <returns>Created habit object, otherwise null.</returns>
         public HabitObject? PromptForHabitCreation()
         {
             string name, description;
