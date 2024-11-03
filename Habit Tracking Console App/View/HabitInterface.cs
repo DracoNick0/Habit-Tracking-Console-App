@@ -71,29 +71,19 @@ namespace Habit_Tracking_Console_App.View
         /// Prompts the user for the name of a habit, then returns the corresponding habit.
         /// </summary>
         /// <returns>The habit object corresponding to the name provided.</returns>
-        public HabitObject PromptForHabitObject(List<HabitObject> habits)
+        public string PromptForHabit()
         {
-            string userInput;
-            List<string> habitNames = habits.Select(habit => habit.Name).ToList();
-
-            while (true)
-            {
-                DisplayAllHabits(habits);
-
-                userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
-
-                if (habitNames.Contains(userInput))
-                {
-                    return habits.First(habit => habit.Name == userInput);
-                }
-            }
+            return CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
         }
 
         /// <summary>
         /// Prints prompts to allow the user to edit the habit object.
         /// </summary>
-        /// <param name="habitObject">The habit object being edited.</param>
-        public void PromptForHabitCorrection(ref string name, ref int importance, ref bool isGood, ref string desc)
+        /// <param name="name">Habits name.</param>
+        /// <param name="importance">Habits importance.</param>
+        /// <param name="isGood">Habits isGood.</param>
+        /// <param name="description">Habits description</param>
+        public void PromptForHabitCorrection(ref string name, ref int importance, ref bool isGood, ref string description)
         {
             string? userInput;
 
@@ -105,7 +95,7 @@ namespace Habit_Tracking_Console_App.View
                 prompt.Add($"- Name: {name}");
                 prompt.Add($"- Importance: {importance}");
                 prompt.Add($"- IsGood: {isGood}");
-                prompt.Add($"- Desc: {desc}");
+                prompt.Add($"- Desc: {description}");
 
                 userInput = CLIHelper.PromptForNotNullInput(prompt.ToArray()).ToLower();
 
@@ -115,7 +105,7 @@ namespace Habit_Tracking_Console_App.View
                         name = PromptForName();
                         break;
                     case "desc":
-                        desc = PromptForDescription();
+                        description = PromptForDescription();
                         break;
                     case "isgood":
                         isGood = PromptForIsGood();

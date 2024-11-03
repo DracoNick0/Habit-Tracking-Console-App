@@ -21,6 +21,7 @@ namespace Habit_Tracking_Console_App.Model.Storage
             if (!habits.ContainsKey(name))
             {
                 HabitObject newHabit = new HabitObject(name, importance, isGood, description);
+                Add(newHabit);
                 return true;
             }
 
@@ -74,6 +75,16 @@ namespace Habit_Tracking_Console_App.Model.Storage
         public void Save()
         {
             persistentStorageManager.SaveHabits(new List<HabitObject>(habits.Values));
+        }
+
+        public HabitObject? GetHabitObject(string userInput)
+        {
+            if (habits.ContainsKey(userInput))
+            {
+                return habits[userInput];
+            }
+
+            return null;
         }
 
         /// <summary>
