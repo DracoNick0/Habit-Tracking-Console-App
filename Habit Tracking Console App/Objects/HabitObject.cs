@@ -8,15 +8,6 @@
         private string description;
         private bool completed;
 
-        public HabitObject()
-        {
-            name = string.Empty;
-            importance = 0;
-            isGood = true;
-            description = string.Empty;
-            completed = false;
-        }
-
         public HabitObject(string name, int importance, bool isGood, string description)
         {
             this.name = name;
