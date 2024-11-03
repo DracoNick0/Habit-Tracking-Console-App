@@ -1,6 +1,6 @@
-﻿using Habit_Tracking_Console_App.Model;
-using Habit_Tracking_Console_App.Model.Storage;
-using Habit_Tracking_Console_App.View;
+﻿using Habit_Tracking_Console_App.Storage;
+using Habit_Tracking_Console_App.PrintHelpers;
+using Habit_Tracking_Console_App.Objects;
 
 namespace Habit_Tracking_Console_App.Commander
 {

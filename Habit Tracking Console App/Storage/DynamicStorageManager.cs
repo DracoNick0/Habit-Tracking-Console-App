@@ -1,6 +1,7 @@
-﻿using Habit_Tracking_Console_App.View;
+﻿using Habit_Tracking_Console_App.Objects;
+using Habit_Tracking_Console_App.View;
 
-namespace Habit_Tracking_Console_App.Model.Storage
+namespace Habit_Tracking_Console_App.Storage
 {
     /// <summary>
     /// Manages habits in a dynamic storage(dictionary).
@@ -81,7 +82,7 @@ namespace Habit_Tracking_Console_App.Model.Storage
         {
             if (habits.ContainsKey(habitName))
             {
-                this.habits[habitName].Completed = true;
+                habits[habitName].Completed = true;
                 return true;
             }
             else
@@ -94,7 +95,7 @@ namespace Habit_Tracking_Console_App.Model.Storage
         {
             if (habits.ContainsKey(habitName))
             {
-                this.habits[habitName].Completed = false;
+                habits[habitName].Completed = false;
                 return true;
             }
             else
@@ -105,7 +106,7 @@ namespace Habit_Tracking_Console_App.Model.Storage
 
         public bool HabitExists(string habitName)
         {
-            return this.habits.ContainsKey(habitName);
+            return habits.ContainsKey(habitName);
         }
 
         public HabitObject? GetHabitObject(string userInput)

@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Habit_Tracking_Console_App.Model
+﻿namespace Habit_Tracking_Console_App.Objects
 {
     class HabitObject
     {

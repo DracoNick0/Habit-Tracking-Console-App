@@ -1,6 +1,6 @@
 ﻿using Habit_Tracking_Console_App.Model;
 
-namespace Habit_Tracking_Console_App.View
+namespace Habit_Tracking_Console_App.PrintHelpers
 {
     class CLIHelper
     {

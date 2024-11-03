@@ -1,9 +1,7 @@
-﻿using Habit_Tracking_Console_App.Commander;
-using Habit_Tracking_Console_App.Model;
-using Habit_Tracking_Console_App.Model.Storage;
-using Habit_Tracking_Console_App.View;
+﻿using Habit_Tracking_Console_App.Storage;
+using Habit_Tracking_Console_App.PrintHelpers;
 
-namespace Habit_Tracking_Console_App.ViewModel
+namespace Habit_Tracking_Console_App.Commander
 {
     /// <summary>
     /// Handles the main commands input by the user.
