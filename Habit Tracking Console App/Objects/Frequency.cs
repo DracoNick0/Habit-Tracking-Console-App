@@ -8,9 +8,9 @@
         Yearly
     }
 
-    struct Frequency
+    struct Frequency(FrequencyInterval interval, int occurence)
     {
-        public FrequencyInterval interval;
-        public int occurences;
+        public FrequencyInterval interval = interval;
+        public int occurences = occurence;
     }
 }
