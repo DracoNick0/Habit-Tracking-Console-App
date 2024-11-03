@@ -1,17 +1,16 @@
-﻿using Habit_Tracking_Console_App.Model.Storage;
-using Habit_Tracking_Console_App.View;
+﻿using Habit_Tracking_Console_App.View;
 
-namespace Habit_Tracking_Console_App.Model
+namespace Habit_Tracking_Console_App.Model.Storage
 {
     /// <summary>
     /// Manages habits in a dynamic storage(dictionary).
     /// </summary>
-    class HabitManager
+    class DynamicStorageManager
     {
         private PersistentStorageManager storageManager;
         private Dictionary<string, HabitObject> habits;
 
-        public HabitManager()
+        public DynamicStorageManager()
         {
             storageManager = new PersistentStorageManager();
             habits = storageManager.RetrieveHabits().ToDictionary(habit => habit.Name);

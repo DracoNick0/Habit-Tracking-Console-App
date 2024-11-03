@@ -1,4 +1,5 @@
 ﻿using Habit_Tracking_Console_App.Model;
+using Habit_Tracking_Console_App.Model.Storage;
 
 namespace Habit_Tracking_Console_App.View
 {
@@ -7,11 +8,11 @@ namespace Habit_Tracking_Console_App.View
     /// </summary>
     class HabitInterface
     {
-        private HabitManager habitManager;
+        private DynamicStorageManager habitManager;
 
         public HabitInterface()
         {
-            habitManager = new HabitManager();
+            habitManager = new DynamicStorageManager();
         }
 
         /// <summary>
