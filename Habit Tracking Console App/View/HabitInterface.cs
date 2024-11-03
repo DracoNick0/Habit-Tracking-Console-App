@@ -74,35 +74,6 @@ namespace Habit_Tracking_Console_App.View
         */
 
         /// <summary>
-        /// Prompts user for new habit object details and returns the created object.
-        /// </summary>
-        /// <returns>Created habit object, otherwise null.</returns>
-        public HabitObject? PromptForHabitCreation()
-        {
-            string name, description;
-            bool isGood;
-            int importance;
-
-            CLIHelper.Info("You can make changes to the habit after answering the following prompts.");
-
-            name = PromptForName();
-            description = PromptForDescription();
-            isGood = PromptForIsGood();
-            importance = PromptForImportance();
-
-            HabitObject newHabit = new HabitObject(name, isGood, description, importance);
-
-            PromptForHabitCorrection(newHabit);
-
-            if (CLIHelper.PromptForTrueFalseInput("Save this habit?"))
-            {
-                return newHabit;
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Prompts the user for the name of a habit, then returns the corresponding habit.
         /// </summary>
         /// <returns>The habit object corresponding to the name provided.</returns>
@@ -136,7 +107,7 @@ namespace Habit_Tracking_Console_App.View
         /// Prints prompts to allow the user to edit the habit object.
         /// </summary>
         /// <param name="habitObject">The habit object being edited.</param>
-        private void PromptForHabitCorrection(HabitObject habitObject)
+        public void PromptForHabitCorrection(HabitObject habitObject)
         {
             string? userInput;
 
@@ -180,7 +151,7 @@ namespace Habit_Tracking_Console_App.View
         /// Prompts the user for the name of a habit.
         /// </summary>
         /// <returns>User input.</returns>
-        private string PromptForName()
+        public string PromptForName()
         {
             string namePrompt = "Enter the name of the habit: ";
             return CLIHelper.PromptForNotEmptyInput(namePrompt);
@@ -190,7 +161,7 @@ namespace Habit_Tracking_Console_App.View
         /// Prompts the user for the description of a habit.
         /// </summary>
         /// <returns>User input.</returns>
-        private string PromptForDescription()
+        public string PromptForDescription()
         {
             string descriptionPrompt = "Enter the description of the habit: ";
             return CLIHelper.PromptForNotEmptyInput(descriptionPrompt);
@@ -200,7 +171,7 @@ namespace Habit_Tracking_Console_App.View
         /// Prompts the user for the polarity of a habit.
         /// </summary>
         /// <returns>User input.</returns>
-        private bool PromptForIsGood()
+        public bool PromptForIsGood()
         {
             string isGoodPrompt = "Is this a good habit, enter true or false: ";
             return CLIHelper.PromptForTrueFalseInput(isGoodPrompt);
@@ -210,7 +181,7 @@ namespace Habit_Tracking_Console_App.View
         /// Prompts the user for the importance of a habit.
         /// </summary>
         /// <returns>User input.</returns>
-        private int PromptForImportance()
+        public int PromptForImportance()
         {
             int? importance = null;
 

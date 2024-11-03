@@ -1,4 +1,5 @@
-﻿using Habit_Tracking_Console_App.Model.Storage;
+﻿using Habit_Tracking_Console_App.Model;
+using Habit_Tracking_Console_App.Model.Storage;
 using Habit_Tracking_Console_App.View;
 
 namespace Habit_Tracking_Console_App.ViewModel
@@ -101,7 +102,25 @@ namespace Habit_Tracking_Console_App.ViewModel
             switch (inputArgs[1])
             {
                 case "habit":
-                    this.dynamicStorage.Add(this.habitInterface.PromptForHabitCreation());
+                    string name, description;
+                    bool isGood;
+                    int importance;
+
+                    CLIHelper.Info("You can make changes to the habit after answering the following prompts.");
+
+                    name = this.habitInterface.PromptForName();
+                    description = this.habitInterface.PromptForDescription();
+                    isGood = this.habitInterface.PromptForIsGood();
+                    importance = this.habitInterface.PromptForImportance();
+
+                    HabitObject newHabit = new HabitObject(name, isGood, description, importance);
+
+                    if (CLIHelper.PromptForTrueFalseInput("Save this habit?"))
+                    {
+                        this.habitInterface.PromptForHabitCorrection(newHabit);
+                    }
+
+                    this.dynamicStorage.Add(newHabit);
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
