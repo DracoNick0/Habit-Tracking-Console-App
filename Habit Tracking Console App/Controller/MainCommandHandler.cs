@@ -11,11 +11,13 @@ namespace Habit_Tracking_Console_App.ViewModel
     {
         private DynamicStorageManager dynamicStorage;
         private HabitInterface habitInterface;
+        private List<string> topText;
 
         public MainCommandHandler()
         {
             this.dynamicStorage = new DynamicStorageManager();
             this.habitInterface = new HabitInterface();
+            this.topText = new List<string>();
         }
 
         public void Run()
@@ -24,6 +26,7 @@ namespace Habit_Tracking_Console_App.ViewModel
 
             do
             {
+                CLIHelper.Msg(this.topText.ToArray());
                 userInput = CLIHelper.PromptForNotEmptyInput("Enter \"help\" to print a list of commands.");
             } while (ExecuteCommand(userInput));
         }
@@ -64,7 +67,7 @@ namespace Habit_Tracking_Console_App.ViewModel
                             this.ShowInvoked(command, inputArgs);
                             break;
                         case "edit":
-                            this.EditCommand(command, inputArgs);
+                            this.EditInvoked(command, inputArgs);
                             break;
                         default:
                             this.InvalidCommand(command);
@@ -112,6 +115,10 @@ namespace Habit_Tracking_Console_App.ViewModel
             }
         }
 
+        /// <summary>
+        /// Prompts the user for habit details, then creates the habit.
+        /// </summary>
+        /// <returns></returns>
         private bool PromptAndCreateHabit()
         {
             CLIHelper.Info("You can make changes to the habit after answering the following prompts.");
@@ -148,6 +155,10 @@ namespace Habit_Tracking_Console_App.ViewModel
             }
         }
 
+        /// <summary>
+        /// Prompts the user for a habit, then deletes the habit.
+        /// </summary>
+        /// <returns>If habit was successfully deleted.</returns>
         private bool PromptAndDeleteHabit()
         {
             List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
@@ -192,7 +203,7 @@ namespace Habit_Tracking_Console_App.ViewModel
         /// </summary>
         /// <param name="command">The user input.</param>
         /// <param name="inputArgs">User input split by the char ' '.</param>
-        private void EditCommand(string command, params string[] inputArgs)
+        private void EditInvoked(string command, params string[] inputArgs)
         {
             if (inputArgs.Length > 1)
             {
@@ -208,6 +219,9 @@ namespace Habit_Tracking_Console_App.ViewModel
             }
         }
 
+        /// <summary>
+        /// Prompts the user for a habit to edit, then prompts for changes, then edits the habit.
+        /// </summary>
         private void PromptAndEditHabit()
         {
             List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();

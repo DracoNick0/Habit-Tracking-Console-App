@@ -48,9 +48,15 @@ namespace Habit_Tracking_Console_App.View
         /// Prints a prompt to the console with a space preceding the message.
         /// </summary>
         /// <param name="prompt"></param>
-        public static void Msg(string prompt)
+        public static void Msg(params string[] message)
         {
-            WriteLine($" {prompt}");
+            if (message.Length != 0)
+            {
+                foreach (string line in message)
+                {
+                    WriteLine($" {line}");
+                }
+            }
         }
 
         /// <summary>
@@ -127,13 +133,7 @@ namespace Habit_Tracking_Console_App.View
         /// <param name="prompt">One or more strings to display as the prompt.</param>
         public static string? Prompt(params string[] prompt)
         {
-            if (prompt.Length != 0)
-            {
-                foreach (string line in prompt)
-                {
-                    Msg($"{line}");
-                }
-            }
+            Msg($"{prompt}");
             Write(" > ");
             return Console.ReadLine();
         }
