@@ -2,22 +2,15 @@
 using Habit_Tracking_Console_App.View;
 using Habit_Tracking_Console_App.ViewModel;
 
-// Monitor if the console is resized, then execute previous actions.
+// Start window size monitoring.
 ConsoleResizeMonitor monitor = new ConsoleResizeMonitor();
-
-MainCommandHandler commandHandler = new MainCommandHandler();
-string? userInput = string.Empty;
 
 CLIHelper.Msg("Hello World!");
 
-do
-{
-    CLIHelper.Info("Enter \"help\" to print a list of commands.");
-    CLIHelper.Prompt();
+// Run the main application.
+MainCommandHandler commandHandler = new MainCommandHandler();
+commandHandler.Main();
 
-    // Wait for user input
-    userInput = CLIHelper.ReadLine();
-
-    // Execute the users input
-} while (commandHandler.ExecuteCommand(userInput));
+// Terminate process.
+CLIHelper.Msg("See you again!");
 

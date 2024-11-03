@@ -14,12 +14,28 @@ namespace Habit_Tracking_Console_App.ViewModel
             this.habitInterface = new HabitInterface();
         }
 
+        public void Main()
+        {
+            string? userInput = string.Empty;
+
+            do
+            {
+                CLIHelper.Info("Enter \"help\" to print a list of commands.");
+                CLIHelper.Prompt();
+
+                // Wait for user input
+                userInput = CLIHelper.ReadLine();
+
+                // Execute the users input
+            } while (ExecuteCommand(userInput));
+        }
+
         /// <summary>
         /// Executes the functions associated with the command imputed.
         /// </summary>
         /// <param name="userInput">The command.</param>
         /// <returns>False to close program, true to keep running.</returns>
-        public bool ExecuteCommand(string? userInput)
+        private bool ExecuteCommand(string? userInput)
         {
             if (userInput != null)
             {
@@ -169,7 +185,6 @@ namespace Habit_Tracking_Console_App.ViewModel
         private void ExitCommand()
         {
             this.habitInterface.SaveHabits();
-            CLIHelper.Msg("See you again!");
         }
 
         /// <summary>
