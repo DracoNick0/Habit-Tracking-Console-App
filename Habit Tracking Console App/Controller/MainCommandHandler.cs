@@ -139,7 +139,7 @@ namespace Habit_Tracking_Console_App.ViewModel
                 switch (inputArgs[1])
                 {
                     case "habit":
-                        PromptAndDeleteHabit();
+                        this.PromptAndDeleteHabit();
                         break;
                     default:
                         this.InvalidArgument(command, inputArgs, 1);
@@ -199,36 +199,41 @@ namespace Habit_Tracking_Console_App.ViewModel
                 switch (inputArgs[1])
                 {
                     case "habit":
-                        List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
-                        HabitObject? habit;
-                        string userInput;
-
-                        while (true)
-                        {
-                            this.habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
-
-                            userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
-
-                            if ((habit = this.dynamicStorage.GetHabitObject(this.habitInterface.PromptForHabit())) != null)
-                            {
-                                break;
-                            }
-                        }
-
-                        string name = habit.Name;
-                        int importance = habit.Importance;
-                        bool isGood = habit.IsGood;
-                        string description = habit.Description;
-
-                        this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description);
-
-                        habit.Edit(name, importance, isGood, description);
+                        this.PromptAndEditHabit();
                         break;
                     default:
                         this.InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
+        }
+
+        private void PromptAndEditHabit()
+        {
+            List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
+            HabitObject? habit;
+            string userInput;
+
+            while (true)
+            {
+                this.habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
+
+                userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
+
+                if ((habit = this.dynamicStorage.GetHabitObject(this.habitInterface.PromptForHabit())) != null)
+                {
+                    break;
+                }
+            }
+
+            string name = habit.Name;
+            int importance = habit.Importance;
+            bool isGood = habit.IsGood;
+            string description = habit.Description;
+
+            this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description);
+
+            habit.Edit(name, importance, isGood, description);
         }
 
         /// <summary>
