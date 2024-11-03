@@ -40,11 +40,11 @@ namespace Habit_Tracking_Console_App.View
                     {
                         if (habit.IsGood)
                         {
-                            isGood = "Positive Habit";
+                            isGood = "Positive";
                         }
                         else
                         {
-                            isGood = "Negative Habit";
+                            isGood = "Negative";
                         }
                     }
 
@@ -53,12 +53,13 @@ namespace Habit_Tracking_Console_App.View
                         importance = habit.Importance.ToString();
                     }
 
-                    CLIHelper.MsgForWindow($"| [{completion}] Habit: {habit.Name} ", "...|", "|");
-                    CLIHelper.MsgForWindow($"| Importance: {importance} ", "...|", $"({isGood}) |");
+                    CLIHelper.MsgForWindow($"| [{completion}] Habit: {habit.Name} ", "..|", $"({importance} : {isGood}) |");
+                    //CLIHelper.MsgForWindow($"| [{completion}] Habit: {habit.Name} ", "...|", "|");
+                    //CLIHelper.MsgForWindow($"| Importance: {importance} ", "...|", $"({isGood}) |");
 
                     if (displayDescription)
                     {
-                        CLIHelper.MsgForWindow($"| Desc: {habit.Description} ", "...|", "|");
+                        CLIHelper.MsgForWindow($"| Desc: {habit.Description} ", "..|", "|");
                     }
                 }
             }
