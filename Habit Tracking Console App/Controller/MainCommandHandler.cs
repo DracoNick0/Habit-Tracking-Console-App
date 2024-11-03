@@ -21,10 +21,9 @@ namespace Habit_Tracking_Console_App.ViewModel
             do
             {
                 CLIHelper.Info("Enter \"help\" to print a list of commands.");
-                CLIHelper.Prompt();
-
+                
                 // Wait for user input
-                userInput = CLIHelper.ReadLine();
+                userInput = CLIHelper.Prompt();
 
                 // Execute the users input
             } while (ExecuteCommand(userInput));

@@ -122,10 +122,10 @@ namespace Habit_Tracking_Console_App.View
         }
 
         /// <summary>
-        /// Prints a prompt and suggests user input.
+        /// Prints a prompt and gets user input.
         /// </summary>
         /// <param name="prompt">One or more strings to display as the prompt.</param>
-        public static void Prompt(params string[] prompt)
+        public static string? Prompt(params string[] prompt)
         {
             if (prompt.Length != 0)
             {
@@ -135,6 +135,7 @@ namespace Habit_Tracking_Console_App.View
                 }
             }
             Write(" > ");
+            return Console.ReadLine();
         }
 
         /// <summary>
@@ -146,12 +147,10 @@ namespace Habit_Tracking_Console_App.View
         {
             string? userInput = null;
 
-            Prompt(prompt);
-            while ((userInput = ReadLine()) == null)
+            while ((userInput = Prompt(prompt)) == null)
             {
                 Clear();
                 Error("Input was null, try again!");
-                Prompt(prompt);
             }
 
             Clear();
@@ -167,12 +166,10 @@ namespace Habit_Tracking_Console_App.View
         {
             string? userInput = null;
 
-            Prompt(prompt);
-            while (string.IsNullOrEmpty(userInput = ReadLine()))
+            while (string.IsNullOrEmpty(userInput = Prompt(prompt)))
             {
                 Clear();
                 Error("Input was empty, try again!");
-                Prompt(prompt);
             }
 
             Clear();
@@ -218,12 +215,10 @@ namespace Habit_Tracking_Console_App.View
             string? userInput = null;
             int output;
 
-            Prompt(prompt);
-            while (string.IsNullOrEmpty(userInput = ReadLine()) || !int.TryParse(userInput, out output))
+            while (string.IsNullOrEmpty(userInput = Prompt(prompt)) || !int.TryParse(userInput, out output))
             {
                 Clear();
                 Error("Input was not valid, try again!");
-                Prompt(prompt);
             }
 
             Clear();
