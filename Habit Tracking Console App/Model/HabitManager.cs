@@ -8,12 +8,12 @@ namespace Habit_Tracking_Console_App.Model
     /// </summary>
     class HabitManager
     {
-        private StorageManager storageManager;
+        private PersistentStorageManager storageManager;
         private Dictionary<string, HabitObject> habits;
 
         public HabitManager()
         {
-            storageManager = new StorageManager();
+            storageManager = new PersistentStorageManager();
             habits = storageManager.RetrieveHabits().ToDictionary(habit => habit.Name);
         }
 

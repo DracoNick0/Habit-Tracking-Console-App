@@ -2,11 +2,11 @@
 
 namespace Habit_Tracking_Console_App.Model.Storage
 {
-    class StorageManager
+    class PersistentStorageManager
     {
         private const string habitStoragePath = @"../../../Model/Storage/Habit_Storage.json";
 
-        public StorageManager() { }
+        public PersistentStorageManager() { }
 
         public void SaveHabits(List<HabitObject> habits)
         {
