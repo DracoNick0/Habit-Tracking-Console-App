@@ -102,23 +102,17 @@ namespace Habit_Tracking_Console_App.ViewModel
             switch (inputArgs[1])
             {
                 case "habit":
-                    string name, description;
-                    bool isGood;
-                    int importance;
-
                     CLIHelper.Info("You can make changes to the habit after answering the following prompts.");
 
                     // Get new habit details.
-                    name = this.habitInterface.PromptForName();
-                    description = this.habitInterface.PromptForDescription();
-                    isGood = this.habitInterface.PromptForIsGood();
-                    importance = this.habitInterface.PromptForImportance();
-
+                    string name = this.habitInterface.PromptForName();
+                    string description = this.habitInterface.PromptForDescription();
+                    bool isGood = this.habitInterface.PromptForIsGood();
+                    int importance = this.habitInterface.PromptForImportance();
 
                     this.habitInterface.PromptForHabitCorrection(ref name, ref description, ref isGood, ref importance);
-                    HabitObject newHabit = new HabitObject(name, isGood, description, importance);
 
-                    this.dynamicStorage.Add(newHabit);
+                    this.dynamicStorage.CreateHabit(name, description, isGood, importance);
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
