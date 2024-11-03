@@ -77,6 +77,32 @@ namespace Habit_Tracking_Console_App.Model.Storage
             persistentStorageManager.SaveHabits(new List<HabitObject>(habits.Values));
         }
 
+        public bool DoHabit(string habitName)
+        {
+            if (habits.ContainsKey(habitName))
+            {
+                this.habits[habitName].Completed = true;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool UndoHabit(string habitName)
+        {
+            if (habits.ContainsKey(habitName))
+            {
+                this.habits[habitName].Completed = false;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         public bool HabitExists(string habitName)
         {
             return this.habits.ContainsKey(habitName);

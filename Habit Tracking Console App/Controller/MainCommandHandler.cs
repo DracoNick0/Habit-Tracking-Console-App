@@ -69,6 +69,12 @@ namespace Habit_Tracking_Console_App.ViewModel
                         case "edit":
                             this.EditInvoked(command, inputArgs);
                             break;
+                        case "do":
+                            this.DoInvoked(command, inputArgs);
+                            break;
+                        case "undo":
+                            this.UndoInvoked(command, inputArgs);
+                            break;
                         default:
                             this.InvalidCommand(command);
                             break;
@@ -247,6 +253,76 @@ namespace Habit_Tracking_Console_App.ViewModel
             this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description);
 
             habit.Edit(name, importance, isGood, description);
+        }
+
+        /// <summary>
+        /// Calls functions that are under the category of 'do'.
+        /// </summary>
+        /// <param name="command">The user input.</param>
+        /// <param name="inputArgs">User input split by the char ' '.</param>
+        private void DoInvoked(string command, params string[] inputArgs)
+        {
+            if (inputArgs.Length > 1)
+            {
+                switch (inputArgs[1])
+                {
+                    case "habit":
+                        this.PromptAndDoHabit();
+                        break;
+                    default:
+                        this.InvalidArgument(command, inputArgs, 1);
+                        break;
+                }
+            }
+        }
+
+        private bool PromptAndDoHabit()
+        {
+            List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
+            string userInput = "";
+
+            while (!this.dynamicStorage.DoHabit(userInput))
+            {
+                this.habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
+                userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// Calls functions that are under the category of 'undo'.
+        /// </summary>
+        /// <param name="command">The user input.</param>
+        /// <param name="inputArgs">User input split by the char ' '.</param>
+        private void UndoInvoked(string command, params string[] inputArgs)
+        {
+            if (inputArgs.Length > 1)
+            {
+                switch (inputArgs[1])
+                {
+                    case "habit":
+                        this.PromptAndUndoHabit();
+                        break;
+                    default:
+                        this.InvalidArgument(command, inputArgs, 1);
+                        break;
+                }
+            }
+        }
+
+        private bool PromptAndUndoHabit()
+        {
+            List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
+            string userInput = "";
+
+            while (!this.dynamicStorage.UndoHabit(userInput))
+            {
+                this.habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
+                userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
+            }
+
+            return false;
         }
 
         /// <summary>
