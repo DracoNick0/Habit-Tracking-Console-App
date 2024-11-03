@@ -1,7 +1,6 @@
 ﻿using Habit_Tracking_Console_App.Model;
 using Habit_Tracking_Console_App.Model.Storage;
 using Habit_Tracking_Console_App.View;
-using System.Reflection.Metadata.Ecma335;
 
 namespace Habit_Tracking_Console_App.ViewModel
 {
@@ -39,8 +38,8 @@ namespace Habit_Tracking_Console_App.ViewModel
             if (userInput != null)
             {
                 // Alter user input to be command ready.
-                userInput = userInput.ToLower();
-                string[] inputArgs = userInput.Split(' ');
+                string command = userInput.ToLower();
+                string[] inputArgs = command.Split(' ');
 
                 CLIHelper.Clear();
                 if (inputArgs.Length > 0)
@@ -56,19 +55,19 @@ namespace Habit_Tracking_Console_App.ViewModel
                             return false;
                         // Following cases require 2 arguments.
                         case "create":
-                            this.CreateInvoked(userInput, inputArgs);
+                            this.CreateInvoked(command, inputArgs);
                             break;
                         case "delete":
-                            this.DeleteInvoked(userInput, inputArgs);
+                            this.DeleteInvoked(command, inputArgs);
                             break;
                         case "show":
-                            this.ShowInvoked(userInput, inputArgs);
+                            this.ShowInvoked(command, inputArgs);
                             break;
                         case "edit":
-                            this.EditCommand(userInput, inputArgs);
+                            this.EditCommand(command, inputArgs);
                             break;
                         default:
-                            this.InvalidCommand(userInput);
+                            this.InvalidCommand(command);
                             break;
                     }
                 }
@@ -95,25 +94,25 @@ namespace Habit_Tracking_Console_App.ViewModel
         /// <summary>
         /// Calls functions that are under the category of 'create'.
         /// </summary>
-        /// <param name="userInput">The user input.</param>
+        /// <param name="command">The user input.</param>
         /// <param name="inputArgs">User input split by the char ' '.</param>
-        private void CreateInvoked(string userInput, params string[] inputArgs)
+        private void CreateInvoked(string command, params string[] inputArgs)
         {
             if (inputArgs.Length > 1)
             {
                 switch (inputArgs[1])
                 {
                     case "habit":
-                        this.CreateHabit();
+                        this.PromptAndCreateHabit();
                         break;
                     default:
-                        this.InvalidArgument(userInput, inputArgs, 1);
+                        this.InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
         }
 
-        private bool CreateHabit()
+        private bool PromptAndCreateHabit()
         {
             CLIHelper.Info("You can make changes to the habit after answering the following prompts.");
 
@@ -131,7 +130,7 @@ namespace Habit_Tracking_Console_App.ViewModel
         /// <summary>
         /// Calls functions that are under the category of 'delete'.
         /// </summary>
-        /// <param name="userInput">The user input.</param>
+        /// <param name="command">The user input.</param>
         /// <param name="inputArgs">User input split by the char ' '.</param> ***************************************************************************
         private void DeleteInvoked(string command, params string[] inputArgs)
         {
@@ -167,9 +166,9 @@ namespace Habit_Tracking_Console_App.ViewModel
         /// <summary>
         /// Calls functions that are under the category of 'show'.
         /// </summary>
-        /// <param name="userInput">The user input.</param>
+        /// <param name="command">The user input.</param>
         /// <param name="inputArgs">User input split by the char ' '.</param>
-        private void ShowInvoked(string userInput, params string[] inputArgs)
+        private void ShowInvoked(string command, params string[] inputArgs)
         {
             if (inputArgs.Length > 1)
             {
@@ -179,7 +178,7 @@ namespace Habit_Tracking_Console_App.ViewModel
                         this.habitInterface.DisplayAllHabits(this.dynamicStorage.getHabits());
                         break;
                     default:
-                        this.InvalidArgument(userInput, inputArgs, 1);
+                        this.InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
@@ -188,7 +187,7 @@ namespace Habit_Tracking_Console_App.ViewModel
         /// <summary>
         /// Calls functions that are under the category of 'edit'.
         /// </summary>
-        /// <param name="userInput">The user input.</param>
+        /// <param name="command">The user input.</param>
         /// <param name="inputArgs">User input split by the char ' '.</param>
         private void EditCommand(string command, params string[] inputArgs)
         {
