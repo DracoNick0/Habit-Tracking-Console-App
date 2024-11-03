@@ -139,26 +139,29 @@ namespace Habit_Tracking_Console_App.ViewModel
                 switch (inputArgs[1])
                 {
                     case "habit":
-                        List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
-                        string userInput;
-
-                        while (true)
-                        {
-                            this.habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
-
-                            userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
-
-                            if (habitNames.Contains(userInput))
-                            {
-                                this.dynamicStorage.RemoveHabit(this.habitInterface.PromptForHabit());
-                                break;
-                            }
-                        }
-
+                        PromptAndDeleteHabit();
                         break;
                     default:
                         this.InvalidArgument(command, inputArgs, 1);
                         break;
+                }
+            }
+        }
+
+        private bool PromptAndDeleteHabit()
+        {
+            List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
+            string userInput;
+
+            while (true)
+            {
+                this.habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
+
+                userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
+
+                if (habitNames.Contains(userInput))
+                {
+                    return this.dynamicStorage.RemoveHabit(this.habitInterface.PromptForHabit());
                 }
             }
         }
