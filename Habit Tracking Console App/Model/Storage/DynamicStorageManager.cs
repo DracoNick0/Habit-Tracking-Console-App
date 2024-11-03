@@ -7,13 +7,13 @@ namespace Habit_Tracking_Console_App.Model.Storage
     /// </summary>
     class DynamicStorageManager
     {
-        private PersistentStorageManager storageManager;
+        private PersistentStorageManager persistentStorageManager;
         private Dictionary<string, HabitObject> habits;
 
         public DynamicStorageManager()
         {
-            storageManager = new PersistentStorageManager();
-            habits = storageManager.RetrieveHabits().ToDictionary(habit => habit.Name);
+            persistentStorageManager = new PersistentStorageManager();
+            habits = persistentStorageManager.RetrieveHabits().ToDictionary(habit => habit.Name);
         }
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace Habit_Tracking_Console_App.Model.Storage
         /// </summary>
         public void Save()
         {
-            storageManager.SaveHabits(new List<HabitObject>(habits.Values));
+            persistentStorageManager.SaveHabits(new List<HabitObject>(habits.Values));
         }
 
         /// <summary>
