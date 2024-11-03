@@ -1,6 +1,7 @@
 ﻿using Habit_Tracking_Console_App.Model;
 using Habit_Tracking_Console_App.Model.Storage;
 using Habit_Tracking_Console_App.View;
+using System.Reflection.Metadata.Ecma335;
 
 namespace Habit_Tracking_Console_App.ViewModel
 {
@@ -20,16 +21,11 @@ namespace Habit_Tracking_Console_App.ViewModel
 
         public void Run()
         {
-            string? userInput = string.Empty;
+            string userInput;
 
             do
             {
-                CLIHelper.Info("Enter \"help\" to print a list of commands.");
-                
-                // Wait for user input
-                userInput = CLIHelper.Prompt();
-
-                // Execute the users input
+                userInput = CLIHelper.PromptForNotEmptyInput("Enter \"help\" to print a list of commands.");
             } while (ExecuteCommand(userInput));
         }
 
@@ -38,11 +34,11 @@ namespace Habit_Tracking_Console_App.ViewModel
         /// </summary>
         /// <param name="userInput">The command.</param>
         /// <returns>False to close program, true to keep running.</returns>
-        private bool ExecuteCommand(string? userInput)
+        private bool ExecuteCommand(string userInput)
         {
             if (userInput != null)
             {
-                // Change user input to be digestable by the program
+                // Alter user input to be command ready.
                 userInput = userInput.ToLower();
                 string[] inputArgs = userInput.Split(' ');
 
@@ -51,26 +47,28 @@ namespace Habit_Tracking_Console_App.ViewModel
                 {
                     switch (inputArgs[0])
                     {
+                        // Following cases require 1 argument.
                         case "help":
-                            HelpInvoked();
-                            break;
-                        case "create":
-                            CreateInvoked(userInput, inputArgs);
-                            break;
-                        case "delete":
-                            DeleteInvoked(userInput, inputArgs);
-                            break;
-                        case "show":
-                            ShowInvoked(userInput, inputArgs);
-                            break;
-                        case "edit":
-                            EditCommand(userInput, inputArgs);
+                            this.HelpInvoked();
                             break;
                         case "exit":
-                            ExitInvoked();
+                            this.ExitInvoked();
                             return false;
+                        // Following cases require 2 arguments.
+                        case "create":
+                            this.CreateInvoked(userInput, inputArgs);
+                            break;
+                        case "delete":
+                            this.DeleteInvoked(userInput, inputArgs);
+                            break;
+                        case "show":
+                            this.ShowInvoked(userInput, inputArgs);
+                            break;
+                        case "edit":
+                            this.EditCommand(userInput, inputArgs);
+                            break;
                         default:
-                            InvalidCommand(userInput);
+                            this.InvalidCommand(userInput);
                             break;
                     }
                 }
@@ -87,7 +85,6 @@ namespace Habit_Tracking_Console_App.ViewModel
         {
             CLIHelper.Msg("Available Commands:");
             CLIHelper.MsgForWindow("", "", "", '-', int.MaxValue);
-            CLIHelper.Msg("- help: displays a list of commands for the user to input");
             CLIHelper.Msg("- exit: saves and exits the program");
             CLIHelper.Msg("- show <item>: displays all items in category(eg. habit, task)");
             CLIHelper.Msg("- create <item>: creates an item(eg. habit, task)");
@@ -107,23 +104,28 @@ namespace Habit_Tracking_Console_App.ViewModel
                 switch (inputArgs[1])
                 {
                     case "habit":
-                        CLIHelper.Info("You can make changes to the habit after answering the following prompts.");
-
-                        // Get new habit details.
-                        string name = this.habitInterface.PromptForName();
-                        string description = this.habitInterface.PromptForDescription();
-                        bool isGood = this.habitInterface.PromptForIsGood();
-                        int importance = this.habitInterface.PromptForImportance();
-
-                        this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description);
-
-                        this.dynamicStorage.CreateHabit(name, importance, isGood, description);
+                        this.CreateHabit();
                         break;
                     default:
-                        InvalidArgument(userInput, inputArgs, 1);
+                        this.InvalidArgument(userInput, inputArgs, 1);
                         break;
                 }
             }
+        }
+
+        private bool CreateHabit()
+        {
+            CLIHelper.Info("You can make changes to the habit after answering the following prompts.");
+
+            // Get new habit details.
+            string name = this.habitInterface.PromptForName();
+            string description = this.habitInterface.PromptForDescription();
+            bool isGood = this.habitInterface.PromptForIsGood();
+            int importance = this.habitInterface.PromptForImportance();
+
+            this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description);
+
+            return this.dynamicStorage.CreateHabit(name, importance, isGood, description);
         }
 
         /// <summary>
@@ -156,7 +158,7 @@ namespace Habit_Tracking_Console_App.ViewModel
 
                         break;
                     default:
-                        InvalidArgument(command, inputArgs, 1);
+                        this.InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
@@ -177,7 +179,7 @@ namespace Habit_Tracking_Console_App.ViewModel
                         this.habitInterface.DisplayAllHabits(this.dynamicStorage.getHabits());
                         break;
                     default:
-                        InvalidArgument(userInput, inputArgs, 1);
+                        this.InvalidArgument(userInput, inputArgs, 1);
                         break;
                 }
             }
@@ -221,7 +223,7 @@ namespace Habit_Tracking_Console_App.ViewModel
                         habit.Edit(name, importance, isGood, description);
                         break;
                     default:
-                        InvalidArgument(command, inputArgs, 1);
+                        this.InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
