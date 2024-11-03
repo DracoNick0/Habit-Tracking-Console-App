@@ -29,9 +29,12 @@ namespace Habit_Tracking_Console_App.Commander
             bool isGood = this.habitInterface.PromptForIsGood();
             int importance = this.habitInterface.PromptForImportance();
 
-            this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description);
+            RecurrenceEnum recurrence = this.habitInterface.PromptForRecurrence();
+            int occurrence = this.habitInterface.PromptForOccurrence();
 
-            return this.dynamicStorage.CreateHabit(name, importance, isGood, description);
+            this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrence);
+
+            return this.dynamicStorage.CreateHabit(name, importance, isGood, description, recurrence, occurrence);
         }
 
         /// <summary>
@@ -80,10 +83,12 @@ namespace Habit_Tracking_Console_App.Commander
             int importance = habit.Importance;
             bool isGood = habit.IsGood;
             string description = habit.Description;
+            RecurrenceEnum recurrence = habit.Recurrence;
+            int occurrences = habit.Occurrence;
 
-            this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description);
+            this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrences);
 
-            habit.Edit(name, importance, isGood, description);
+            habit.Edit(name, importance, isGood, description, recurrence, occurrences);
         }
 
         public bool PromptAndDoHabit()

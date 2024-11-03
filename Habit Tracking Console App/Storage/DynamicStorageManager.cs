@@ -17,11 +17,11 @@ namespace Habit_Tracking_Console_App.Storage
             habits = persistentStorageManager.RetrieveHabits().ToDictionary(habit => habit.Name);
         }
 
-        public bool CreateHabit(string name, int importance, bool isGood, string description)
+        public bool CreateHabit(string name, int importance, bool isGood, string description, RecurrenceEnum recurrence, int occurrence)
         {
             if (!habits.ContainsKey(name))
             {
-                HabitObject newHabit = new HabitObject(name, importance, isGood, description);
+                HabitObject newHabit = new HabitObject(name, importance, isGood, description, recurrence, occurrence);
                 Add(newHabit);
                 return true;
             }

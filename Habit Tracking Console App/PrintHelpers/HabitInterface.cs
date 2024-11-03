@@ -88,7 +88,7 @@ namespace Habit_Tracking_Console_App.PrintHelpers
         /// <param name="importance">Habits importance.</param>
         /// <param name="isGood">Habits isGood.</param>
         /// <param name="description">Habits description</param>
-        public void PromptForHabitCorrection(ref string name, ref int importance, ref bool isGood, ref string description)
+        public void PromptForHabitCorrection(ref string name, ref int importance, ref bool isGood, ref string description, ref RecurrenceEnum recurrence, ref int occurrence)
         {
             string? userInput;
 
@@ -98,6 +98,8 @@ namespace Habit_Tracking_Console_App.PrintHelpers
                 prompt.Add("(If a detail is incorrect, type it's name to change the property, otherwise press enter.)");
                 prompt.Add("Habit details:");
                 prompt.Add($"- Name: {name}");
+                prompt.Add($"- Recurrence: {recurrence}");
+                prompt.Add($"- Occurrence: {occurrence}");
                 prompt.Add($"- Importance: {importance}");
                 prompt.Add($"- IsGood: {isGood}");
                 prompt.Add($"- Desc: {description}");
@@ -118,6 +120,12 @@ namespace Habit_Tracking_Console_App.PrintHelpers
                     case "importance":
                         importance = PromptForImportance();
                         break;
+                    case "recurrence":
+                        recurrence = PromptForRecurrence();
+                        break;
+                    case "occurrence":
+                        occurrence = PromptForOccurrence();
+                        break;
                     case "":
                         return;
                     default:
@@ -125,6 +133,43 @@ namespace Habit_Tracking_Console_App.PrintHelpers
                         break;
                 }
             }
+        }
+
+        public RecurrenceEnum PromptForRecurrence()
+        {
+            while (true)
+            {
+                string intervalPrompt = "Enter daily, weekly, monthly, or yearly: ";
+                switch (CLIHelper.PromptForNotEmptyInput(intervalPrompt))
+                {
+                    case "daily":
+                        return RecurrenceEnum.Daily;
+                    case "weekly":
+                        return RecurrenceEnum.Weekly;
+                    case "monthly":
+                        return RecurrenceEnum.Monthly;
+                    case "yearly":
+                        return RecurrenceEnum.Yearly;
+                    default:
+                        CLIHelper.Clear();
+                        CLIHelper.Error("Input was not valid, try again!");
+                        break;
+                }
+            }
+        }
+
+        public int PromptForOccurrence()
+        {
+            int occurence = -1;
+
+            string occurencePrompt = "Enter the amount of times you wish to do this habit within the time interval: ";
+            while (!((occurence = CLIHelper.PromptForIntInput(occurencePrompt)) > 0))
+            {
+                CLIHelper.Clear();
+                CLIHelper.Error("Input was not valid, try again!");
+            }
+
+            return occurence;
         }
 
         /// <summary>
@@ -163,16 +208,16 @@ namespace Habit_Tracking_Console_App.PrintHelpers
         /// <returns>User input.</returns>
         public int PromptForImportance()
         {
-            int? importance = null;
+            int importance;
 
             string importancePrompt = "If 1 is trivial and 5 is of utmost importance, enter the digit that represents the habits importance: ";
-            while ((importance = CLIHelper.PromptForIntInput(importancePrompt)) == null || 1 > importance || importance > 5)
+            while (!((importance = CLIHelper.PromptForIntInput(importancePrompt)) >= 1 && importance <= 5))
             {
                 CLIHelper.Clear();
                 CLIHelper.Error("Input was not valid, try again!");
             }
 
-            return (int)importance;
+            return importance;
         }
     }
 }

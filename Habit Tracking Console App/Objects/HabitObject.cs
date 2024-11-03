@@ -7,7 +7,8 @@
         private bool isGood;
         private string description;
         private bool completed;
-        private Frequency frequency;
+        private RecurrenceEnum recurrence;
+        private int occurrence;
 
         public HabitObject()
         {
@@ -16,33 +17,29 @@
             this.isGood = false;
             this.description = string.Empty;
             this.completed = false;
-            this.frequency = new Frequency(FrequencyInterval.Daily, 1);
+            this.recurrence = RecurrenceEnum.Daily;
+            this.occurrence = 1;
         }
 
-        public HabitObject(string name, int importance, bool isGood, string description, Frequency? frequency = null)
+        public HabitObject(string name, int importance, bool isGood, string description, RecurrenceEnum recurrence, int occurrence)
         {
             this.name = name;
             this.importance = importance;
             this.isGood = isGood;
             this.description = description;
-            if (frequency != null)
-            {
-                this.frequency = (Frequency)frequency;
-            }
-            else
-            {
-                this.frequency = new Frequency(FrequencyInterval.Daily, 1);
-            }
+            this.recurrence = recurrence;
+            this.occurrence = occurrence;
             completed = false;
         }
 
-        public void Edit(string? name = null, int? importance = null, bool? isGood = null, string? description = null, Frequency? frequency = null)
+        public void Edit(string? name = null, int? importance = null, bool? isGood = null, string? description = null, RecurrenceEnum? recurrence = null, int? occurrence = null)
         {
             this.name = name ?? this.name;
             this.importance = importance ?? this.importance;
             this.isGood = isGood ?? this.isGood;
             this.description = description ?? this.description;
-            this.frequency = frequency ?? this.frequency;
+            this.recurrence = recurrence ?? this.recurrence;
+            this.occurrence = occurrence ?? this.occurrence;
         }
 
         public string Name
@@ -75,5 +72,16 @@
             set { completed = value; }
         }
 
+        public RecurrenceEnum Recurrence
+        {
+            get { return recurrence; }
+            set { recurrence = value; }
+        }
+
+        public int Occurrence
+        {
+            get { return occurrence; }
+            set { occurrence = value; }
+        }
     }
 }
