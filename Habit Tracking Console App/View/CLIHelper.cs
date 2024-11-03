@@ -88,7 +88,7 @@ namespace Habit_Tracking_Console_App.View
             maxLength = Math.Min(maxLength, Console.WindowWidth - 1); // Formats the final string to either the window width or the user defined maxLength.
             int fillerCount = maxLength - finalMessage.Length - trail.Length;
 
-            if (fillerCount > 0)
+            if (fillerCount >= 0)
             {
                 string fillerStr = new string(filler, fillerCount); // Makes string that will fill the empty space.
                 finalMessage = finalMessage + fillerStr + trail;
