@@ -4,12 +4,12 @@ using Habit_Tracking_Console_App.Objects;
 
 namespace Habit_Tracking_Console_App.Commander
 {
-    class Commands
+    class CommandExecutor
     {
         private DynamicStorageManager dynamicStorage;
         private HabitInterface habitInterface;
 
-        public Commands(DynamicStorageManager dynamicStorage, HabitInterface habitInterface)
+        public CommandExecutor(DynamicStorageManager dynamicStorage, HabitInterface habitInterface)
         {
             this.dynamicStorage = dynamicStorage;
             this.habitInterface = habitInterface;

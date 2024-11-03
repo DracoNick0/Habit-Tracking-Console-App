@@ -10,14 +10,14 @@ namespace Habit_Tracking_Console_App.Commander
     {
         private DynamicStorageManager dynamicStorage;
         private HabitInterface habitInterface;
-        private Commands commands;
+        private CommandExecutor commands;
         private Action topText;
 
         public CommandHandler()
         {
             this.dynamicStorage = new DynamicStorageManager();
             this.habitInterface = new HabitInterface();
-            this.commands = new Commands(this.dynamicStorage, this.habitInterface);
+            this.commands = new CommandExecutor(this.dynamicStorage, this.habitInterface);
             this.topText = (() => Console.Write(""));
         }
 
