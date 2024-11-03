@@ -138,26 +138,6 @@ namespace Habit_Tracking_Console_App.ViewModel
             }
         }
 
-        /*
-        /// <summary>
-        /// Calls functions that are under the category of 'view'.
-        /// </summary>
-        /// <param name="userInput">The user input.</param>
-        /// <param name="inputArgs">User input split by the char ' '.</param>
-        private void ViewCommand(string userInput, params string[] inputArgs)
-        {
-            switch (inputArgs[1])
-            {
-                case "habit":
-                    this.habitInterface.PromptForHabitView();
-                    break;
-                default:
-                    InvalidArgument(userInput, inputArgs, 1);
-                    break;
-            }
-        }
-        */
-
         /// <summary>
         /// Calls functions that are under the category of 'show'.
         /// </summary>

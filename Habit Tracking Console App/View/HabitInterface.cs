@@ -67,12 +67,6 @@ namespace Habit_Tracking_Console_App.View
             CLIHelper.MsgForWindow("+", "+", "+", '-');
         }
 
-        /*
-        public void PromptForHabitView()
-        {
-        }
-        */
-
         /// <summary>
         /// Prompts the user for the name of a habit, then returns the corresponding habit.
         /// </summary>
