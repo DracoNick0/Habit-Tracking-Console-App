@@ -8,11 +8,11 @@ namespace Habit_Tracking_Console_App.View
     /// </summary>
     class HabitInterface
     {
-        private DynamicStorageManager habitManager;
+        private DynamicStorageManager dynamicStorage;
 
         public HabitInterface()
         {
-            habitManager = new DynamicStorageManager();
+            dynamicStorage = new DynamicStorageManager();
         }
 
         /// <summary>
@@ -25,7 +25,7 @@ namespace Habit_Tracking_Console_App.View
         public void DisplayAllHabits(bool displayIsGood = true, bool displayDescription = true, bool displayImportance = true, bool displayCompletion = true)
         {
 
-            List<HabitObject> habits = habitManager.getHabits();
+            List<HabitObject> habits = dynamicStorage.getHabits();
 
             if (habits.Count > 0)
             {
@@ -107,7 +107,7 @@ namespace Habit_Tracking_Console_App.View
 
             if (CLIHelper.PromptForTrueFalseInput("Save this habit?"))
             {
-                habitManager.AddHabit(newHabit);
+                this.dynamicStorage.Add(newHabit);
             }
         }
 
@@ -118,7 +118,7 @@ namespace Habit_Tracking_Console_App.View
         public HabitObject PromptForHabitObject()
         {
             string userInput;
-            List<HabitObject> habits = habitManager.getHabits();
+            List<HabitObject> habits = dynamicStorage.getHabits();
             List<string> habitNames = habits.Select(habit => habit.Name).ToList();
 
             while (true)
@@ -139,7 +139,7 @@ namespace Habit_Tracking_Console_App.View
         /// </summary>
         public void PromptForHabitDelete()
         {
-            habitManager.RemoveHabit(PromptForHabitObject().Name);
+            dynamicStorage.RemoveHabit(PromptForHabitObject().Name);
         }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace Habit_Tracking_Console_App.View
         /// </summary>
         public void SaveHabits()
         {
-            habitManager.SaveHabits();
+            this.dynamicStorage.Save();
         }
 
         /// <summary>

@@ -21,7 +21,7 @@ namespace Habit_Tracking_Console_App.Model.Storage
         /// </summary>
         /// <param name="habit">The habit object.</param>
         /// <returns>True if successfully added, otherwise false.</returns>
-        public bool AddHabit(HabitObject habit)
+        public bool Add(HabitObject habit)
         {
             if (!habits.ContainsKey(habit.Name))
             {
@@ -58,7 +58,7 @@ namespace Habit_Tracking_Console_App.Model.Storage
         /// <summary>
         /// Calls the persistent storage manager to save all habits.
         /// </summary>
-        public void SaveHabits()
+        public void Save()
         {
             storageManager.SaveHabits(new List<HabitObject>(habits.Values));
         }
