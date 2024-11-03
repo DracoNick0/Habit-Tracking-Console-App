@@ -11,13 +11,13 @@ namespace Habit_Tracking_Console_App.ViewModel
     {
         private DynamicStorageManager dynamicStorage;
         private HabitInterface habitInterface;
-        private List<string> topText;
+        private Action topText;
 
         public MainCommandHandler()
         {
             this.dynamicStorage = new DynamicStorageManager();
             this.habitInterface = new HabitInterface();
-            this.topText = new List<string>();
+            this.topText = (() => Console.Write(""));
         }
 
         public void Run()
@@ -26,7 +26,7 @@ namespace Habit_Tracking_Console_App.ViewModel
 
             do
             {
-                CLIHelper.Msg(this.topText.ToArray());
+                this.topText.Invoke();
                 userInput = CLIHelper.PromptForNotEmptyInput("Enter \"help\" to print a list of commands.");
             } while (ExecuteCommand(userInput));
         }
@@ -63,8 +63,8 @@ namespace Habit_Tracking_Console_App.ViewModel
                         case "delete":
                             this.DeleteInvoked(command, inputArgs);
                             break;
-                        case "show":
-                            this.ShowInvoked(command, inputArgs);
+                        case "view":
+                            this.ViewInvoked(command, inputArgs);
                             break;
                         case "edit":
                             this.EditInvoked(command, inputArgs);
@@ -182,14 +182,14 @@ namespace Habit_Tracking_Console_App.ViewModel
         /// </summary>
         /// <param name="command">The user input.</param>
         /// <param name="inputArgs">User input split by the char ' '.</param>
-        private void ShowInvoked(string command, params string[] inputArgs)
+        private void ViewInvoked(string command, params string[] inputArgs)
         {
             if (inputArgs.Length > 1)
             {
                 switch (inputArgs[1])
                 {
                     case "habit":
-                        this.habitInterface.DisplayAllHabits(this.dynamicStorage.getHabits());
+                        this.topText = (() => this.habitInterface.DisplayAllHabits(this.dynamicStorage.getHabits()));
                         break;
                     default:
                         this.InvalidArgument(command, inputArgs, 1);
