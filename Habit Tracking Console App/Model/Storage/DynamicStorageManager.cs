@@ -21,18 +21,20 @@ namespace Habit_Tracking_Console_App.Model.Storage
         /// </summary>
         /// <param name="habit">The habit object.</param>
         /// <returns>True if successfully added, otherwise false.</returns>
-        public bool Add(HabitObject habit)
+        public bool Add(HabitObject? habit)
         {
-            if (!habits.ContainsKey(habit.Name))
+            if (habit != null)
             {
-                habits.Add(habit.Name, habit);
-                return true;
+                if (!habits.ContainsKey(habit.Name))
+                {
+                    habits.Add(habit.Name, habit);
+                    return true;
+                }
+                else
+                {
+                    CLIHelper.Info("A habit with the same name already exists, please try again.");
+                }
             }
-            else
-            {
-                CLIHelper.Info("A habit with the same name already exists, please try again.");
-            }
-
 
             return false;
         }

@@ -1,4 +1,5 @@
-﻿using Habit_Tracking_Console_App.View;
+﻿using Habit_Tracking_Console_App.Model.Storage;
+using Habit_Tracking_Console_App.View;
 
 namespace Habit_Tracking_Console_App.ViewModel
 {
@@ -7,10 +8,12 @@ namespace Habit_Tracking_Console_App.ViewModel
     /// </summary>
     class MainCommandHandler
     {
+        private DynamicStorageManager dynamicStorage;
         HabitInterface habitInterface;
 
         public MainCommandHandler()
         {
+            this.dynamicStorage = new DynamicStorageManager();
             this.habitInterface = new HabitInterface();
         }
 
@@ -98,7 +101,7 @@ namespace Habit_Tracking_Console_App.ViewModel
             switch (inputArgs[1])
             {
                 case "habit":
-                    this.habitInterface.PromptForHabitCreation();
+                    this.dynamicStorage.Add(this.habitInterface.PromptForHabitCreation());
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -110,13 +113,13 @@ namespace Habit_Tracking_Console_App.ViewModel
         /// Calls functions that are under the category of 'delete'.
         /// </summary>
         /// <param name="userInput">The user input.</param>
-        /// <param name="inputArgs">User input split by the char ' '.</param>
+        /// <param name="inputArgs">User input split by the char ' '.</param> ***************************************************************************
         private void DeleteCommand(string userInput, params string[] inputArgs)
         {
             switch (inputArgs[1])
             {
                 case "habit":
-                    this.habitInterface.PromptForHabitDelete();
+                    this.dynamicStorage.RemoveHabit(this.habitInterface.PromptForHabitObject(this.dynamicStorage.getHabits()).Name);
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -152,7 +155,7 @@ namespace Habit_Tracking_Console_App.ViewModel
             switch (inputArgs[1])
             {
                 case "habit":
-                    this.habitInterface.DisplayAllHabits();
+                    this.habitInterface.DisplayAllHabits(this.dynamicStorage.getHabits());
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -170,7 +173,7 @@ namespace Habit_Tracking_Console_App.ViewModel
             switch (inputArgs[1])
             {
                 case "habit":
-                    this.habitInterface.PromptForHabitEdit();
+                    this.habitInterface.PromptForHabitEdit(this.dynamicStorage.getHabits());
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -183,7 +186,7 @@ namespace Habit_Tracking_Console_App.ViewModel
         /// </summary>
         private void ExitCommand()
         {
-            this.habitInterface.SaveHabits();
+            this.dynamicStorage.Save();
         }
 
         /// <summary>

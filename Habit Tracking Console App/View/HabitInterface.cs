@@ -1,5 +1,4 @@
 ﻿using Habit_Tracking_Console_App.Model;
-using Habit_Tracking_Console_App.Model.Storage;
 
 namespace Habit_Tracking_Console_App.View
 {
@@ -8,12 +7,7 @@ namespace Habit_Tracking_Console_App.View
     /// </summary>
     class HabitInterface
     {
-        private DynamicStorageManager dynamicStorage;
-
-        public HabitInterface()
-        {
-            dynamicStorage = new DynamicStorageManager();
-        }
+        public HabitInterface() { }
 
         /// <summary>
         /// Displays all habits.
@@ -22,10 +16,8 @@ namespace Habit_Tracking_Console_App.View
         /// <param name="displayDescription">Determines if the description variable is displayed.</param>
         /// <param name="displayImportance">Determines if the importance variable is displayed.</param>
         /// <param name="displayCompletion">Determines if the completion variable is displayed.</param>
-        public void DisplayAllHabits(bool displayIsGood = true, bool displayDescription = true, bool displayImportance = true, bool displayCompletion = true)
+        public void DisplayAllHabits(List<HabitObject> habits, bool displayIsGood = true, bool displayDescription = true, bool displayImportance = true, bool displayCompletion = true)
         {
-            List<HabitObject> habits = dynamicStorage.getHabits();
-
             if (habits.Count > 0)
             {
                 string isGood = "", importance = "", completion = " ";
@@ -80,10 +72,10 @@ namespace Habit_Tracking_Console_App.View
         }
 
         /// <summary>
-        /// Prints prompts to allow the user to create a habit object.
-        /// Calls to functions that create the babit and add it to the dynamic storage. ********************************************************************************************************
+        /// Prompts user for new habit object details and returns the created object.
         /// </summary>
-        public void PromptForHabitCreation()
+        /// <returns>Created habit object.</returns>
+        public HabitObject? PromptForHabitCreation()
         {
             string name, description;
             bool isGood;
@@ -102,23 +94,24 @@ namespace Habit_Tracking_Console_App.View
 
             if (CLIHelper.PromptForTrueFalseInput("Save this habit?"))
             {
-                this.dynamicStorage.Add(newHabit);
+                return newHabit;
             }
+
+            return null;
         }
 
         /// <summary>
         /// Prompts the user for the name of a habit, then returns the corresponding habit.
         /// </summary>
         /// <returns>The habit object corresponding to the name provided.</returns>
-        public HabitObject PromptForHabitObject()
+        public HabitObject PromptForHabitObject(List<HabitObject> habits)
         {
             string userInput;
-            List<HabitObject> habits = dynamicStorage.getHabits();
             List<string> habitNames = habits.Select(habit => habit.Name).ToList();
 
             while (true)
             {
-                DisplayAllHabits();
+                DisplayAllHabits(habits);
 
                 userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
 
@@ -130,28 +123,11 @@ namespace Habit_Tracking_Console_App.View
         }
 
         /// <summary>
-        /// Prompts the user for the name of a habit, then calls a function that removes the habit from the dynamic storage.
-        /// </summary>
-        public void PromptForHabitDelete()
-        {
-            dynamicStorage.RemoveHabit(PromptForHabitObject().Name);
-        }
-
-        /// <summary>
         /// Prompts the user for the name of a habit, then prints prompts to allow the user to edit the habit object.
         /// </summary>
-        public void PromptForHabitEdit()
+        public void PromptForHabitEdit(List<HabitObject> habits)
         {
-            PromptForHabitCorrection(PromptForHabitObject());
-        }
-
-        /// <summary>
-        /// Calls the habit manager to save the habits in the dynamic storage.
-        /// Should not be called in the view, should be called in the view model *************************************************************************
-        /// </summary>
-        public void SaveHabits()
-        {
-            this.dynamicStorage.Save();
+            PromptForHabitCorrection(PromptForHabitObject(habits));
         }
 
         /// <summary>
