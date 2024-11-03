@@ -211,18 +211,17 @@ namespace Habit_Tracking_Console_App.ViewModel
         private void PromptAndEditHabit()
         {
             List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
-            HabitObject? habit;
+            HabitObject? habit = null;
             string userInput;
 
-            while (true)
+            while (habit == null)
             {
                 this.habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
 
                 userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
-
-                if ((habit = this.dynamicStorage.GetHabitObject(this.habitInterface.PromptForHabit())) != null)
+                if (this.dynamicStorage.HabitExists(userInput))
                 {
-                    break;
+                    habit = this.dynamicStorage.GetHabitObject(userInput);
                 }
             }
 

@@ -77,6 +77,11 @@ namespace Habit_Tracking_Console_App.Model.Storage
             persistentStorageManager.SaveHabits(new List<HabitObject>(habits.Values));
         }
 
+        public bool HabitExists(string habitName)
+        {
+            return this.habits.ContainsKey(habitName);
+        }
+
         public HabitObject? GetHabitObject(string userInput)
         {
             if (habits.ContainsKey(userInput))
