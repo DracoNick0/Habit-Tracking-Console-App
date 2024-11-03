@@ -115,7 +115,9 @@ namespace Habit_Tracking_Console_App.View
         /// <param name="errorMsg">The message.</param>
         public static void Error(string errorMsg)
         {
+            Console.ForegroundColor = ConsoleColor.Red;
             Msg($"Error: {errorMsg}");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         /// <summary>
@@ -124,7 +126,9 @@ namespace Habit_Tracking_Console_App.View
         /// <param name="infoMsg">The message.</param>
         public static void Info(string infoMsg)
         {
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Msg($"({infoMsg})");
+            Console.ForegroundColor = ConsoleColor.White;
         }
 
         /// <summary>

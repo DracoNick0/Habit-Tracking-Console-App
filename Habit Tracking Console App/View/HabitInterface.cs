@@ -90,7 +90,7 @@ namespace Habit_Tracking_Console_App.View
             while (true)
             {
                 List<string> prompt = new List<string>();
-                prompt.Add("<If a detail is incorrect, type it's name to change the property, otherwise press enter.>");
+                prompt.Add("(If a detail is incorrect, type it's name to change the property, otherwise press enter.)");
                 prompt.Add("Habit details:");
                 prompt.Add($"- Name: {name}");
                 prompt.Add($"- Importance: {importance}");
