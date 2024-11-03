@@ -16,7 +16,7 @@ namespace Habit_Tracking_Console_App.View
         /// <param name="displayDescription">Determines if the description variable is displayed.</param>
         /// <param name="displayImportance">Determines if the importance variable is displayed.</param>
         /// <param name="displayCompletion">Determines if the completion variable is displayed.</param>
-        public void DisplayAllHabits(List<HabitObject> habits, bool displayIsGood = true, bool displayDescription = true, bool displayImportance = true, bool displayCompletion = true)
+        public void DisplayAllHabits(List<HabitObject> habits, bool displayIsGood = true, bool displayImportance = true, bool displayCompletion = true, bool displayDescription = true)
         {
             if (habits.Count > 0)
             {
@@ -99,7 +99,7 @@ namespace Habit_Tracking_Console_App.View
         /// Prints prompts to allow the user to edit the habit object.
         /// </summary>
         /// <param name="habitObject">The habit object being edited.</param>
-        public void PromptForHabitCorrection(ref string name, ref string desc, ref bool isGood, ref int importance)
+        public void PromptForHabitCorrection(ref string name, ref int importance, ref bool isGood, ref string desc)
         {
             string? userInput;
 
@@ -109,9 +109,9 @@ namespace Habit_Tracking_Console_App.View
                 prompt.Add("<If a detail is incorrect, type it's name to change the property, otherwise press enter.>");
                 prompt.Add("Habit details:");
                 prompt.Add($"- Name: {name}");
-                prompt.Add($"- Desc: {desc}");
-                prompt.Add($"- IsGood: {isGood}");
                 prompt.Add($"- Importance: {importance}");
+                prompt.Add($"- IsGood: {isGood}");
+                prompt.Add($"- Desc: {desc}");
 
                 userInput = CLIHelper.PromptForNotNullInput(prompt.ToArray()).ToLower();
 

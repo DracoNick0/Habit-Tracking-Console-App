@@ -110,9 +110,9 @@ namespace Habit_Tracking_Console_App.ViewModel
                     bool isGood = this.habitInterface.PromptForIsGood();
                     int importance = this.habitInterface.PromptForImportance();
 
-                    this.habitInterface.PromptForHabitCorrection(ref name, ref description, ref isGood, ref importance);
+                    this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description);
 
-                    this.dynamicStorage.CreateHabit(name, description, isGood, importance);
+                    this.dynamicStorage.CreateHabit(name, importance, isGood, description);
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);
@@ -189,16 +189,13 @@ namespace Habit_Tracking_Console_App.ViewModel
                     HabitObject habit = this.habitInterface.PromptForHabitObject(this.dynamicStorage.getHabits());
 
                     string name = habit.Name;
-                    string description = habit.Description;
-                    bool isGood = habit.IsGood;
                     int importance = habit.Importance;
+                    bool isGood = habit.IsGood;
+                    string description = habit.Description;
 
-                    this.habitInterface.PromptForHabitCorrection(ref name, ref description, ref isGood, ref importance);
+                    this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description);
 
-                    habit.Name = name;
-                    habit.Description = description;
-                    habit.IsGood = isGood;
-                    habit.Importance = importance;
+                    habit.Edit(name, importance, isGood, description);
                     break;
                 default:
                     InvalidArgument(userInput, inputArgs, 1);

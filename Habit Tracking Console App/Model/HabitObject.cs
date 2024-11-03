@@ -1,29 +1,39 @@
-﻿namespace Habit_Tracking_Console_App.Model
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Habit_Tracking_Console_App.Model
 {
     class HabitObject
     {
         private string name;
+        private int importance;
         private bool isGood;
         private string description;
-        private int importance;
         private bool completed;
 
         public HabitObject()
         {
             name = string.Empty;
+            importance = 0;
             isGood = true;
             description = string.Empty;
-            importance = 0;
             completed = false;
         }
 
-        public HabitObject(string name, bool isGood, string description, int importance)
+        public HabitObject(string name, int importance, bool isGood, string description)
         {
             this.name = name;
+            this.importance = importance;
             this.isGood = isGood;
             this.description = description;
-            this.importance = importance;
             completed = false;
+        }
+
+        public void Edit(string? name = null, int? importance = null, bool? isGood = null, string? description = null)
+        {
+            this.name = name ?? this.name;
+            this.importance = importance ?? this.importance;
+            this.isGood = isGood ?? this.isGood;
+            this.description = description ?? this.description;
         }
 
         public string Name
