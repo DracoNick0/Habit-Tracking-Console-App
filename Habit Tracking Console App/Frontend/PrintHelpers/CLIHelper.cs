@@ -1,4 +1,6 @@
 ﻿using Habit_Tracking_Console_App.Backend.Logic;
+using System.Globalization;
+using Task_Tracking_Console_App.Frontend.PrintHelpers;
 
 namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
 {
@@ -223,6 +225,25 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
             {
                 Clear();
                 Error("Input was not valid, try again!");
+            }
+
+            Clear();
+            return output;
+        }
+
+        /// <summary>
+        /// Prompts the user for input until given mm/dd/yyyy input.
+        /// </summary>
+        /// <param name="prompt">One or more strings to display as the prompt.</param>
+        /// <returns>DateTime user input.</returns>
+        public static DateTime PromptForDateInput(params string[] prompt)
+        {
+            string userInput;
+            DateTime output;
+
+            while (!DateTime.TryParseExact(userInput = PromptForNotEmptyInput(), "mm/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out output))
+            {
+                Error($"\"{userInput}\" is an invalid date, try again!");
             }
 
             Clear();
