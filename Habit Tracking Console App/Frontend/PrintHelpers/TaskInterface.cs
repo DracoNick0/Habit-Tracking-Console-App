@@ -241,7 +241,7 @@ namespace Task_Tracking_Console_App.Frontend.PrintHelpers
         public bool PromptForIsGood()
         {
             string isGoodPrompt = "Is this a good task, enter true or false: ";
-            return CLIHelper.PromptForTrueFalseInput(isGoodPrompt);
+            return CLIHelper.PromptForBoolInput(isGoodPrompt);
         }
 
         /// <summary>

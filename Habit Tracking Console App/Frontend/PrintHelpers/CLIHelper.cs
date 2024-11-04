@@ -185,7 +185,7 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
         /// </summary>
         /// <param name="prompt">One or more strings to display as the prompt.</param>
         /// <returns>Boolean user input.</returns>
-        public static bool PromptForTrueFalseInput(params string[] prompt)
+        public static bool PromptForBoolInput(params string[] prompt)
         {
             string? userInput = null;
 
@@ -196,10 +196,10 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
 
                 switch (userInput)
                 {
-                    case string s when s == "true" || s == "y" || s == "yes":
+                    case string s when s == "true" || s == "t" || s == "y" || s == "yes":
                         Clear();
                         return true;
-                    case string s when s == "false" || s == "n" || s == "no":
+                    case string s when s == "false" || s == "f" || s == "y" || s == "no":
                         Clear();
                         return false;
                     default:
