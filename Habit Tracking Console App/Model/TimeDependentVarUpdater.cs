@@ -2,6 +2,8 @@
 {
     class TimeDependentVarUpdater
     {
+        public event EventHandler DateChanged = delegate { };
+
         public TimeDependentVarUpdater()
         {
             Task.Run(() => this.WaitAndUpdate());
@@ -11,8 +13,11 @@
         {
             while (true)
             {
+                // Update
+                this.UpdateTimeDependentVariables();
+
                 DateTime now = DateTime.Now;
-                DateTime dayFromNow = DateTime.Now.AddDays(1);
+                DateTime dayFromNow = now.AddDays(1);
                 DateTime tomorrowStart = new DateTime(dayFromNow.Year, dayFromNow.Month, dayFromNow.Day, 0, 0, 0);
 
                 TimeSpan timeTillTomorrow = tomorrowStart - now;
@@ -24,15 +29,12 @@
 
                 // Wait
                 Thread.Sleep((int)Math.Ceiling(msTillTomorrow) + 1000);
-
-                // Update
-                this.UpdateTimeDependentVariables();
             }
         }
 
         private void UpdateTimeDependentVariables()
         {
-
+            DateChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }
