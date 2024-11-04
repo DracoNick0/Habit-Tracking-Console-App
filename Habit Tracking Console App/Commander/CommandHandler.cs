@@ -13,9 +13,9 @@ namespace Habit_Tracking_Console_App.Commander
         private CommandExecutor commands;
         private Action topText;
 
-        public CommandHandler()
+        public CommandHandler(DynamicStorageManager dynamicStorageManger)
         {
-            this.dynamicStorage = new DynamicStorageManager();
+            this.dynamicStorage = dynamicStorageManger;
             this.habitInterface = new HabitInterface();
             this.commands = new CommandExecutor(this.dynamicStorage, this.habitInterface);
             this.topText = (() => Console.Write(""));
