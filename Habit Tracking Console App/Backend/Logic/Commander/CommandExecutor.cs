@@ -25,7 +25,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
         /// <returns></returns>
         public bool PromptAndCreateTask()
         {
-            CLIHelper.Info("You can make changes to the task after answering the following prompts.");
+            IO.Info("You can make changes to the task after answering the following prompts.");
 
             // Get new task details.
             string name = taskInterface.PromptForName();
@@ -33,7 +33,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             bool isGood = taskInterface.PromptForIsGood();
             int importance = taskInterface.PromptForImportance();
 
-            DateTime dueDate = CLIHelper.PromptForDateInput();
+            DateTime dueDate = IO.PromptForDateInput();
 
             string recurrenceAsString = this.taskInterface.PromptForRecurrence();
             int occurrence = taskInterface.PromptForOccurrence();
@@ -65,7 +65,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             {
                 taskInterface.DisplayAllTasks(dynamicStorage.getTasks());
 
-                userInput = CLIHelper.PromptForNotEmptyInput("Enter the task name: ");
+                userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
 
                 if (taskNames.Contains(userInput))
                 {
@@ -87,7 +87,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             {
                 taskInterface.DisplayAllTasks(dynamicStorage.getTasks());
 
-                userInput = CLIHelper.PromptForNotEmptyInput("Enter the task name: ");
+                userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
                 if (dynamicStorage.TaskExists(userInput))
                 {
                     task = dynamicStorage.GetTaskObject(userInput);
@@ -122,7 +122,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             while (!dynamicStorage.DoTask(userInput))
             {
                 taskInterface.DisplayAllTasks(dynamicStorage.getTasks());
-                userInput = CLIHelper.PromptForNotEmptyInput("Enter the task name: ");
+                userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
             }
 
             return false;
@@ -140,7 +140,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             while (!dynamicStorage.UndoTask(userInput))
             {
                 taskInterface.DisplayAllTasks(dynamicStorage.getTasks());
-                userInput = CLIHelper.PromptForNotEmptyInput("Enter the task name: ");
+                userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
             }
 
             return false;
@@ -153,7 +153,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
         /// <param name="command">The user inputted command.</param>
         public void InvalidCommand(string command)
         {
-            CLIHelper.Error($"The command \"{command}\" is not valid, try again!");
+            IO.Error($"The command \"{command}\" is not valid, try again!");
         }
 
         /// <summary>
@@ -164,7 +164,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
         /// <param name="inputArgs">User input split by the char ' '.</param>
         public void InvalidArgument(string command, string[] inputArgs, int index)
         {
-            CLIHelper.Error($"The argument \"{inputArgs[index]}\" in \"{command}\" is not valid, try again!");
+            IO.Error($"The argument \"{inputArgs[index]}\" in \"{command}\" is not valid, try again!");
         }
     }
 }

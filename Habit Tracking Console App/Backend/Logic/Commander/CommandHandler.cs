@@ -29,7 +29,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             do
             {
                 topText.Invoke();
-                userInput = CLIHelper.PromptForNotEmptyInput("Enter \"help\" to print a list of commands.");
+                userInput = IO.PromptForNotEmptyInput("Enter \"help\" to print a list of commands.");
             } while (ExecuteCommand(userInput));
         }
 
@@ -46,7 +46,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
                 string command = userInput.ToLower();
                 string[] inputArgs = command.Split(' ');
 
-                CLIHelper.Clear();
+                IO.Clear();
                 if (inputArgs.Length > 0)
                 {
                     switch (inputArgs[0])
@@ -92,13 +92,13 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
         /// </summary>
         private void HelpInvoked()
         {
-            CLIHelper.Msg("Available Commands:");
-            CLIHelper.MsgForWindow("", "", "", '-', int.MaxValue);
-            CLIHelper.Msg("- exit: saves and exits the program");
-            CLIHelper.Msg("- show <item>: displays all items in category(eg. task, habit)");
-            CLIHelper.Msg("- create <item>: creates an item(eg. task, habit)");
-            CLIHelper.Msg("- delete <item>: deletes an item(eg. task, habit)");
-            CLIHelper.Msg("- edit <item>: creates an item(eg. task, habit)");
+            IO.Msg("Available Commands:");
+            IO.MsgForWindow("", "", "", '-', int.MaxValue);
+            IO.Msg("- exit: saves and exits the program");
+            IO.Msg("- show <item>: displays all items in category(eg. task, habit)");
+            IO.Msg("- create <item>: creates an item(eg. task, habit)");
+            IO.Msg("- delete <item>: deletes an item(eg. task, habit)");
+            IO.Msg("- edit <item>: creates an item(eg. task, habit)");
         }
 
         /// <summary>

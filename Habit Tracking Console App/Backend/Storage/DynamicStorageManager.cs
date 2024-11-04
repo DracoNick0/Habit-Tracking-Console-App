@@ -56,7 +56,7 @@ namespace Task_Tracking_Console_App.Backend.Storage
                 }
                 else
                 {
-                    CLIHelper.Info("A task with the same name already exists, please try again.");
+                    IO.Info("A task with the same name already exists, please try again.");
                 }
             }
 

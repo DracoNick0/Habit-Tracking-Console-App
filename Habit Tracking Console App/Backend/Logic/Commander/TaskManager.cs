@@ -25,7 +25,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
                 string isGood = "", importance = "", completion = " ", timeLeft = "";
                 foreach (TaskObject task in tasks)
                 {
-                    CLIHelper.MsgForWindow("+", "+", "+", '-');
+                    IO.MsgForWindow("+", "+", "+", '-');
                     if (displayCompletion)
                     {
                         if (task.Completions >= task.Occurrence)
@@ -82,22 +82,22 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
 
                     //CLIHelper.MsgForWindow($"| [{completion}] {task.Name} ", "..|", $"({importance} : {isGood}) |");
 
-                    CLIHelper.MsgForWindow($"| [{completion}] {task.Name} ", "..|", $"|");
-                    CLIHelper.MsgForWindow($"| {timeLeft}", "..|", $"({importance} : {isGood}) |");
+                    IO.MsgForWindow($"| [{completion}] {task.Name} ", "..|", $"|");
+                    IO.MsgForWindow($"| {timeLeft}", "..|", $"({importance} : {isGood}) |");
 
                     if (displayDescription)
                     {
-                        CLIHelper.MsgForWindow($"| Desc: {task.Description} ", "..|", "|");
+                        IO.MsgForWindow($"| Desc: {task.Description} ", "..|", "|");
                     }
                 }
             }
             else
             {
-                CLIHelper.MsgForWindow("+", "+", "+", '-');
-                CLIHelper.MsgForWindow($"| Empty", "...|", "|");
+                IO.MsgForWindow("+", "+", "+", '-');
+                IO.MsgForWindow($"| Empty", "...|", "|");
             }
 
-            CLIHelper.MsgForWindow("+", "+", "+", '-');
+            IO.MsgForWindow("+", "+", "+", '-');
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
         /// <returns>The task object corresponding to the name provided.</returns>
         public string PromptForTask()
         {
-            return CLIHelper.PromptForNotEmptyInput("Enter the task name: ");
+            return IO.PromptForNotEmptyInput("Enter the task name: ");
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
                 prompt.Add($"- IsGood: {isGood}");
                 prompt.Add($"- Desc: {description}");
 
-                userInput = CLIHelper.PromptForNotNullInput(prompt.ToArray()).ToLower();
+                userInput = IO.PromptForNotNullInput(prompt.ToArray()).ToLower();
 
                 switch (userInput)
                 {
@@ -157,7 +157,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
                     case "":
                         return;
                     default:
-                        CLIHelper.Error("Input was not valid, try again!");
+                        IO.Error("Input was not valid, try again!");
                         break;
                 }
             }
@@ -165,7 +165,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
 
         public string PromptForDueDate()
         {
-            return CLIHelper.PromptForNotEmptyInput("Please enter task start/due date (mm/dd/yyyy).");
+            return IO.PromptForNotEmptyInput("Please enter task start/due date (mm/dd/yyyy).");
         }
 
         /// <summary>
@@ -178,7 +178,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             {
                 string intervalPrompt = "Enter recurrence; none, daily, weekly, monthly, or yearly: ";
                 string userInput;
-                switch (userInput = CLIHelper.PromptForNotEmptyInput(intervalPrompt))
+                switch (userInput = IO.PromptForNotEmptyInput(intervalPrompt))
                 {
                     case "none":
                     case "daily":
@@ -187,8 +187,8 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
                     case "yearly":
                         return userInput;
                     default:
-                        CLIHelper.Clear();
-                        CLIHelper.Error("Input was not valid, try again!");
+                        IO.Clear();
+                        IO.Error("Input was not valid, try again!");
                         break;
                 }
             }
@@ -203,10 +203,10 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             int occurence = -1;
 
             string occurencePrompt = "Enter the amount of times you wish to do this task within the time interval: ";
-            while (!((occurence = CLIHelper.PromptForIntInput(occurencePrompt)) > 0))
+            while (!((occurence = IO.PromptForIntInput(occurencePrompt)) > 0))
             {
-                CLIHelper.Clear();
-                CLIHelper.Error("Input was not valid, try again!");
+                IO.Clear();
+                IO.Error("Input was not valid, try again!");
             }
 
             return occurence;
@@ -219,7 +219,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
         public string PromptForName()
         {
             string namePrompt = "Enter the name of the task: ";
-            return CLIHelper.PromptForNotEmptyInput(namePrompt);
+            return IO.PromptForNotEmptyInput(namePrompt);
         }
 
         /// <summary>
@@ -229,7 +229,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
         public string PromptForDescription()
         {
             string descriptionPrompt = "Enter the description of the task: ";
-            return CLIHelper.PromptForNotEmptyInput(descriptionPrompt);
+            return IO.PromptForNotEmptyInput(descriptionPrompt);
         }
 
         /// <summary>
@@ -239,7 +239,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
         public bool PromptForIsGood()
         {
             string isGoodPrompt = "Is this a good task, enter true or false: ";
-            return CLIHelper.PromptForBoolInput(isGoodPrompt);
+            return IO.PromptForBoolInput(isGoodPrompt);
         }
 
         /// <summary>
@@ -251,10 +251,10 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             int importance;
 
             string importancePrompt = "If 1 is trivial and 5 is of utmost importance, enter the digit that represents the tasks importance: ";
-            while (!((importance = CLIHelper.PromptForIntInput(importancePrompt)) >= 1 && importance <= 5))
+            while (!((importance = IO.PromptForIntInput(importancePrompt)) >= 1 && importance <= 5))
             {
-                CLIHelper.Clear();
-                CLIHelper.Error("Input was not valid, try again!");
+                IO.Clear();
+                IO.Error("Input was not valid, try again!");
             }
 
             return importance;

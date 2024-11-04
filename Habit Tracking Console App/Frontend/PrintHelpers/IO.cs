@@ -4,7 +4,7 @@ using System.Globalization;
 
 namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
 {
-    class CLIHelper
+    class IO
     {
         public const int maxStringLength = 50;
 

@@ -9,12 +9,12 @@ TimeDependentVarUpdater updater = new TimeDependentVarUpdater();
 
 DynamicStorageManager dynamicStorageManager = new DynamicStorageManager();
 
-CLIHelper.Msg("Hello World!");
+IO.Msg("Hello World!");
 
 // Run the main application.
 CommandHandler commandHandler = new CommandHandler(dynamicStorageManager);
 commandHandler.Run();
 
 // Terminate process.
-CLIHelper.Msg("See you again!");
+IO.Msg("See you again!");
 
