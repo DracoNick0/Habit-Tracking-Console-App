@@ -16,11 +16,11 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
         /// <param name="displayDescription">Determines if the description variable is displayed.</param>
         /// <param name="displayImportance">Determines if the importance variable is displayed.</param>
         /// <param name="displayCompletion">Determines if the completion variable is displayed.</param>
-        public void DisplayAllHabits(List<HabitObject> habits, bool displayIsGood = true, bool displayImportance = true, bool displayCompletion = true, bool displayDescription = true)
+        public void DisplayAllHabits(List<HabitObject> habits, bool displayIsGood = true, bool displayImportance = true, bool displayCompletion = true, bool displayDescription = true, bool displayTimeLeft = true)
         {
             if (habits.Count > 0)
             {
-                string isGood = "", importance = "", completion = " ";
+                string isGood = "", importance = "", completion = " ", timeLeft = "";
                 foreach (HabitObject habit in habits)
                 {
                     CLIHelper.MsgForWindow("+", "+", "+", '-');
@@ -53,9 +53,32 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
                         importance = habit.Importance.ToString();
                     }
 
-                    CLIHelper.MsgForWindow($"| [{completion}] Habit: {habit.Name} ", "..|", $"({importance} : {isGood}) |");
-                    //CLIHelper.MsgForWindow($"| [{completion}] Habit: {habit.Name} ", "...|", "|");
+                    if (displayTimeLeft)
+                    {
+                        switch (habit.Recurrence)
+                        {
+                            case RecurrenceEnum.daily:
+                                timeLeft = "  ";
+                                break;
+                            case RecurrenceEnum.weekly:
+                                timeLeft = "  ";
+                                break;
+                            case RecurrenceEnum.monthly:
+                                timeLeft = "  ";
+                                break;
+                            case RecurrenceEnum.yearly:
+                                timeLeft = "  ";
+                                break;
+                        }
+                    }
+
+                    //CLIHelper.MsgForWindow($"| Habit: [{completion}] Habit: {habit.Name} ", "...|", "|");
                     //CLIHelper.MsgForWindow($"| Importance: {importance} ", "...|", $"({isGood}) |");
+
+                    //CLIHelper.MsgForWindow($"| [{completion}] {habit.Name} ", "..|", $"({importance} : {isGood}) |");
+
+                    CLIHelper.MsgForWindow($"| [{completion}] {habit.Name} ", "..|", $"|");
+                    CLIHelper.MsgForWindow($"|{timeLeft}", "..|", $"({importance} : {isGood}) |");
 
                     if (displayDescription)
                     {
