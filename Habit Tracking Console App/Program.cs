@@ -1,4 +1,5 @@
-﻿using Habit_Tracking_Console_App.Backend.Logic.Commander;
+﻿using Habit_Tracking_Console_App.Backend.Logic;
+using Habit_Tracking_Console_App.Backend.Logic.Commander;
 using Habit_Tracking_Console_App.Backend.Storage;
 using Habit_Tracking_Console_App.Backend.Threads;
 using Habit_Tracking_Console_App.Frontend.PrintHelpers;
@@ -10,6 +11,7 @@ TimeDependentVarUpdater updater = new TimeDependentVarUpdater();
 DynamicStorageManager dynamicStorageManager = new DynamicStorageManager();
 
 CLIHelper.Msg("Hello World!");
+Console.WriteLine(TimeHelper.TimeTillNextYear());
 
 // Run the main application.
 CommandHandler commandHandler = new CommandHandler(dynamicStorageManager);
