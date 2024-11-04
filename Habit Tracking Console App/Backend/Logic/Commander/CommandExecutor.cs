@@ -1,19 +1,19 @@
 ﻿using Task_Tracking_Console_App.Backend.Objects;
-using Task_Tracking_Console_App.Frontend.PrintHelpers;
 using Task_Tracking_Console_App.Backend.Storage;
 using Habit_Tracking_Console_App.Frontend.PrintHelpers;
 using Habit_Tracking_Console_App.Backend.Objects;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Globalization;
+using Habit_Tracking_Console_App.Backend.Logic.Commander;
 
 namespace Task_Tracking_Console_App.Backend.Logic.Commander
 {
     class CommandExecutor
     {
         private DynamicStorageManager dynamicStorage;
-        private TaskInterface taskInterface;
+        private TaskManager taskInterface;
 
-        public CommandExecutor(DynamicStorageManager dynamicStorage, TaskInterface taskInterface)
+        public CommandExecutor(DynamicStorageManager dynamicStorage, TaskManager taskInterface)
         {
             this.dynamicStorage = dynamicStorage;
             this.taskInterface = taskInterface;
@@ -33,12 +33,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             bool isGood = taskInterface.PromptForIsGood();
             int importance = taskInterface.PromptForImportance();
 
-            string date;
-            DateTime dueDate;
-            while (!DateTime.TryParseExact(date = taskInterface.PromptForDueDate(), "mm/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dueDate))
-            {
-                CLIHelper.Error($"\"{date}\" is an invalid date!");
-            }
+            DateTime dueDate = CLIHelper.PromptForDateInput();
 
             string recurrenceAsString = this.taskInterface.PromptForRecurrence();
             int occurrence = taskInterface.PromptForOccurrence();

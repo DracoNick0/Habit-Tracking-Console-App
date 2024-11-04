@@ -1,17 +1,15 @@
-﻿using Habit_Tracking_Console_App.Backend.Logic;
-using Habit_Tracking_Console_App.Backend.Objects;
+﻿using Habit_Tracking_Console_App.Backend.Objects;
 using Habit_Tracking_Console_App.Frontend.PrintHelpers;
-using System.Globalization;
 using Task_Tracking_Console_App.Backend.Objects;
 
-namespace Task_Tracking_Console_App.Frontend.PrintHelpers
+namespace Habit_Tracking_Console_App.Backend.Logic.Commander
 {
     /// <summary>
     /// Contains functions that prompt for interactions with tasks.
     /// </summary>
-    class TaskInterface
+    class TaskManager
     {
-        public TaskInterface() { }
+        public TaskManager() { }
 
         /// <summary>
         /// Displays all tasks.
