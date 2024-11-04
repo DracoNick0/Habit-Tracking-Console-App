@@ -2,6 +2,7 @@
 {
     public enum RecurrenceEnum
     {
+        none,
         daily,
         weekly,
         monthly,

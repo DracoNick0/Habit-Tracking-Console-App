@@ -19,7 +19,7 @@ namespace Task_Tracking_Console_App.Backend.Objects
             isGood = false;
             description = string.Empty;
             completions = 0;
-            recurrence = RecurrenceEnum.daily;
+            recurrence = RecurrenceEnum.none;
             occurrence = 1;
         }
 

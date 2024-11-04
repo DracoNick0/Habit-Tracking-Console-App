@@ -89,7 +89,6 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
 
         /// <summary>
         /// Displays a list of commands the user can enter.
-        /// Text should be given and executed in View. ***************************************************************************************************
         /// </summary>
         private void HelpInvoked()
         {
@@ -127,7 +126,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
         /// Calls functions that are under the category of 'delete'.
         /// </summary>
         /// <param name="command">The user input.</param>
-        /// <param name="inputArgs">User input split by the char ' '.</param> ***************************************************************************
+        /// <param name="inputArgs">User input split by the char ' '.</param>
         private void DeleteInvoked(string command, params string[] inputArgs)
         {
             if (inputArgs.Length > 1)
