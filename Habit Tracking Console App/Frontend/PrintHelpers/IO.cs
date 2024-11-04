@@ -144,6 +144,11 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
             return Console.ReadLine();
         }
 
+        public static void InvalidInput(string userInput, string type)
+        {
+            Error($"{userInput} is not a valid {type}, try again!");
+        }
+
         /// <summary>
         /// Prompts the user for input until given a non-null input.
         /// </summary>
@@ -180,34 +185,6 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
 
             Clear();
             return userInput;
-        }
-
-        /// <summary>
-        /// Prompts the user for input until given a boolean input.
-        /// </summary>
-        /// <param name="prompt">One or more strings to display as the prompt.</param>
-        /// <returns>Boolean user input.</returns>
-        public static bool PromptForBoolInput(params string[] prompt)
-        {
-            string userInput;
-
-            while (true)
-            {
-                userInput = PromptForNotEmptyInput(prompt).ToLower();
-
-                switch (userInput)
-                {
-                    case string s when s == "true" || s == "t" || s == "y" || s == "yes":
-                        Clear();
-                        return true;
-                    case string s when s == "false" || s == "f" || s == "y" || s == "no":
-                        Clear();
-                        return false;
-                    default:
-                        Error("Input was not valid, try again!");
-                        break;
-                }
-            }
         }
 
         /// <summary>
@@ -254,7 +231,7 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
         /// Prompts the user for the recurrence of a task.
         /// </summary>
         /// <returns>User input.</returns>
-        public RecurrenceEnum PromptForRecurrence(string prompt)
+        public RecurrenceEnum PromptForRecurrence(params string[] prompt)
         {
             while (true)
             {

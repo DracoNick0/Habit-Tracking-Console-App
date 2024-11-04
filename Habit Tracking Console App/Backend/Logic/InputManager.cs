@@ -1,12 +1,36 @@
 ﻿using Habit_Tracking_Console_App.Backend.Objects;
+using Habit_Tracking_Console_App.Frontend.PrintHelpers;
 
 namespace Habit_Tracking_Console_App.Backend.Logic
 {
     class InputManager
     {
+        /// <summary>
+        /// Prompts the user for input until given a boolean input.
+        /// </summary>
+        /// <param name="prompt">One or more strings to display as the prompt.</param>
+        /// <returns>Boolean user input.</returns>
         public static bool GetBoolInput(params string[] prompt)
         {
-            return false;
+            string userInput;
+
+            while (true)
+            {
+                userInput = IO.PromptForNotEmptyInput(prompt).ToLower();
+
+                switch (userInput)
+                {
+                    case string s when s == "true" || s == "t" || s == "y" || s == "yes" || s == "1":
+                        IO.Clear();
+                        return true;
+                    case string s when s == "false" || s == "f" || s == "y" || s == "no" || s == "0":
+                        IO.Clear();
+                        return false;
+                    default:
+                        IO.InvalidInput(userInput, "boolean");
+                        break;
+                }
+            }
         }
 
         public static int GetIntegerInput(params string[] prompt)
