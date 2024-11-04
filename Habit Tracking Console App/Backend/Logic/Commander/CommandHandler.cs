@@ -10,15 +10,15 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
     class CommandHandler
     {
         private DynamicStorageManager dynamicStorage;
-        private TaskManager taskInterface;
+        private TaskIO taskIO;
         private CommandExecutor commands;
         private Action topText;
 
         public CommandHandler(DynamicStorageManager dynamicStorageManger)
         {
             dynamicStorage = dynamicStorageManger;
-            taskInterface = new TaskManager();
-            commands = new CommandExecutor(dynamicStorage, taskInterface);
+            taskIO = new TaskIO();
+            commands = new CommandExecutor(dynamicStorage, taskIO);
             topText = () => Console.Write("");
         }
 
@@ -156,7 +156,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
                 {
                     case "task":
                     case "tasks":
-                        topText = () => taskInterface.DisplayAllTasks(dynamicStorage.getTasks());
+                        topText = () => taskIO.DisplayAllTasks(dynamicStorage.getTasks());
                         break;
                     default:
                         commands.InvalidArgument(command, inputArgs, 1);

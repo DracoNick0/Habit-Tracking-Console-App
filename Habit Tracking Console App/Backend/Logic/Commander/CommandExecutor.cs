@@ -10,12 +10,12 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
     class CommandExecutor
     {
         private DynamicStorageManager dynamicStorage;
-        private TaskManager taskInterface;
+        private TaskIO taskIO;
 
-        public CommandExecutor(DynamicStorageManager dynamicStorage, TaskManager taskInterface)
+        public CommandExecutor(DynamicStorageManager dynamicStorage, TaskIO taskIO)
         {
             this.dynamicStorage = dynamicStorage;
-            this.taskInterface = taskInterface;
+            this.taskIO = taskIO;
         }
 
         /// <summary>
@@ -27,18 +27,18 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             IO.Info("You can make changes to the task after answering the following prompts.");
 
             // Get new task details.
-            string name = taskInterface.PromptForName();
-            string description = taskInterface.PromptForDescription();
-            bool isGood = taskInterface.PromptForIsGood();
-            int importance = taskInterface.PromptForImportance();
+            string name = taskIO.PromptForName();
+            string description = taskIO.PromptForDescription();
+            bool isGood = taskIO.PromptForIsGood();
+            int importance = taskIO.PromptForImportance();
 
             DateTime dueDate = InputManager.GetDateInput();
 
-            string recurrenceAsString = this.taskInterface.PromptForRecurrence();
-            int occurrence = taskInterface.PromptForOccurrence();
+            string recurrenceAsString = this.taskIO.PromptForRecurrence();
+            int occurrence = taskIO.PromptForOccurrence();
 
             // Prompt user to correct any mistakes in task details.
-            this.taskInterface.PromptForTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrence);
+            this.taskIO.PromptForTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrence);
 
             RecurrenceEnum recurrence = this.StringToRecurrence(recurrenceAsString);
 
@@ -62,7 +62,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
 
             while (true)
             {
-                taskInterface.DisplayAllTasks(dynamicStorage.getTasks());
+                taskIO.DisplayAllTasks(dynamicStorage.getTasks());
 
                 userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
 
@@ -84,7 +84,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
 
             while (task == null)
             {
-                taskInterface.DisplayAllTasks(dynamicStorage.getTasks());
+                taskIO.DisplayAllTasks(dynamicStorage.getTasks());
 
                 userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
                 if (dynamicStorage.TaskExists(userInput))
@@ -102,7 +102,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
 
             int occurrences = task.Occurrence;
 
-            taskInterface.PromptForTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrences);
+            taskIO.PromptForTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrences);
 
             recurrence = StringToRecurrence(recurrenceAsString);
 
@@ -120,7 +120,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
 
             while (!dynamicStorage.DoTask(userInput))
             {
-                taskInterface.DisplayAllTasks(dynamicStorage.getTasks());
+                taskIO.DisplayAllTasks(dynamicStorage.getTasks());
                 userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
             }
 
@@ -138,7 +138,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
 
             while (!dynamicStorage.UndoTask(userInput))
             {
-                taskInterface.DisplayAllTasks(dynamicStorage.getTasks());
+                taskIO.DisplayAllTasks(dynamicStorage.getTasks());
                 userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
             }
 

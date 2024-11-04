@@ -7,9 +7,9 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
     /// <summary>
     /// Contains functions that prompt for interactions with tasks.
     /// </summary>
-    class TaskManager
+    class TaskIO
     {
-        public TaskManager() { }
+        public TaskIO() { }
 
         /// <summary>
         /// Displays all tasks.
