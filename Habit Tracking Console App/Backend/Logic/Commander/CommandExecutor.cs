@@ -45,19 +45,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
 
         private RecurrenceEnum StringToRecurrence(string recurrenceAsString)
         {
-            switch (recurrenceAsString)
-            {
-                case "daily":
-                    return RecurrenceEnum.Daily;
-                case "weekly":
-                    return RecurrenceEnum.Weekly;
-                case "monthly":
-                    return RecurrenceEnum.Monthly;
-                case "yearly":
-                    return RecurrenceEnum.Yearly;
-                default:
-                    return RecurrenceEnum.Daily;
-            }
+            return (RecurrenceEnum)Enum.Parse(typeof(RecurrenceEnum), recurrenceAsString);
         }
 
         /// <summary>
@@ -107,25 +95,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             bool isGood = habit.IsGood;
             string description = habit.Description;
             RecurrenceEnum recurrence = habit.Recurrence;
-            string recurrenceAsString;
-            switch (recurrence)
-            {
-                case RecurrenceEnum.Daily:
-                    recurrenceAsString = "daily";
-                    break;
-                case RecurrenceEnum.Weekly:
-                    recurrenceAsString = "weekly";
-                    break;
-                case RecurrenceEnum.Monthly:
-                    recurrenceAsString = "monthly";
-                    break;
-                case RecurrenceEnum.Yearly:
-                    recurrenceAsString = "yearly";
-                    break;
-                default:
-                    recurrenceAsString = "daily";
-                    break;
-            }
+            string recurrenceAsString = recurrence.ToString();
 
             int occurrences = habit.Occurrence;
 

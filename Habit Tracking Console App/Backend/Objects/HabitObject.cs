@@ -17,7 +17,7 @@
             isGood = false;
             description = string.Empty;
             completions = 0;
-            recurrence = RecurrenceEnum.Daily;
+            recurrence = RecurrenceEnum.daily;
             occurrence = 1;
         }
 

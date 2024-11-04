@@ -2,9 +2,9 @@
 {
     public enum RecurrenceEnum
     {
-        Daily,
-        Weekly,
-        Monthly,
-        Yearly
+        daily,
+        weekly,
+        monthly,
+        yearly
     }
 }
