@@ -68,16 +68,41 @@ namespace Habit_Tracking_Console_App.Backend.Logic
             while (!DateTime.TryParseExact(userInput = IO.PromptForNotEmptyInput(prompt), "mm/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out output))
             {
                 IO.Clear();
-                IO.Error($"\"{userInput}\" is an invalid date, try again!");
+                IO.InvalidInput(userInput, "date");
             }
 
             IO.Clear();
             return output;
         }
 
+        /// <summary>
+        /// Prompts the user for input until given a recurrence input.
+        /// </summary>
+        /// <param name="prompt">One or more strings to display as the prompt.</param>
+        /// <returns>Recurrence user input.</returns>
         public static RecurrenceEnum GetRecurrenceInput(params string[] prompt)
         {
-            return RecurrenceEnum.none;
+            while (true)
+            {
+                string userInput;
+                switch (userInput = IO.PromptForNotEmptyInput(prompt))
+                {
+                    case "none":
+                        return RecurrenceEnum.none;
+                    case "daily":
+                        return RecurrenceEnum.daily;
+                    case "weekly":
+                        return RecurrenceEnum.weekly;
+                    case "monthly":
+                        return RecurrenceEnum.monthly;
+                    case "yearly":
+                        return RecurrenceEnum.yearly;
+                    default:
+                        IO.Clear();
+                        IO.InvalidInput(userInput, "recurrence");
+                        break;
+                }
+            }
         }
     }
 }
