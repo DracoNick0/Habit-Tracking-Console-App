@@ -189,12 +189,11 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
         /// <returns>Boolean user input.</returns>
         public static bool PromptForBoolInput(params string[] prompt)
         {
-            string? userInput = null;
+            string userInput;
 
             while (true)
             {
-                userInput = PromptForNotEmptyInput(prompt);
-                userInput = userInput.ToLower();
+                userInput = PromptForNotEmptyInput(prompt).ToLower();
 
                 switch (userInput)
                 {
@@ -218,13 +217,13 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
         /// <returns>Integer user input.</returns>
         public static int PromptForIntInput(params string[] prompt)
         {
-            string? userInput = null;
+            string userInput;
             int output;
 
-            while (string.IsNullOrEmpty(userInput = Prompt(prompt)) || !int.TryParse(userInput, out output))
+            while (!int.TryParse(userInput = PromptForNotEmptyInput(prompt), out output))
             {
                 Clear();
-                Error("Input was not valid, try again!");
+                Error($"\"{userInput}\" is not a valid integer, try again!");
             }
 
             Clear();
@@ -241,8 +240,9 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
             string userInput;
             DateTime output;
 
-            while (!DateTime.TryParseExact(userInput = PromptForNotEmptyInput(), "mm/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out output))
+            while (!DateTime.TryParseExact(userInput = PromptForNotEmptyInput(prompt), "mm/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out output))
             {
+                Clear();
                 Error($"\"{userInput}\" is an invalid date, try again!");
             }
 
