@@ -1,5 +1,6 @@
 ﻿using Habit_Tracking_Console_App.Backend.Objects;
 using Habit_Tracking_Console_App.Frontend.PrintHelpers;
+using System.Globalization;
 
 namespace Habit_Tracking_Console_App.Backend.Logic
 {
@@ -33,6 +34,11 @@ namespace Habit_Tracking_Console_App.Backend.Logic
             }
         }
 
+        /// <summary>
+        /// Prompts the user for input until given integer input.
+        /// </summary>
+        /// <param name="prompt">One or more strings to display as the prompt.</param>
+        /// <returns>Integer user input.</returns>
         public static int GetIntInput(params string[] prompt)
         {
             string userInput;
@@ -48,9 +54,25 @@ namespace Habit_Tracking_Console_App.Backend.Logic
             return output;
         }
 
+
+        /// <summary>
+        /// Prompts the user for input until given mm/dd/yyyy input.
+        /// </summary>
+        /// <param name="prompt">One or more strings to display as the prompt.</param>
+        /// <returns>DateTime user input.</returns>
         public static DateTime GetDateInput(params string[] prompt)
         {
-            return DateTime.Now;
+            string userInput;
+            DateTime output;
+
+            while (!DateTime.TryParseExact(userInput = IO.PromptForNotEmptyInput(prompt), "mm/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out output))
+            {
+                IO.Clear();
+                IO.Error($"\"{userInput}\" is an invalid date, try again!");
+            }
+
+            IO.Clear();
+            return output;
         }
 
         public static RecurrenceEnum GetRecurrenceInput(params string[] prompt)

@@ -5,6 +5,7 @@ using Habit_Tracking_Console_App.Backend.Objects;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Globalization;
 using Habit_Tracking_Console_App.Backend.Logic.Commander;
+using Habit_Tracking_Console_App.Backend.Logic;
 
 namespace Task_Tracking_Console_App.Backend.Logic.Commander
 {
@@ -33,7 +34,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             bool isGood = taskInterface.PromptForIsGood();
             int importance = taskInterface.PromptForImportance();
 
-            DateTime dueDate = IO.PromptForDateInput();
+            DateTime dueDate = InputManager.GetDateInput();
 
             string recurrenceAsString = this.taskInterface.PromptForRecurrence();
             int occurrence = taskInterface.PromptForOccurrence();
