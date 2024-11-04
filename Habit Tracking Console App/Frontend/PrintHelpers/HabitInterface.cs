@@ -1,4 +1,5 @@
-﻿using Habit_Tracking_Console_App.Backend.Objects;
+﻿using Habit_Tracking_Console_App.Backend.Logic;
+using Habit_Tracking_Console_App.Backend.Objects;
 
 namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
 {
@@ -58,16 +59,16 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
                         switch (habit.Recurrence)
                         {
                             case RecurrenceEnum.daily:
-                                timeLeft = "  ";
+                                timeLeft = $"{TimeHelper.TimeTillNextDay().Hours.ToString()} hours left";
                                 break;
                             case RecurrenceEnum.weekly:
-                                timeLeft = "  ";
+                                timeLeft = $"{TimeHelper.TimeTillNextWeek().Days.ToString()} days left";
                                 break;
                             case RecurrenceEnum.monthly:
-                                timeLeft = "  ";
+                                timeLeft = $"{TimeHelper.TimeTillNextMonth().Days.ToString()} days left";
                                 break;
                             case RecurrenceEnum.yearly:
-                                timeLeft = "  ";
+                                timeLeft = $"{TimeHelper.TimeTillNextYear().Days.ToString()} days left";
                                 break;
                         }
                     }
@@ -78,7 +79,7 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
                     //CLIHelper.MsgForWindow($"| [{completion}] {habit.Name} ", "..|", $"({importance} : {isGood}) |");
 
                     CLIHelper.MsgForWindow($"| [{completion}] {habit.Name} ", "..|", $"|");
-                    CLIHelper.MsgForWindow($"|{timeLeft}", "..|", $"({importance} : {isGood}) |");
+                    CLIHelper.MsgForWindow($"| {timeLeft}", "..|", $"({importance} : {isGood}) |");
 
                     if (displayDescription)
                     {

@@ -62,7 +62,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
 
                 if (habitNames.Contains(userInput))
                 {
-                    return dynamicStorage.RemoveHabit(habitInterface.PromptForHabit());
+                    return dynamicStorage.RemoveHabit(userInput);
                 }
             }
         }
