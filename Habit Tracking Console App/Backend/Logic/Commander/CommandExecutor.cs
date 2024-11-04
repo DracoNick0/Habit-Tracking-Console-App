@@ -3,7 +3,6 @@ using Task_Tracking_Console_App.Backend.Storage;
 using Habit_Tracking_Console_App.Frontend;
 using Habit_Tracking_Console_App.Backend.Objects;
 using Habit_Tracking_Console_App.Backend.Logic.Commander;
-using Habit_Tracking_Console_App.Backend.Logic;
 
 namespace Task_Tracking_Console_App.Backend.Logic.Commander
 {
@@ -27,19 +26,19 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             IO.Info("You can make changes to the task after answering the following prompts.");
 
             // Get new task details.
-            string name = taskIO.PromptAndGetNewTaskName();
-            string description = taskIO.PromptAndGetDescription();
-            bool isGood = taskIO.PromptAndGetIsGood();
-            int importance = taskIO.PromptAndGetImportance();
-            DateTime dueDate = taskIO.PromptAndGetDueDate();
+            string name = this.taskIO.PromptAndGetNewTaskName();
+            string description = this.taskIO.PromptAndGetDescription();
+            bool isGood = this.taskIO.PromptAndGetIsGood();
+            int importance = this.taskIO.PromptAndGetImportance();
+            DateTime dueDate = this.taskIO.PromptAndGetDueDate();
             RecurrenceEnum recurrence = this.taskIO.PromptAndGetRecurrence();
-            int occurrence = taskIO.PromptAndGetOccurrence();
+            int occurrence = this.taskIO.PromptAndGetOccurrence();
 
             // Prompt user to correct any mistakes in task details.
             this.taskIO.PromptAndGetTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrence);
 
             // Create task.
-            return dynamicStorage.CreateTask(name, importance, isGood, description, recurrence, occurrence, dueDate);
+            return this.dynamicStorage.CreateTask(name, importance, isGood, description, recurrence, occurrence, dueDate);
         }
 
         private RecurrenceEnum StringToRecurrence(string recurrenceAsString)
@@ -53,18 +52,18 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
         /// <returns>If task was successfully deleted.</returns>
         public bool PromptAndDeleteTask()
         {
-            List<string> taskNames = dynamicStorage.getTasks().Select(task => task.Name).ToList();
+            List<string> taskNames = this.dynamicStorage.getTasks().Select(task => task.Name).ToList();
             string userInput;
 
             while (true)
             {
-                taskIO.DisplayAllTasks(dynamicStorage.getTasks());
+                this.taskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
 
                 userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
 
                 if (taskNames.Contains(userInput))
                 {
-                    return dynamicStorage.RemoveTask(userInput);
+                    return this.dynamicStorage.RemoveTask(userInput);
                 }
             }
         }
@@ -74,29 +73,29 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
         /// </summary>
         public void PromptAndEditTask()
         {
-            List<string> taskNames = dynamicStorage.getTasks().Select(task => task.Name).ToList();
+            List<string> taskNames = this.dynamicStorage.getTasks().Select(task => task.Name).ToList();
             TaskObject? task = null;
             string userInput;
 
             while (task == null)
             {
-                taskIO.DisplayAllTasks(dynamicStorage.getTasks());
+                this.taskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
 
                 userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
-                if (dynamicStorage.TaskExists(userInput))
+                if (this.dynamicStorage.TaskExists(userInput))
                 {
-                    task = dynamicStorage.GetTaskObject(userInput);
+                    task = this.dynamicStorage.GetTaskObject(userInput);
                 }
             }
 
             // Get new task details.
-            string name = taskIO.PromptAndGetNewTaskName();
-            string description = taskIO.PromptAndGetDescription();
-            bool isGood = taskIO.PromptAndGetIsGood();
-            int importance = taskIO.PromptAndGetImportance();
-            DateTime dueDate = taskIO.PromptAndGetDueDate();
+            string name = this.taskIO.PromptAndGetNewTaskName();
+            string description = this.taskIO.PromptAndGetDescription();
+            bool isGood = this.taskIO.PromptAndGetIsGood();
+            int importance = this.taskIO.PromptAndGetImportance();
+            DateTime dueDate = this.taskIO.PromptAndGetDueDate();
             RecurrenceEnum recurrence = this.taskIO.PromptAndGetRecurrence();
-            int occurrence = taskIO.PromptAndGetOccurrence();
+            int occurrence = this.taskIO.PromptAndGetOccurrence();
 
             // Prompt user to correct any mistakes in task details.
             this.taskIO.PromptAndGetTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrence);
@@ -110,12 +109,12 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
         /// <returns>If task was marked successfully.</returns>
         public bool PromptAndDoTask()
         {
-            List<string> taskNames = dynamicStorage.getTasks().Select(task => task.Name).ToList();
+            List<string> taskNames = this.dynamicStorage.getTasks().Select(task => task.Name).ToList();
             string userInput = "";
 
-            while (!dynamicStorage.DoTask(userInput))
+            while (!this.dynamicStorage.DoTask(userInput))
             {
-                taskIO.DisplayAllTasks(dynamicStorage.getTasks());
+                this.taskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
                 userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
             }
 
@@ -128,12 +127,12 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
         /// <returns>If task was marked successfully.</returns>
         public bool PromptAndUndoTask()
         {
-            List<string> taskNames = dynamicStorage.getTasks().Select(task => task.Name).ToList();
+            List<string> taskNames = this.dynamicStorage.getTasks().Select(task => task.Name).ToList();
             string userInput = "";
 
-            while (!dynamicStorage.UndoTask(userInput))
+            while (!this.dynamicStorage.UndoTask(userInput))
             {
-                taskIO.DisplayAllTasks(dynamicStorage.getTasks());
+                this.taskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
                 userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
             }
 

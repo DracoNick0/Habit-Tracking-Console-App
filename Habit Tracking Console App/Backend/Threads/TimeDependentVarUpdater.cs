@@ -34,7 +34,7 @@
 
         private void UpdateTimeDependentVariables()
         {
-            DateChanged?.Invoke(this, EventArgs.Empty);
+            this.DateChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }

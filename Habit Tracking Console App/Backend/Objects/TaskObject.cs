@@ -50,44 +50,44 @@ namespace Task_Tracking_Console_App.Backend.Objects
 
         public string Name
         {
-            get { return name; }
-            set { name = value; }
+            get { return this.name; }
+            set { this.name = value; }
         }
 
         public bool IsGood
         {
-            get { return isGood; }
-            set { isGood = value; }
+            get { return this.isGood; }
+            set { this.isGood = value; }
         }
 
         public string Description
         {
-            get { return description; }
-            set { description = value; }
+            get { return this.description; }
+            set { this.description = value; }
         }
 
         public int Importance
         {
-            get { return importance; }
-            set { importance = value; }
+            get { return this.importance; }
+            set { this.importance = value; }
         }
 
         public int Completions
         {
-            get { return completions; }
-            set { completions = value; }
+            get { return this.completions; }
+            set { this.completions = value; }
         }
 
         public RecurrenceEnum Recurrence
         {
-            get { return recurrence; }
-            set { recurrence = value; }
+            get { return this.recurrence; }
+            set { this.recurrence = value; }
         }
 
         public int Occurrence
         {
-            get { return occurrence; }
-            set { occurrence = value; }
+            get { return this.occurrence; }
+            set { this.occurrence = value; }
         }
     }
 }

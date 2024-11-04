@@ -14,8 +14,8 @@ namespace Task_Tracking_Console_App.Backend.Storage
 
         public DynamicStorageManager()
         {
-            persistentStorageManager = new PersistentStorageManager();
-            tasks = persistentStorageManager.RetrieveTasks().ToDictionary(task => task.Name);
+            this.persistentStorageManager = new PersistentStorageManager();
+            this.tasks = this.persistentStorageManager.RetrieveTasks().ToDictionary(task => task.Name);
         }
 
         /// <summary>
@@ -49,9 +49,9 @@ namespace Task_Tracking_Console_App.Backend.Storage
         {
             if (task != null)
             {
-                if (!tasks.ContainsKey(task.Name))
+                if (!this.tasks.ContainsKey(task.Name))
                 {
-                    tasks.Add(task.Name, task);
+                    this.tasks.Add(task.Name, task);
                     return true;
                 }
                 else
@@ -70,9 +70,9 @@ namespace Task_Tracking_Console_App.Backend.Storage
         /// <returns>True if successfully removed, otherwise false.</returns>
         public bool RemoveTask(string taskName)
         {
-            if (tasks.ContainsKey(taskName))
+            if (this.tasks.ContainsKey(taskName))
             {
-                tasks.Remove(taskName);
+                this.tasks.Remove(taskName);
                 return true;
             }
             else
@@ -86,7 +86,7 @@ namespace Task_Tracking_Console_App.Backend.Storage
         /// </summary>
         public void Save()
         {
-            persistentStorageManager.SaveTasks(new List<TaskObject>(tasks.Values));
+            persistentStorageManager.SaveTasks(new List<TaskObject>(this.tasks.Values));
         }
 
         /// <summary>
@@ -96,9 +96,9 @@ namespace Task_Tracking_Console_App.Backend.Storage
         /// <returns>If the task was successfully marked.</returns>
         public bool DoTask(string taskName)
         {
-            if (tasks.ContainsKey(taskName))
+            if (this.tasks.ContainsKey(taskName))
             {
-                ++tasks[taskName].Completions;
+                ++this.tasks[taskName].Completions;
                 return true;
             }
             else
@@ -114,9 +114,9 @@ namespace Task_Tracking_Console_App.Backend.Storage
         /// <returns>If the task was successfully marked.</returns>
         public bool UndoTask(string taskName)
         {
-            if (tasks.ContainsKey(taskName) && tasks[taskName].Completions > 0)
+            if (this.tasks.ContainsKey(taskName) && this.tasks[taskName].Completions > 0)
             {
-                --tasks[taskName].Completions;
+                --this.tasks[taskName].Completions;
                 return true;
             }
             else
@@ -132,7 +132,7 @@ namespace Task_Tracking_Console_App.Backend.Storage
         /// <returns>True if task exists, otherwise false.</returns>
         public bool TaskExists(string taskName)
         {
-            return tasks.ContainsKey(taskName);
+            return this.tasks.ContainsKey(taskName);
         }
 
         /// <summary>
@@ -142,9 +142,9 @@ namespace Task_Tracking_Console_App.Backend.Storage
         /// <returns>The task object, otherwise null.</returns>
         public TaskObject? GetTaskObject(string userInput)
         {
-            if (tasks.ContainsKey(userInput))
+            if (this.tasks.ContainsKey(userInput))
             {
-                return tasks[userInput];
+                return this.tasks[userInput];
             }
 
             return null;
@@ -156,7 +156,7 @@ namespace Task_Tracking_Console_App.Backend.Storage
         /// <returns>List of all task objects.</returns>
         public List<TaskObject> getTasks()
         {
-            return new List<TaskObject>(tasks.Values);
+            return new List<TaskObject>(this.tasks.Values);
         }
     }
 }
