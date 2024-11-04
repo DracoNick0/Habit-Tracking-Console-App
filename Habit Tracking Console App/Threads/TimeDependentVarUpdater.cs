@@ -1,4 +1,4 @@
-﻿namespace Habit_Tracking_Console_App.Model
+﻿namespace Habit_Tracking_Console_App.Threads
 {
     class TimeDependentVarUpdater
     {
@@ -6,7 +6,7 @@
 
         public TimeDependentVarUpdater()
         {
-            Task.Run(() => this.WaitAndUpdate());
+            Task.Run(() => WaitAndUpdate());
         }
 
         private void WaitAndUpdate()
@@ -14,7 +14,7 @@
             while (true)
             {
                 // Update
-                this.UpdateTimeDependentVariables();
+                UpdateTimeDependentVariables();
 
                 DateTime now = DateTime.Now;
                 DateTime dayFromNow = now.AddDays(1);

@@ -1,6 +1,6 @@
-﻿using Habit_Tracking_Console_App.Model;
-using Habit_Tracking_Console_App.Commander;
+﻿using Habit_Tracking_Console_App.Commander;
 using Habit_Tracking_Console_App.PrintHelpers;
+using Habit_Tracking_Console_App.Threads;
 
 // Start window size monitoring.
 ConsoleResizeMonitor monitor = new ConsoleResizeMonitor();
