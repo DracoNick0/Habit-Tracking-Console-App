@@ -8,4 +8,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Backend\Logic\Object Manager\" />
+  </ItemGroup>
+
 </Project>
