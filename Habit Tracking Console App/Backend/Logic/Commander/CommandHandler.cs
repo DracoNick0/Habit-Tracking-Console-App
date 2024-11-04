@@ -1,7 +1,8 @@
-﻿using Habit_Tracking_Console_App.Frontend.PrintHelpers;
-using Habit_Tracking_Console_App.Backend.Storage;
+﻿using Task_Tracking_Console_App.Frontend.PrintHelpers;
+using Task_Tracking_Console_App.Backend.Storage;
+using Habit_Tracking_Console_App.Frontend.PrintHelpers;
 
-namespace Habit_Tracking_Console_App.Backend.Logic.Commander
+namespace Task_Tracking_Console_App.Backend.Logic.Commander
 {
     /// <summary>
     /// Handles the main commands input by the user.
@@ -9,15 +10,15 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
     class CommandHandler
     {
         private DynamicStorageManager dynamicStorage;
-        private HabitInterface habitInterface;
+        private TaskInterface taskInterface;
         private CommandExecutor commands;
         private Action topText;
 
         public CommandHandler(DynamicStorageManager dynamicStorageManger)
         {
             dynamicStorage = dynamicStorageManger;
-            habitInterface = new HabitInterface();
-            commands = new CommandExecutor(dynamicStorage, habitInterface);
+            taskInterface = new TaskInterface();
+            commands = new CommandExecutor(dynamicStorage, taskInterface);
             topText = () => Console.Write("");
         }
 
@@ -95,10 +96,10 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             CLIHelper.Msg("Available Commands:");
             CLIHelper.MsgForWindow("", "", "", '-', int.MaxValue);
             CLIHelper.Msg("- exit: saves and exits the program");
-            CLIHelper.Msg("- show <item>: displays all items in category(eg. habit, task)");
-            CLIHelper.Msg("- create <item>: creates an item(eg. habit, task)");
-            CLIHelper.Msg("- delete <item>: deletes an item(eg. habit, task)");
-            CLIHelper.Msg("- edit <item>: creates an item(eg. habit, task)");
+            CLIHelper.Msg("- show <item>: displays all items in category(eg. task, task)");
+            CLIHelper.Msg("- create <item>: creates an item(eg. task, task)");
+            CLIHelper.Msg("- delete <item>: deletes an item(eg. task, task)");
+            CLIHelper.Msg("- edit <item>: creates an item(eg. task, task)");
         }
 
         /// <summary>
@@ -112,8 +113,8 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             {
                 switch (inputArgs[1])
                 {
-                    case "habit":
-                        commands.PromptAndCreateHabit();
+                    case "task":
+                        commands.PromptAndCreateTask();
                         break;
                     default:
                         commands.InvalidArgument(command, inputArgs, 1);
@@ -133,8 +134,8 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             {
                 switch (inputArgs[1])
                 {
-                    case "habit":
-                        commands.PromptAndDeleteHabit();
+                    case "task":
+                        commands.PromptAndDeleteTask();
                         break;
                     default:
                         commands.InvalidArgument(command, inputArgs, 1);
@@ -154,9 +155,9 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             {
                 switch (inputArgs[1])
                 {
-                    case "habit":
-                    case "habits":
-                        topText = () => habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
+                    case "task":
+                    case "tasks":
+                        topText = () => taskInterface.DisplayAllTasks(dynamicStorage.getTasks());
                         break;
                     default:
                         commands.InvalidArgument(command, inputArgs, 1);
@@ -176,8 +177,8 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             {
                 switch (inputArgs[1])
                 {
-                    case "habit":
-                        commands.PromptAndEditHabit();
+                    case "task":
+                        commands.PromptAndEditTask();
                         break;
                     default:
                         commands.InvalidArgument(command, inputArgs, 1);
@@ -197,8 +198,8 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             {
                 switch (inputArgs[1])
                 {
-                    case "habit":
-                        commands.PromptAndDoHabit();
+                    case "task":
+                        commands.PromptAndDoTask();
                         break;
                     default:
                         commands.InvalidArgument(command, inputArgs, 1);
@@ -218,8 +219,8 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             {
                 switch (inputArgs[1])
                 {
-                    case "habit":
-                        commands.PromptAndUndoHabit();
+                    case "task":
+                        commands.PromptAndUndoTask();
                         break;
                     default:
                         commands.InvalidArgument(command, inputArgs, 1);
@@ -229,7 +230,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
         }
 
         /// <summary>
-        /// Saves all habits and closes the program.
+        /// Saves all tasks and closes the program.
         /// </summary>
         private void ExitInvoked()
         {

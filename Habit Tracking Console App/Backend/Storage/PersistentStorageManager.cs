@@ -1,33 +1,33 @@
 ﻿using System.Text.Json;
-using Habit_Tracking_Console_App.Backend.Objects;
+using Task_Tracking_Console_App.Backend.Objects;
 
-namespace Habit_Tracking_Console_App.Backend.Storage
+namespace Task_Tracking_Console_App.Backend.Storage
 {
     class PersistentStorageManager
     {
-        private const string habitStoragePath = @"../../../Backend/Storage/Habit_Storage.json";
+        private const string taskStoragePath = @"../../../Backend/Storage/Task_Storage.json";
 
         public PersistentStorageManager() { }
 
-        public void SaveHabits(List<HabitObject> habits)
+        public void SaveTasks(List<TaskObject> tasks)
         {
-            string jsonString = JsonSerializer.Serialize(habits);
-            File.WriteAllText(habitStoragePath, jsonString);
+            string jsonString = JsonSerializer.Serialize(tasks);
+            File.WriteAllText(taskStoragePath, jsonString);
         }
 
-        public List<HabitObject> RetrieveHabits()
+        public List<TaskObject> RetrieveTasks()
         {
-            string jsonString = File.ReadAllText(habitStoragePath);
+            string jsonString = File.ReadAllText(taskStoragePath);
             if (!string.IsNullOrEmpty(jsonString))
             {
-                List<HabitObject>? habits = JsonSerializer.Deserialize<List<HabitObject>>(jsonString);
-                if (habits != null)
+                List<TaskObject>? tasks = JsonSerializer.Deserialize<List<TaskObject>>(jsonString);
+                if (tasks != null)
                 {
-                    return habits;
+                    return tasks;
                 }
             }
 
-            return new List<HabitObject>();
+            return new List<TaskObject>();
         }
     }
 }

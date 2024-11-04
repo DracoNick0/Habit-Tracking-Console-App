@@ -1,6 +1,8 @@
-﻿namespace Habit_Tracking_Console_App.Backend.Objects
+﻿using Habit_Tracking_Console_App.Backend.Objects;
+
+namespace Task_Tracking_Console_App.Backend.Objects
 {
-    class HabitObject
+    class TaskObject
     {
         private string name;
         private int importance;
@@ -10,7 +12,7 @@
         private RecurrenceEnum recurrence;
         private int occurrence;
 
-        public HabitObject()
+        public TaskObject()
         {
             name = string.Empty;
             importance = 0;
@@ -21,7 +23,7 @@
             occurrence = 1;
         }
 
-        public HabitObject(string name, int importance, bool isGood, string description, RecurrenceEnum recurrence, int occurrence)
+        public TaskObject(string name, int importance, bool isGood, string description, RecurrenceEnum recurrence, int occurrence)
         {
             this.name = name;
             this.importance = importance;

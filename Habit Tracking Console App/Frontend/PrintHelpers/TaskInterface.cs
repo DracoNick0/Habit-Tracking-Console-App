@@ -1,45 +1,48 @@
 ﻿using Habit_Tracking_Console_App.Backend.Logic;
 using Habit_Tracking_Console_App.Backend.Objects;
+using Habit_Tracking_Console_App.Frontend.PrintHelpers;
+using Task_Tracking_Console_App.Backend.Logic;
+using Task_Tracking_Console_App.Backend.Objects;
 
-namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
+namespace Task_Tracking_Console_App.Frontend.PrintHelpers
 {
     /// <summary>
-    /// Contains functions that prompt for interactions with habits.
+    /// Contains functions that prompt for interactions with tasks.
     /// </summary>
-    class HabitInterface
+    class TaskInterface
     {
-        public HabitInterface() { }
+        public TaskInterface() { }
 
         /// <summary>
-        /// Displays all habits.
+        /// Displays all tasks.
         /// </summary>
         /// <param name="displayIsGood">Determines if the isGood variable is displayed.</param>
         /// <param name="displayDescription">Determines if the description variable is displayed.</param>
         /// <param name="displayImportance">Determines if the importance variable is displayed.</param>
         /// <param name="displayCompletion">Determines if the completion variable is displayed.</param>
-        public void DisplayAllHabits(List<HabitObject> habits, bool displayIsGood = true, bool displayImportance = true, bool displayCompletion = true, bool displayDescription = true, bool displayTimeLeft = true)
+        public void DisplayAllTasks(List<TaskObject> tasks, bool displayIsGood = true, bool displayImportance = true, bool displayCompletion = true, bool displayDescription = true, bool displayTimeLeft = true)
         {
-            if (habits.Count > 0)
+            if (tasks.Count > 0)
             {
                 string isGood = "", importance = "", completion = " ", timeLeft = "";
-                foreach (HabitObject habit in habits)
+                foreach (TaskObject task in tasks)
                 {
                     CLIHelper.MsgForWindow("+", "+", "+", '-');
                     if (displayCompletion)
                     {
-                        if (habit.Completions >= habit.Occurrence)
+                        if (task.Completions >= task.Occurrence)
                         {
                             completion = "x";
                         }
                         else
                         {
-                            completion = $"{habit.Completions}/{habit.Occurrence}";
+                            completion = $"{task.Completions}/{task.Occurrence}";
                         }
                     }
 
                     if (displayIsGood)
                     {
-                        if (habit.IsGood)
+                        if (task.IsGood)
                         {
                             isGood = "Positive";
                         }
@@ -51,12 +54,12 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
 
                     if (displayImportance)
                     {
-                        importance = habit.Importance.ToString();
+                        importance = task.Importance.ToString();
                     }
 
                     if (displayTimeLeft)
                     {
-                        switch (habit.Recurrence)
+                        switch (task.Recurrence)
                         {
                             case RecurrenceEnum.daily:
                                 timeLeft = $"{TimeHelper.TimeTillNextDay().Hours.ToString()} hours left";
@@ -73,17 +76,17 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
                         }
                     }
 
-                    //CLIHelper.MsgForWindow($"| Habit: [{completion}] Habit: {habit.Name} ", "...|", "|");
+                    //CLIHelper.MsgForWindow($"| Task: [{completion}] Task: {task.Name} ", "...|", "|");
                     //CLIHelper.MsgForWindow($"| Importance: {importance} ", "...|", $"({isGood}) |");
 
-                    //CLIHelper.MsgForWindow($"| [{completion}] {habit.Name} ", "..|", $"({importance} : {isGood}) |");
+                    //CLIHelper.MsgForWindow($"| [{completion}] {task.Name} ", "..|", $"({importance} : {isGood}) |");
 
-                    CLIHelper.MsgForWindow($"| [{completion}] {habit.Name} ", "..|", $"|");
+                    CLIHelper.MsgForWindow($"| [{completion}] {task.Name} ", "..|", $"|");
                     CLIHelper.MsgForWindow($"| {timeLeft}", "..|", $"({importance} : {isGood}) |");
 
                     if (displayDescription)
                     {
-                        CLIHelper.MsgForWindow($"| Desc: {habit.Description} ", "..|", "|");
+                        CLIHelper.MsgForWindow($"| Desc: {task.Description} ", "..|", "|");
                     }
                 }
             }
@@ -97,22 +100,22 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
         }
 
         /// <summary>
-        /// Prompts the user for the name of a habit, then returns the corresponding habit.
+        /// Prompts the user for the name of a task, then returns the corresponding task.
         /// </summary>
-        /// <returns>The habit object corresponding to the name provided.</returns>
-        public string PromptForHabit()
+        /// <returns>The task object corresponding to the name provided.</returns>
+        public string PromptForTask()
         {
-            return CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
+            return CLIHelper.PromptForNotEmptyInput("Enter the task name: ");
         }
 
         /// <summary>
-        /// Prints prompts to allow the user to edit the habit object.
+        /// Prints prompts to allow the user to edit the task object.
         /// </summary>
-        /// <param name="name">Habits name.</param>
-        /// <param name="importance">Habits importance.</param>
-        /// <param name="isGood">Habits isGood.</param>
-        /// <param name="description">Habits description</param>
-        public void PromptForHabitCorrection(ref string name, ref int importance, ref bool isGood, ref string description, ref string recurrenceAsString, ref int occurrence)
+        /// <param name="name">Tasks name.</param>
+        /// <param name="importance">Tasks importance.</param>
+        /// <param name="isGood">Tasks isGood.</param>
+        /// <param name="description">Tasks description</param>
+        public void PromptForTaskCorrection(ref string name, ref int importance, ref bool isGood, ref string description, ref string recurrenceAsString, ref int occurrence)
         {
             string? userInput;
 
@@ -120,7 +123,7 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
             {
                 List<string> prompt = new List<string>();
                 prompt.Add("(If a detail is incorrect, type it's name to change the property, otherwise press enter.)");
-                prompt.Add("Habit details:");
+                prompt.Add("Task details:");
                 prompt.Add($"- Name: {name}");
                 prompt.Add($"- Recurrence: {recurrenceAsString}");
                 prompt.Add($"- Occurrence: {occurrence}");
@@ -160,7 +163,7 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
         }
 
         /// <summary>
-        /// Prompts the user for the recurrence of a habit.
+        /// Prompts the user for the recurrence of a task.
         /// </summary>
         /// <returns>User input.</returns>
         public string PromptForRecurrence()
@@ -185,14 +188,14 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
         }
 
         /// <summary>
-        /// Prompts the user for the occurrence of a habit.
+        /// Prompts the user for the occurrence of a task.
         /// </summary>
         /// <returns>User input.</returns>
         public int PromptForOccurrence()
         {
             int occurence = -1;
 
-            string occurencePrompt = "Enter the amount of times you wish to do this habit within the time interval: ";
+            string occurencePrompt = "Enter the amount of times you wish to do this task within the time interval: ";
             while (!((occurence = CLIHelper.PromptForIntInput(occurencePrompt)) > 0))
             {
                 CLIHelper.Clear();
@@ -203,44 +206,44 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
         }
 
         /// <summary>
-        /// Prompts the user for the name of a habit.
+        /// Prompts the user for the name of a task.
         /// </summary>
         /// <returns>User input.</returns>
         public string PromptForName()
         {
-            string namePrompt = "Enter the name of the habit: ";
+            string namePrompt = "Enter the name of the task: ";
             return CLIHelper.PromptForNotEmptyInput(namePrompt);
         }
 
         /// <summary>
-        /// Prompts the user for the description of a habit.
+        /// Prompts the user for the description of a task.
         /// </summary>
         /// <returns>User input.</returns>
         public string PromptForDescription()
         {
-            string descriptionPrompt = "Enter the description of the habit: ";
+            string descriptionPrompt = "Enter the description of the task: ";
             return CLIHelper.PromptForNotEmptyInput(descriptionPrompt);
         }
 
         /// <summary>
-        /// Prompts the user for the polarity of a habit.
+        /// Prompts the user for the polarity of a task.
         /// </summary>
         /// <returns>User input.</returns>
         public bool PromptForIsGood()
         {
-            string isGoodPrompt = "Is this a good habit, enter true or false: ";
+            string isGoodPrompt = "Is this a good task, enter true or false: ";
             return CLIHelper.PromptForTrueFalseInput(isGoodPrompt);
         }
 
         /// <summary>
-        /// Prompts the user for the importance of a habit.
+        /// Prompts the user for the importance of a task.
         /// </summary>
         /// <returns>User input.</returns>
         public int PromptForImportance()
         {
             int importance;
 
-            string importancePrompt = "If 1 is trivial and 5 is of utmost importance, enter the digit that represents the habits importance: ";
+            string importancePrompt = "If 1 is trivial and 5 is of utmost importance, enter the digit that represents the tasks importance: ";
             while (!((importance = CLIHelper.PromptForIntInput(importancePrompt)) >= 1 && importance <= 5))
             {
                 CLIHelper.Clear();

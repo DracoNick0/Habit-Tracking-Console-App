@@ -1,38 +1,40 @@
 ﻿using Habit_Tracking_Console_App.Backend.Objects;
 using Habit_Tracking_Console_App.Frontend.PrintHelpers;
+using Task_Tracking_Console_App.Backend.Objects;
+using Task_Tracking_Console_App.Frontend.PrintHelpers;
 
-namespace Habit_Tracking_Console_App.Backend.Storage
+namespace Task_Tracking_Console_App.Backend.Storage
 {
     /// <summary>
-    /// Manages habits in a dynamic storage(dictionary).
+    /// Manages tasks in a dynamic storage(dictionary).
     /// </summary>
     class DynamicStorageManager
     {
         private PersistentStorageManager persistentStorageManager;
-        private Dictionary<string, HabitObject> habits;
+        private Dictionary<string, TaskObject> tasks;
 
         public DynamicStorageManager()
         {
             persistentStorageManager = new PersistentStorageManager();
-            habits = persistentStorageManager.RetrieveHabits().ToDictionary(habit => habit.Name);
+            tasks = persistentStorageManager.RetrieveTasks().ToDictionary(task => task.Name);
         }
 
         /// <summary>
-        /// Takes all details of a habit and creates a habit with those details.
+        /// Takes all details of a task and creates a task with those details.
         /// </summary>
-        /// <param name="name">The name of the habit.</param>
-        /// <param name="importance">The importance of the habit.</param>
-        /// <param name="isGood">If the habit is positive.</param>
-        /// <param name="description">The description of the habit.</param>
-        /// <param name="recurrence">The recurrence of the habit.</param>
-        /// <param name="occurrence">The occurrences within the recurrence interval of the habit.</param>
+        /// <param name="name">The name of the task.</param>
+        /// <param name="importance">The importance of the task.</param>
+        /// <param name="isGood">If the task is positive.</param>
+        /// <param name="description">The description of the task.</param>
+        /// <param name="recurrence">The recurrence of the task.</param>
+        /// <param name="occurrence">The occurrences within the recurrence interval of the task.</param>
         /// <returns></returns>
-        public bool CreateHabit(string name, int importance, bool isGood, string description, RecurrenceEnum recurrence, int occurrence)
+        public bool CreateTask(string name, int importance, bool isGood, string description, RecurrenceEnum recurrence, int occurrence)
         {
-            if (!habits.ContainsKey(name))
+            if (!tasks.ContainsKey(name))
             {
-                HabitObject newHabit = new HabitObject(name, importance, isGood, description, recurrence, occurrence);
-                Add(newHabit);
+                TaskObject newTask = new TaskObject(name, importance, isGood, description, recurrence, occurrence);
+                Add(newTask);
                 return true;
             }
 
@@ -40,22 +42,22 @@ namespace Habit_Tracking_Console_App.Backend.Storage
         }
 
         /// <summary>
-        /// Adds a habit object to the dynamic storage.
+        /// Adds a task object to the dynamic storage.
         /// </summary>
-        /// <param name="habit">The habit object.</param>
+        /// <param name="task">The task object.</param>
         /// <returns>True if successfully added, otherwise false.</returns>
-        public bool Add(HabitObject? habit)
+        public bool Add(TaskObject? task)
         {
-            if (habit != null)
+            if (task != null)
             {
-                if (!habits.ContainsKey(habit.Name))
+                if (!tasks.ContainsKey(task.Name))
                 {
-                    habits.Add(habit.Name, habit);
+                    tasks.Add(task.Name, task);
                     return true;
                 }
                 else
                 {
-                    CLIHelper.Info("A habit with the same name already exists, please try again.");
+                    CLIHelper.Info("A task with the same name already exists, please try again.");
                 }
             }
 
@@ -63,15 +65,15 @@ namespace Habit_Tracking_Console_App.Backend.Storage
         }
 
         /// <summary>
-        /// Removes a habit object from the dynamic storage.
+        /// Removes a task object from the dynamic storage.
         /// </summary>
-        /// <param name="habitName">Name of the habit.</param>
+        /// <param name="taskName">Name of the task.</param>
         /// <returns>True if successfully removed, otherwise false.</returns>
-        public bool RemoveHabit(string habitName)
+        public bool RemoveTask(string taskName)
         {
-            if (habits.ContainsKey(habitName))
+            if (tasks.ContainsKey(taskName))
             {
-                habits.Remove(habitName);
+                tasks.Remove(taskName);
                 return true;
             }
             else
@@ -81,23 +83,23 @@ namespace Habit_Tracking_Console_App.Backend.Storage
         }
 
         /// <summary>
-        /// Calls the persistent storage manager to save all habits.
+        /// Calls the persistent storage manager to save all tasks.
         /// </summary>
         public void Save()
         {
-            persistentStorageManager.SaveHabits(new List<HabitObject>(habits.Values));
+            persistentStorageManager.SaveTasks(new List<TaskObject>(tasks.Values));
         }
 
         /// <summary>
-        /// Marks the habit with the specified name as complete.
+        /// Marks the task with the specified name as complete.
         /// </summary>
-        /// <param name="habitName">The habits name.</param>
-        /// <returns>If the habit was successfully marked.</returns>
-        public bool DoHabit(string habitName)
+        /// <param name="taskName">The tasks name.</param>
+        /// <returns>If the task was successfully marked.</returns>
+        public bool DoTask(string taskName)
         {
-            if (habits.ContainsKey(habitName))
+            if (tasks.ContainsKey(taskName))
             {
-                ++habits[habitName].Completions;
+                ++tasks[taskName].Completions;
                 return true;
             }
             else
@@ -107,15 +109,15 @@ namespace Habit_Tracking_Console_App.Backend.Storage
         }
 
         /// <summary>
-        /// Marks the habit with the specified name as incomplete.
+        /// Marks the task with the specified name as incomplete.
         /// </summary>
-        /// <param name="habitName">The habits name.</param>
-        /// <returns>If the habit was successfully marked.</returns>
-        public bool UndoHabit(string habitName)
+        /// <param name="taskName">The tasks name.</param>
+        /// <returns>If the task was successfully marked.</returns>
+        public bool UndoTask(string taskName)
         {
-            if (habits.ContainsKey(habitName) && habits[habitName].Completions > 0)
+            if (tasks.ContainsKey(taskName) && tasks[taskName].Completions > 0)
             {
-                --habits[habitName].Completions;
+                --tasks[taskName].Completions;
                 return true;
             }
             else
@@ -125,37 +127,37 @@ namespace Habit_Tracking_Console_App.Backend.Storage
         }
 
         /// <summary>
-        /// Returns if the habit exists in the dictionary.
+        /// Returns if the task exists in the dictionary.
         /// </summary>
-        /// <param name="habitName">The name of the habit.</param>
-        /// <returns>True if habit exists, otherwise false.</returns>
-        public bool HabitExists(string habitName)
+        /// <param name="taskName">The name of the task.</param>
+        /// <returns>True if task exists, otherwise false.</returns>
+        public bool TaskExists(string taskName)
         {
-            return habits.ContainsKey(habitName);
+            return tasks.ContainsKey(taskName);
         }
 
         /// <summary>
-        /// Returns the habit object with the name specified.
+        /// Returns the task object with the name specified.
         /// </summary>
         /// <param name="userInput">User input.</param>
-        /// <returns>The habit object, otherwise null.</returns>
-        public HabitObject? GetHabitObject(string userInput)
+        /// <returns>The task object, otherwise null.</returns>
+        public TaskObject? GetTaskObject(string userInput)
         {
-            if (habits.ContainsKey(userInput))
+            if (tasks.ContainsKey(userInput))
             {
-                return habits[userInput];
+                return tasks[userInput];
             }
 
             return null;
         }
 
         /// <summary>
-        /// Returns a list of all habit objects.
+        /// Returns a list of all task objects.
         /// </summary>
-        /// <returns>List of all habit objects.</returns>
-        public List<HabitObject> getHabits()
+        /// <returns>List of all task objects.</returns>
+        public List<TaskObject> getTasks()
         {
-            return new List<HabitObject>(habits.Values);
+            return new List<TaskObject>(tasks.Values);
         }
     }
 }

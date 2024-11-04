@@ -1,43 +1,45 @@
-﻿using Habit_Tracking_Console_App.Backend.Objects;
+﻿using Task_Tracking_Console_App.Backend.Objects;
+using Task_Tracking_Console_App.Frontend.PrintHelpers;
+using Task_Tracking_Console_App.Backend.Storage;
 using Habit_Tracking_Console_App.Frontend.PrintHelpers;
-using Habit_Tracking_Console_App.Backend.Storage;
+using Habit_Tracking_Console_App.Backend.Objects;
 
-namespace Habit_Tracking_Console_App.Backend.Logic.Commander
+namespace Task_Tracking_Console_App.Backend.Logic.Commander
 {
     class CommandExecutor
     {
         private DynamicStorageManager dynamicStorage;
-        private HabitInterface habitInterface;
+        private TaskInterface taskInterface;
 
-        public CommandExecutor(DynamicStorageManager dynamicStorage, HabitInterface habitInterface)
+        public CommandExecutor(DynamicStorageManager dynamicStorage, TaskInterface taskInterface)
         {
             this.dynamicStorage = dynamicStorage;
-            this.habitInterface = habitInterface;
+            this.taskInterface = taskInterface;
         }
 
         /// <summary>
-        /// Prompts the user for habit details, then creates the habit.
+        /// Prompts the user for task details, then creates the task.
         /// </summary>
         /// <returns></returns>
-        public bool PromptAndCreateHabit()
+        public bool PromptAndCreateTask()
         {
-            CLIHelper.Info("You can make changes to the habit after answering the following prompts.");
+            CLIHelper.Info("You can make changes to the task after answering the following prompts.");
 
-            // Get new habit details.
-            string name = habitInterface.PromptForName();
-            string description = habitInterface.PromptForDescription();
-            bool isGood = habitInterface.PromptForIsGood();
-            int importance = habitInterface.PromptForImportance();
-            string recurrenceAsString = this.habitInterface.PromptForRecurrence();
-            int occurrence = habitInterface.PromptForOccurrence();
+            // Get new task details.
+            string name = taskInterface.PromptForName();
+            string description = taskInterface.PromptForDescription();
+            bool isGood = taskInterface.PromptForIsGood();
+            int importance = taskInterface.PromptForImportance();
+            string recurrenceAsString = this.taskInterface.PromptForRecurrence();
+            int occurrence = taskInterface.PromptForOccurrence();
 
-            // Prompt user to correct any mistakes in habit details.
-            this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrence);
+            // Prompt user to correct any mistakes in task details.
+            this.taskInterface.PromptForTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrence);
 
             RecurrenceEnum recurrence = this.StringToRecurrence(recurrenceAsString);
 
-            // Create habit.
-            return dynamicStorage.CreateHabit(name, importance, isGood, description, recurrence, occurrence);
+            // Create task.
+            return dynamicStorage.CreateTask(name, importance, isGood, description, recurrence, occurrence);
         }
 
         private RecurrenceEnum StringToRecurrence(string recurrenceAsString)
@@ -46,94 +48,94 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
         }
 
         /// <summary>
-        /// Prompts the user for a habit, then deletes the habit.
+        /// Prompts the user for a task, then deletes the task.
         /// </summary>
-        /// <returns>If habit was successfully deleted.</returns>
-        public bool PromptAndDeleteHabit()
+        /// <returns>If task was successfully deleted.</returns>
+        public bool PromptAndDeleteTask()
         {
-            List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
+            List<string> taskNames = dynamicStorage.getTasks().Select(task => task.Name).ToList();
             string userInput;
 
             while (true)
             {
-                habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
+                taskInterface.DisplayAllTasks(dynamicStorage.getTasks());
 
-                userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
+                userInput = CLIHelper.PromptForNotEmptyInput("Enter the task name: ");
 
-                if (habitNames.Contains(userInput))
+                if (taskNames.Contains(userInput))
                 {
-                    return dynamicStorage.RemoveHabit(userInput);
+                    return dynamicStorage.RemoveTask(userInput);
                 }
             }
         }
 
         /// <summary>
-        /// Prompts the user for a habit to edit, then prompts for changes, then edits the habit.
+        /// Prompts the user for a task to edit, then prompts for changes, then edits the task.
         /// </summary>
-        public void PromptAndEditHabit()
+        public void PromptAndEditTask()
         {
-            List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
-            HabitObject? habit = null;
+            List<string> taskNames = dynamicStorage.getTasks().Select(task => task.Name).ToList();
+            TaskObject? task = null;
             string userInput;
 
-            while (habit == null)
+            while (task == null)
             {
-                habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
+                taskInterface.DisplayAllTasks(dynamicStorage.getTasks());
 
-                userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
-                if (dynamicStorage.HabitExists(userInput))
+                userInput = CLIHelper.PromptForNotEmptyInput("Enter the task name: ");
+                if (dynamicStorage.TaskExists(userInput))
                 {
-                    habit = dynamicStorage.GetHabitObject(userInput);
+                    task = dynamicStorage.GetTaskObject(userInput);
                 }
             }
 
-            string name = habit.Name;
-            int importance = habit.Importance;
-            bool isGood = habit.IsGood;
-            string description = habit.Description;
-            RecurrenceEnum recurrence = habit.Recurrence;
+            string name = task.Name;
+            int importance = task.Importance;
+            bool isGood = task.IsGood;
+            string description = task.Description;
+            RecurrenceEnum recurrence = task.Recurrence;
             string recurrenceAsString = recurrence.ToString();
 
-            int occurrences = habit.Occurrence;
+            int occurrences = task.Occurrence;
 
-            habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrences);
+            taskInterface.PromptForTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrences);
 
             recurrence = StringToRecurrence(recurrenceAsString);
 
-            habit.Edit(name, importance, isGood, description, recurrence, occurrences);
+            task.Edit(name, importance, isGood, description, recurrence, occurrences);
         }
 
         /// <summary>
-        /// Prompts the user for a habit to mark as complete, then marks the habit as complete.
+        /// Prompts the user for a task to mark as complete, then marks the task as complete.
         /// </summary>
-        /// <returns>If habit was marked successfully.</returns>
-        public bool PromptAndDoHabit()
+        /// <returns>If task was marked successfully.</returns>
+        public bool PromptAndDoTask()
         {
-            List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
+            List<string> taskNames = dynamicStorage.getTasks().Select(task => task.Name).ToList();
             string userInput = "";
 
-            while (!dynamicStorage.DoHabit(userInput))
+            while (!dynamicStorage.DoTask(userInput))
             {
-                habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
-                userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
+                taskInterface.DisplayAllTasks(dynamicStorage.getTasks());
+                userInput = CLIHelper.PromptForNotEmptyInput("Enter the task name: ");
             }
 
             return false;
         }
 
         /// <summary>
-        /// Prompts the user for a habit to mark as incomplete, then marks the habit as incomplete.
+        /// Prompts the user for a task to mark as incomplete, then marks the task as incomplete.
         /// </summary>
-        /// <returns>If habit was marked successfully.</returns>
-        public bool PromptAndUndoHabit()
+        /// <returns>If task was marked successfully.</returns>
+        public bool PromptAndUndoTask()
         {
-            List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
+            List<string> taskNames = dynamicStorage.getTasks().Select(task => task.Name).ToList();
             string userInput = "";
 
-            while (!dynamicStorage.UndoHabit(userInput))
+            while (!dynamicStorage.UndoTask(userInput))
             {
-                habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
-                userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
+                taskInterface.DisplayAllTasks(dynamicStorage.getTasks());
+                userInput = CLIHelper.PromptForNotEmptyInput("Enter the task name: ");
             }
 
             return false;
