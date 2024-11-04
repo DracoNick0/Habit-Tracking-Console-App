@@ -1,7 +1,7 @@
 ﻿using Habit_Tracking_Console_App.Backend.Logic;
 using Habit_Tracking_Console_App.Backend.Objects;
 using Habit_Tracking_Console_App.Frontend.PrintHelpers;
-using Task_Tracking_Console_App.Backend.Logic;
+using System.Globalization;
 using Task_Tracking_Console_App.Backend.Objects;
 
 namespace Task_Tracking_Console_App.Frontend.PrintHelpers
@@ -163,6 +163,11 @@ namespace Task_Tracking_Console_App.Frontend.PrintHelpers
                         break;
                 }
             }
+        }
+
+        public string PromptForDueDate()
+        {
+            return CLIHelper.PromptForNotEmptyInput("Please enter task start/due date (mm/dd/yyyy).");
         }
 
         /// <summary>

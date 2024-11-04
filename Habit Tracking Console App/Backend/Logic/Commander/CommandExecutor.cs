@@ -3,6 +3,8 @@ using Task_Tracking_Console_App.Frontend.PrintHelpers;
 using Task_Tracking_Console_App.Backend.Storage;
 using Habit_Tracking_Console_App.Frontend.PrintHelpers;
 using Habit_Tracking_Console_App.Backend.Objects;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Globalization;
 
 namespace Task_Tracking_Console_App.Backend.Logic.Commander
 {
@@ -30,14 +32,20 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             string description = taskInterface.PromptForDescription();
             bool isGood = taskInterface.PromptForIsGood();
             int importance = taskInterface.PromptForImportance();
-            //string dueDateAsString = this.taskInterface.PromptForDueDate(); ***************************************************************************************************
+
+            string date;
+            DateTime dueDate;
+            while (!DateTime.TryParseExact(date = taskInterface.PromptForDueDate(), "mm/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out dueDate))
+            {
+                CLIHelper.Error($"\"{date}\" is an invalid date!");
+            }
+
             string recurrenceAsString = this.taskInterface.PromptForRecurrence();
             int occurrence = taskInterface.PromptForOccurrence();
 
             // Prompt user to correct any mistakes in task details.
             this.taskInterface.PromptForTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrence);
 
-            DateTime dueDate = DateTime.Now.AddDays(1);
             RecurrenceEnum recurrence = this.StringToRecurrence(recurrenceAsString);
 
             // Create task.
