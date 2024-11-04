@@ -1,6 +1,7 @@
 ﻿using Task_Tracking_Console_App.Backend.Storage;
 using Habit_Tracking_Console_App.Frontend;
 using Habit_Tracking_Console_App.Backend.Logic.Commander;
+using Habit_Tracking_Console_App.Backend.Logic.Object_Manager;
 
 namespace Task_Tracking_Console_App.Backend.Logic.Commander
 {
@@ -10,15 +11,13 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
     class CommandHandler
     {
         private DynamicStorageManager dynamicStorage;
-        private TaskIO taskIO;
-        private CommandExecutor commands;
+        private TaskManager taskManager;
         private Action topText;
 
         public CommandHandler(DynamicStorageManager dynamicStorageManger)
         {
             this.dynamicStorage = dynamicStorageManger;
-            this.taskIO = new TaskIO();
-            this.commands = new CommandExecutor(this.dynamicStorage);
+            this.taskManager = new TaskManager(this.dynamicStorage);
             this.topText = () => Console.Write("");
         }
 
@@ -78,7 +77,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
                             UndoInvoked(command, inputArgs);
                             break;
                         default:
-                            this.commands.InvalidCommand(command);
+                            InvalidCommand(command);
                             break;
                     }
                 }
@@ -113,10 +112,10 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
                 switch (inputArgs[1])
                 {
                     case "task":
-                        this.commands.PromptAndCreateTask();
+                        this.taskManager.PromptAndCreateTask();
                         break;
                     default:
-                        this.commands.InvalidArgument(command, inputArgs, 1);
+                        InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
@@ -134,10 +133,10 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
                 switch (inputArgs[1])
                 {
                     case "task":
-                        this.commands.PromptAndDeleteTask();
+                        this.taskManager.PromptAndDeleteTask();
                         break;
                     default:
-                        this.commands.InvalidArgument(command, inputArgs, 1);
+                        InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
@@ -159,7 +158,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
                         topText = () => TaskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
                         break;
                     default:
-                        this.commands.InvalidArgument(command, inputArgs, 1);
+                        InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
@@ -177,10 +176,10 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
                 switch (inputArgs[1])
                 {
                     case "task":
-                        this.commands.PromptAndEditTask();
+                        this.taskManager.PromptAndEditTask();
                         break;
                     default:
-                        this.commands.InvalidArgument(command, inputArgs, 1);
+                        InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
@@ -198,10 +197,10 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
                 switch (inputArgs[1])
                 {
                     case "task":
-                        this.commands.PromptAndDoTask();
+                        this.taskManager.PromptAndDoTask();
                         break;
                     default:
-                        this.commands.InvalidArgument(command, inputArgs, 1);
+                        InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
@@ -219,10 +218,10 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
                 switch (inputArgs[1])
                 {
                     case "task":
-                        this.commands.PromptAndUndoTask();
+                        this.taskManager.PromptAndUndoTask();
                         break;
                     default:
-                        this.commands.InvalidArgument(command, inputArgs, 1);
+                        InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
@@ -234,6 +233,27 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
         private void ExitInvoked()
         {
             this.dynamicStorage.Save();
+        }
+
+        /// <summary>
+        /// Prints an error notification regarding an invalid command.
+        /// Text should be given and executed in View.
+        /// </summary>
+        /// <param name="command">The user inputted command.</param>
+        public void InvalidCommand(string command)
+        {
+            IO.Error($"The command \"{command}\" is not valid, try again!");
+        }
+
+        /// <summary>
+        /// Prints an error notification regarding an invalid argument.
+        /// Text should be given and executed in View.
+        /// </summary>
+        /// <param name="command">The user inputted command.</param>
+        /// <param name="inputArgs">User input split by the char ' '.</param>
+        public void InvalidArgument(string command, string[] inputArgs, int index)
+        {
+            IO.Error($"The argument \"{inputArgs[index]}\" in \"{command}\" is not valid, try again!");
         }
     }
 }
