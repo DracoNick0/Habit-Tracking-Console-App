@@ -6,7 +6,7 @@
         private int importance;
         private bool isGood;
         private string description;
-        private bool completed;
+        private int completions;
         private RecurrenceEnum recurrence;
         private int occurrence;
 
@@ -16,7 +16,7 @@
             this.importance = 0;
             this.isGood = false;
             this.description = string.Empty;
-            this.completed = false;
+            this.completions = 0;
             this.recurrence = RecurrenceEnum.Daily;
             this.occurrence = 1;
         }
@@ -29,7 +29,7 @@
             this.description = description;
             this.recurrence = recurrence;
             this.occurrence = occurrence;
-            completed = false;
+            completions = 0;
         }
 
         public void Edit(string? name = null, int? importance = null, bool? isGood = null, string? description = null, RecurrenceEnum? recurrence = null, int? occurrence = null)
@@ -66,10 +66,10 @@
             set { importance = value; }
         }
 
-        public bool Completed
+        public int Completions
         {
-            get { return completed; }
-            set { completed = value; }
+            get { return completions; }
+            set { completions = value; }
         }
 
         public RecurrenceEnum Recurrence

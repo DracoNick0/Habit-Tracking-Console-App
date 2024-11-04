@@ -26,13 +26,13 @@ namespace Habit_Tracking_Console_App.PrintHelpers
                     CLIHelper.MsgForWindow("+", "+", "+", '-');
                     if (displayCompletion)
                     {
-                        if (habit.Completed)
+                        if (habit.Completions >= habit.Occurrence)
                         {
                             completion = "x";
                         }
                         else
                         {
-                            completion = " ";
+                            completion = $"{habit.Completions}/{habit.Occurrence}";
                         }
                     }
 

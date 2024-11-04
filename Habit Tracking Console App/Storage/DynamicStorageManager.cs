@@ -97,7 +97,7 @@ namespace Habit_Tracking_Console_App.Storage
         {
             if (habits.ContainsKey(habitName))
             {
-                habits[habitName].Completed = true;
+                ++habits[habitName].Completions;
                 return true;
             }
             else
@@ -115,7 +115,7 @@ namespace Habit_Tracking_Console_App.Storage
         {
             if (habits.ContainsKey(habitName))
             {
-                habits[habitName].Completed = false;
+                --habits[habitName].Completions;
                 return true;
             }
             else
