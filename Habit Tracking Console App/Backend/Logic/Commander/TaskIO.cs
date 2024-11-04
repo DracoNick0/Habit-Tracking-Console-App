@@ -100,23 +100,12 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             IO.MsgForWindow("+", "+", "+", '-');
         }
 
-        /// <summary>
-        /// Prompts the user for the name of a task, then returns the corresponding task.
-        /// </summary>
-        /// <returns>The task object corresponding to the name provided.</returns>
-        public string PromptForTask()
+        public string PromptAndGetNewTaskName()
         {
-            return IO.PromptForNotEmptyInput("Enter the task name: ");
+            return IO.PromptForNotEmptyInput("Enter the new task name: ");
         }
 
-        /// <summary>
-        /// Prints prompts to allow the user to edit the task object.
-        /// </summary>
-        /// <param name="name">Tasks name.</param>
-        /// <param name="importance">Tasks importance.</param>
-        /// <param name="isGood">Tasks isGood.</param>
-        /// <param name="description">Tasks description</param>
-        public void PromptForTaskCorrection(ref string name, ref int importance, ref bool isGood, ref string description, ref string recurrenceAsString, ref int occurrence)
+        public void PromptAndGetTaskCorrection(ref string name, ref int importance, ref bool isGood, ref string description, ref RecurrenceEnum recurrence, ref int occurrence)
         {
             string? userInput;
 
@@ -126,7 +115,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
                 prompt.Add("(If a detail is incorrect, type it's name to change the property, otherwise press enter.)");
                 prompt.Add("Task details:");
                 prompt.Add($"- Name: {name}");
-                prompt.Add($"- Recurrence: {recurrenceAsString}");
+                prompt.Add($"- Recurrence: {recurrence.ToString()}");
                 prompt.Add($"- Occurrence: {occurrence}");
                 prompt.Add($"- Importance: {importance}");
                 prompt.Add($"- IsGood: {isGood}");
@@ -137,22 +126,22 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
                 switch (userInput)
                 {
                     case "name":
-                        name = PromptForName();
+                        name = PromptAndGetNewTaskName();
                         break;
                     case "desc":
-                        description = PromptForDescription();
+                        description = PromptAndGetDescription();
                         break;
                     case "isgood":
-                        isGood = PromptForIsGood();
+                        isGood = PromptAndGetIsGood();
                         break;
                     case "importance":
-                        importance = PromptForImportance();
+                        importance = PromptAndGetImportance();
                         break;
                     case "recurrence":
-                        recurrenceAsString = PromptForRecurrence();
+                        recurrence = PromptAndGetRecurrence();
                         break;
                     case "occurrence":
-                        occurrence = PromptForOccurrence();
+                        occurrence = PromptAndGetOccurrence();
                         break;
                     case "":
                         return;
@@ -163,80 +152,52 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             }
         }
 
-        public string PromptForDueDate()
+        public DateTime PromptAndGetDueDate()
         {
-            return IO.PromptForNotEmptyInput("Please enter task start/due date (mm/dd/yyyy).");
+            return InputManager.GetDateInput("Enter task start/due date (mm/dd/yyyy): ");
         }
 
-        /// <summary>
-        /// Prompts the user for the recurrence of a task.
-        /// </summary>
-        /// <returns>User input.</returns>
-        public string PromptForRecurrence()
+        public RecurrenceEnum PromptAndGetRecurrence()
         {
-            while (true)
-            {
-                string intervalPrompt = "Enter recurrence; none, daily, weekly, monthly, or yearly: ";
-                string userInput;
-                switch (userInput = IO.PromptForNotEmptyInput(intervalPrompt))
-                {
-                    case "none":
-                    case "daily":
-                    case "weekly":
-                    case "monthly":
-                    case "yearly":
-                        return userInput;
-                    default:
-                        IO.Clear();
-                        IO.Error("Input was not valid, try again!");
-                        break;
-                }
-            }
+            return InputManager.GetRecurrenceInput("Enter recurrence; none, daily, weekly, monthly, or yearly: ");
         }
 
-        /// <summary>
-        /// Prompts the user for the occurrence of a task.
-        /// </summary>
-        /// <returns>User input.</returns>
-        public int PromptForOccurrence()
+        public int PromptAndGetOccurrence()
         {
-            int occurence = -1;
-
-            string occurencePrompt = "Enter the amount of times you wish to do this task within the time interval: ";
-            while (!((occurence = InputManager.GetIntInput(occurencePrompt)) > 0))
+            int occurrence = 0;
+            string occurrencePrompt = "Enter the amount of times you wish to do this task within the time interval: ";
+            while (!((occurrence = InputManager.GetIntInput(occurrencePrompt)) > 0))
             {
                 IO.Clear();
-                IO.Error("Input was not valid, try again!");
+                IO.Error($"\"{occurrence}\" is not > 0, try again!");
             }
 
-            return occurence;
+            return occurrence;
         }
 
         /// <summary>
         /// Prompts the user for the name of a task.
         /// </summary>
         /// <returns>User input.</returns>
-        public string PromptForName()
+        public string PromptAndGetExistingTaskName()
         {
-            string namePrompt = "Enter the name of the task: ";
-            return IO.PromptForNotEmptyInput(namePrompt);
+            return IO.PromptForNotEmptyInput("Enter the name of the task: ");
         }
 
         /// <summary>
         /// Prompts the user for the description of a task.
         /// </summary>
         /// <returns>User input.</returns>
-        public string PromptForDescription()
+        public string PromptAndGetDescription()
         {
-            string descriptionPrompt = "Enter the description of the task: ";
-            return IO.PromptForNotEmptyInput(descriptionPrompt);
+            return IO.PromptForNotEmptyInput("Enter the description of the task: ");
         }
 
         /// <summary>
         /// Prompts the user for the polarity of a task.
         /// </summary>
         /// <returns>User input.</returns>
-        public bool PromptForIsGood()
+        public bool PromptAndGetIsGood()
         {
             string isGoodPrompt = "Is this a good task, enter true or false: ";
             return InputManager.GetBoolInput(isGoodPrompt);
@@ -246,15 +207,14 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
         /// Prompts the user for the importance of a task.
         /// </summary>
         /// <returns>User input.</returns>
-        public int PromptForImportance()
+        public int PromptAndGetImportance()
         {
             int importance;
-
             string importancePrompt = "If 1 is trivial and 5 is of utmost importance, enter the digit that represents the tasks importance: ";
             while (!((importance = InputManager.GetIntInput(importancePrompt)) >= 1 && importance <= 5))
             {
                 IO.Clear();
-                IO.Error("Input was not valid, try again!");
+                IO.Error($"\"{importance}\" is not >= 1 && <= 5, try again!");
             }
 
             return importance;

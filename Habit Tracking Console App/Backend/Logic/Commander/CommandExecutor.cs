@@ -27,20 +27,16 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             IO.Info("You can make changes to the task after answering the following prompts.");
 
             // Get new task details.
-            string name = taskIO.PromptForName();
-            string description = taskIO.PromptForDescription();
-            bool isGood = taskIO.PromptForIsGood();
-            int importance = taskIO.PromptForImportance();
-
-            DateTime dueDate = InputManager.GetDateInput();
-
-            string recurrenceAsString = this.taskIO.PromptForRecurrence();
-            int occurrence = taskIO.PromptForOccurrence();
+            string name = taskIO.PromptAndGetNewTaskName();
+            string description = taskIO.PromptAndGetDescription();
+            bool isGood = taskIO.PromptAndGetIsGood();
+            int importance = taskIO.PromptAndGetImportance();
+            DateTime dueDate = taskIO.PromptAndGetDueDate();
+            RecurrenceEnum recurrence = this.taskIO.PromptAndGetRecurrence();
+            int occurrence = taskIO.PromptAndGetOccurrence();
 
             // Prompt user to correct any mistakes in task details.
-            this.taskIO.PromptForTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrence);
-
-            RecurrenceEnum recurrence = this.StringToRecurrence(recurrenceAsString);
+            this.taskIO.PromptAndGetTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrence);
 
             // Create task.
             return dynamicStorage.CreateTask(name, importance, isGood, description, recurrence, occurrence, dueDate);
@@ -93,20 +89,19 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
                 }
             }
 
-            string name = task.Name;
-            int importance = task.Importance;
-            bool isGood = task.IsGood;
-            string description = task.Description;
-            RecurrenceEnum recurrence = task.Recurrence;
-            string recurrenceAsString = recurrence.ToString();
+            // Get new task details.
+            string name = taskIO.PromptAndGetNewTaskName();
+            string description = taskIO.PromptAndGetDescription();
+            bool isGood = taskIO.PromptAndGetIsGood();
+            int importance = taskIO.PromptAndGetImportance();
+            DateTime dueDate = taskIO.PromptAndGetDueDate();
+            RecurrenceEnum recurrence = this.taskIO.PromptAndGetRecurrence();
+            int occurrence = taskIO.PromptAndGetOccurrence();
 
-            int occurrences = task.Occurrence;
+            // Prompt user to correct any mistakes in task details.
+            this.taskIO.PromptAndGetTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrence);
 
-            taskIO.PromptForTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrences);
-
-            recurrence = StringToRecurrence(recurrenceAsString);
-
-            task.Edit(name, importance, isGood, description, recurrence, occurrences);
+            task.Edit(name, importance, isGood, description, recurrence, occurrence);
         }
 
         /// <summary>
