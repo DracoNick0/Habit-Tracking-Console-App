@@ -1,4 +1,4 @@
-﻿using Habit_Tracking_Console_App.Backend.Logic;
+﻿using Habit_Tracking_Console_App.Backend.Objects;
 
 namespace Habit_Tracking_Console_App.Backend.Threads
 {

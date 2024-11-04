@@ -1,4 +1,4 @@
-﻿namespace Habit_Tracking_Console_App.Backend.Logic
+﻿namespace Habit_Tracking_Console_App.Backend.Objects
 {
     /// <summary>
     /// Stores and executes stored actions.
