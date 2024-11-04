@@ -28,16 +28,13 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             string description = habitInterface.PromptForDescription();
             bool isGood = habitInterface.PromptForIsGood();
             int importance = habitInterface.PromptForImportance();
-
-            RecurrenceEnum recurrence;
-            string recurrenceAsString;
-            recurrence = StringToRecurrence(recurrenceAsString = this.habitInterface.PromptForRecurrence());
-
+            string recurrenceAsString = this.habitInterface.PromptForRecurrence();
             int occurrence = habitInterface.PromptForOccurrence();
 
             // Prompt user to correct any mistakes in habit details.
             this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrence);
-            recurrence = this.StringToRecurrence(recurrenceAsString);
+
+            RecurrenceEnum recurrence = this.StringToRecurrence(recurrenceAsString);
 
             // Create habit.
             return dynamicStorage.CreateHabit(name, importance, isGood, description, recurrence, occurrence);
