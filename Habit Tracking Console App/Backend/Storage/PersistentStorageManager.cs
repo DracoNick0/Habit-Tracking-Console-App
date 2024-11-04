@@ -5,7 +5,7 @@ namespace Habit_Tracking_Console_App.Backend.Storage
 {
     class PersistentStorageManager
     {
-        private const string habitStoragePath = @"../../../Storage/Habit_Storage.json";
+        private const string habitStoragePath = @"../../../Backend/Storage/Habit_Storage.json";
 
         public PersistentStorageManager() { }
 
