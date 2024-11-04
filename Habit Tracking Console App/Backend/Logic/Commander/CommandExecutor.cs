@@ -30,16 +30,18 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             string description = taskInterface.PromptForDescription();
             bool isGood = taskInterface.PromptForIsGood();
             int importance = taskInterface.PromptForImportance();
+            //string dueDateAsString = this.taskInterface.PromptForDueDate(); ***************************************************************************************************
             string recurrenceAsString = this.taskInterface.PromptForRecurrence();
             int occurrence = taskInterface.PromptForOccurrence();
 
             // Prompt user to correct any mistakes in task details.
             this.taskInterface.PromptForTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrence);
 
+            DateTime dueDate = DateTime.Now.AddDays(1);
             RecurrenceEnum recurrence = this.StringToRecurrence(recurrenceAsString);
 
             // Create task.
-            return dynamicStorage.CreateTask(name, importance, isGood, description, recurrence, occurrence);
+            return dynamicStorage.CreateTask(name, importance, isGood, description, recurrence, occurrence, dueDate);
         }
 
         private RecurrenceEnum StringToRecurrence(string recurrenceAsString)

@@ -61,6 +61,9 @@ namespace Task_Tracking_Console_App.Frontend.PrintHelpers
                     {
                         switch (task.Recurrence)
                         {
+                            case RecurrenceEnum.none:
+                                // timeLeft = $"{TimeHelper.TimeTillNextDay().Hours.ToString()} hours left";
+                                break;
                             case RecurrenceEnum.daily:
                                 timeLeft = $"{TimeHelper.TimeTillNextDay().Hours.ToString()} hours left";
                                 break;
@@ -170,10 +173,11 @@ namespace Task_Tracking_Console_App.Frontend.PrintHelpers
         {
             while (true)
             {
-                string intervalPrompt = "Enter daily, weekly, monthly, or yearly: ";
+                string intervalPrompt = "Enter recurrence; none, daily, weekly, monthly, or yearly: ";
                 string userInput;
                 switch (userInput = CLIHelper.PromptForNotEmptyInput(intervalPrompt))
                 {
+                    case "none":
                     case "daily":
                     case "weekly":
                     case "monthly":

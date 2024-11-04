@@ -29,11 +29,11 @@ namespace Task_Tracking_Console_App.Backend.Storage
         /// <param name="recurrence">The recurrence of the task.</param>
         /// <param name="occurrence">The occurrences within the recurrence interval of the task.</param>
         /// <returns></returns>
-        public bool CreateTask(string name, int importance, bool isGood, string description, RecurrenceEnum recurrence, int occurrence)
+        public bool CreateTask(string name, int importance, bool isGood, string description, RecurrenceEnum recurrence, int occurrence, DateTime dueDate)
         {
             if (!tasks.ContainsKey(name))
             {
-                TaskObject newTask = new TaskObject(name, importance, isGood, description, recurrence, occurrence);
+                TaskObject newTask = new TaskObject(name, importance, isGood, description, recurrence, occurrence, dueDate);
                 Add(newTask);
                 return true;
             }
