@@ -1,5 +1,5 @@
 ﻿using Habit_Tracking_Console_App.Backend.Objects;
-using Habit_Tracking_Console_App.Frontend.PrintHelpers;
+using Habit_Tracking_Console_App.Frontend;
 using System.Globalization;
 
 namespace Habit_Tracking_Console_App.Backend.Logic

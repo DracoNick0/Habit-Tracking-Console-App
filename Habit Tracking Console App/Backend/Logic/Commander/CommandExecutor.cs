@@ -1,9 +1,7 @@
 ﻿using Task_Tracking_Console_App.Backend.Objects;
 using Task_Tracking_Console_App.Backend.Storage;
-using Habit_Tracking_Console_App.Frontend.PrintHelpers;
+using Habit_Tracking_Console_App.Frontend;
 using Habit_Tracking_Console_App.Backend.Objects;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Globalization;
 using Habit_Tracking_Console_App.Backend.Logic.Commander;
 using Habit_Tracking_Console_App.Backend.Logic;
 
