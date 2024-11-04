@@ -96,10 +96,10 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             CLIHelper.Msg("Available Commands:");
             CLIHelper.MsgForWindow("", "", "", '-', int.MaxValue);
             CLIHelper.Msg("- exit: saves and exits the program");
-            CLIHelper.Msg("- show <item>: displays all items in category(eg. task, task)");
-            CLIHelper.Msg("- create <item>: creates an item(eg. task, task)");
-            CLIHelper.Msg("- delete <item>: deletes an item(eg. task, task)");
-            CLIHelper.Msg("- edit <item>: creates an item(eg. task, task)");
+            CLIHelper.Msg("- show <item>: displays all items in category(eg. task, habit)");
+            CLIHelper.Msg("- create <item>: creates an item(eg. task, habit)");
+            CLIHelper.Msg("- delete <item>: deletes an item(eg. task, habit)");
+            CLIHelper.Msg("- edit <item>: creates an item(eg. task, habit)");
         }
 
         /// <summary>
