@@ -1,6 +1,6 @@
-﻿using Habit_Tracking_Console_App.Model;
+﻿using Habit_Tracking_Console_App.Backend.Logic;
 
-namespace Habit_Tracking_Console_App.Threads
+namespace Habit_Tracking_Console_App.Backend.Threads
 {
     /// <summary>
     /// Monitors the console window size.

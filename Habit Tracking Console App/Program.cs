@@ -1,7 +1,7 @@
-﻿using Habit_Tracking_Console_App.Commander;
-using Habit_Tracking_Console_App.PrintHelpers;
-using Habit_Tracking_Console_App.Storage;
-using Habit_Tracking_Console_App.Threads;
+﻿using Habit_Tracking_Console_App.Backend.Logic.Commander;
+using Habit_Tracking_Console_App.Backend.Storage;
+using Habit_Tracking_Console_App.Backend.Threads;
+using Habit_Tracking_Console_App.Frontend.PrintHelpers;
 
 // Start threads.
 ConsoleResizeMonitor monitor = new ConsoleResizeMonitor();

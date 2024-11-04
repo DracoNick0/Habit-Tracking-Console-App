@@ -1,6 +1,6 @@
-﻿using Habit_Tracking_Console_App.Objects;
+﻿using Habit_Tracking_Console_App.Backend.Objects;
 
-namespace Habit_Tracking_Console_App.PrintHelpers
+namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
 {
     /// <summary>
     /// Contains functions that prompt for interactions with habits.

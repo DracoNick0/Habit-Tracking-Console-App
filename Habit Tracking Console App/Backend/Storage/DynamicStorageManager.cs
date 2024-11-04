@@ -1,7 +1,7 @@
-﻿using Habit_Tracking_Console_App.Objects;
-using Habit_Tracking_Console_App.PrintHelpers;
+﻿using Habit_Tracking_Console_App.Backend.Objects;
+using Habit_Tracking_Console_App.Frontend.PrintHelpers;
 
-namespace Habit_Tracking_Console_App.Storage
+namespace Habit_Tracking_Console_App.Backend.Storage
 {
     /// <summary>
     /// Manages habits in a dynamic storage(dictionary).
@@ -105,7 +105,7 @@ namespace Habit_Tracking_Console_App.Storage
                 return false;
             }
         }
-        
+
         /// <summary>
         /// Marks the habit with the specified name as incomplete.
         /// </summary>

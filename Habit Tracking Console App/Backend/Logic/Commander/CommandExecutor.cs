@@ -1,8 +1,8 @@
-﻿using Habit_Tracking_Console_App.Storage;
-using Habit_Tracking_Console_App.PrintHelpers;
-using Habit_Tracking_Console_App.Objects;
+﻿using Habit_Tracking_Console_App.Backend.Objects;
+using Habit_Tracking_Console_App.Frontend.PrintHelpers;
+using Habit_Tracking_Console_App.Backend.Storage;
 
-namespace Habit_Tracking_Console_App.Commander
+namespace Habit_Tracking_Console_App.Backend.Logic.Commander
 {
     class CommandExecutor
     {
@@ -24,17 +24,17 @@ namespace Habit_Tracking_Console_App.Commander
             CLIHelper.Info("You can make changes to the habit after answering the following prompts.");
 
             // Get new habit details.
-            string name = this.habitInterface.PromptForName();
-            string description = this.habitInterface.PromptForDescription();
-            bool isGood = this.habitInterface.PromptForIsGood();
-            int importance = this.habitInterface.PromptForImportance();
+            string name = habitInterface.PromptForName();
+            string description = habitInterface.PromptForDescription();
+            bool isGood = habitInterface.PromptForIsGood();
+            int importance = habitInterface.PromptForImportance();
 
-            RecurrenceEnum recurrence = this.habitInterface.PromptForRecurrence();
-            int occurrence = this.habitInterface.PromptForOccurrence();
+            RecurrenceEnum recurrence = habitInterface.PromptForRecurrence();
+            int occurrence = habitInterface.PromptForOccurrence();
 
-            this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrence);
+            habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrence);
 
-            return this.dynamicStorage.CreateHabit(name, importance, isGood, description, recurrence, occurrence);
+            return dynamicStorage.CreateHabit(name, importance, isGood, description, recurrence, occurrence);
         }
 
         /// <summary>
@@ -48,13 +48,13 @@ namespace Habit_Tracking_Console_App.Commander
 
             while (true)
             {
-                this.habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
+                habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
 
                 userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
 
                 if (habitNames.Contains(userInput))
                 {
-                    return this.dynamicStorage.RemoveHabit(this.habitInterface.PromptForHabit());
+                    return dynamicStorage.RemoveHabit(habitInterface.PromptForHabit());
                 }
             }
         }
@@ -70,12 +70,12 @@ namespace Habit_Tracking_Console_App.Commander
 
             while (habit == null)
             {
-                this.habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
+                habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
 
                 userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
-                if (this.dynamicStorage.HabitExists(userInput))
+                if (dynamicStorage.HabitExists(userInput))
                 {
-                    habit = this.dynamicStorage.GetHabitObject(userInput);
+                    habit = dynamicStorage.GetHabitObject(userInput);
                 }
             }
 
@@ -86,7 +86,7 @@ namespace Habit_Tracking_Console_App.Commander
             RecurrenceEnum recurrence = habit.Recurrence;
             int occurrences = habit.Occurrence;
 
-            this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrences);
+            habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrences);
 
             habit.Edit(name, importance, isGood, description, recurrence, occurrences);
         }
@@ -100,9 +100,9 @@ namespace Habit_Tracking_Console_App.Commander
             List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
             string userInput = "";
 
-            while (!this.dynamicStorage.DoHabit(userInput))
+            while (!dynamicStorage.DoHabit(userInput))
             {
-                this.habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
+                habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
                 userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
             }
 
@@ -118,9 +118,9 @@ namespace Habit_Tracking_Console_App.Commander
             List<string> habitNames = dynamicStorage.getHabits().Select(habit => habit.Name).ToList();
             string userInput = "";
 
-            while (!this.dynamicStorage.UndoHabit(userInput))
+            while (!dynamicStorage.UndoHabit(userInput))
             {
-                this.habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
+                habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
                 userInput = CLIHelper.PromptForNotEmptyInput("Enter the habit name: ");
             }
 

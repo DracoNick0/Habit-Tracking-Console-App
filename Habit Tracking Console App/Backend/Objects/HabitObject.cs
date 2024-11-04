@@ -1,4 +1,4 @@
-﻿namespace Habit_Tracking_Console_App.Objects
+﻿namespace Habit_Tracking_Console_App.Backend.Objects
 {
     class HabitObject
     {
@@ -12,13 +12,13 @@
 
         public HabitObject()
         {
-            this.name = string.Empty;
-            this.importance = 0;
-            this.isGood = false;
-            this.description = string.Empty;
-            this.completions = 0;
-            this.recurrence = RecurrenceEnum.Daily;
-            this.occurrence = 1;
+            name = string.Empty;
+            importance = 0;
+            isGood = false;
+            description = string.Empty;
+            completions = 0;
+            recurrence = RecurrenceEnum.Daily;
+            occurrence = 1;
         }
 
         public HabitObject(string name, int importance, bool isGood, string description, RecurrenceEnum recurrence, int occurrence)

@@ -1,7 +1,7 @@
 ﻿using System.Text.Json;
-using Habit_Tracking_Console_App.Objects;
+using Habit_Tracking_Console_App.Backend.Objects;
 
-namespace Habit_Tracking_Console_App.Storage
+namespace Habit_Tracking_Console_App.Backend.Storage
 {
     class PersistentStorageManager
     {

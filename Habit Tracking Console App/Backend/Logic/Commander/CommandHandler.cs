@@ -1,7 +1,7 @@
-﻿using Habit_Tracking_Console_App.Storage;
-using Habit_Tracking_Console_App.PrintHelpers;
+﻿using Habit_Tracking_Console_App.Frontend.PrintHelpers;
+using Habit_Tracking_Console_App.Backend.Storage;
 
-namespace Habit_Tracking_Console_App.Commander
+namespace Habit_Tracking_Console_App.Backend.Logic.Commander
 {
     /// <summary>
     /// Handles the main commands input by the user.
@@ -15,10 +15,10 @@ namespace Habit_Tracking_Console_App.Commander
 
         public CommandHandler(DynamicStorageManager dynamicStorageManger)
         {
-            this.dynamicStorage = dynamicStorageManger;
-            this.habitInterface = new HabitInterface();
-            this.commands = new CommandExecutor(this.dynamicStorage, this.habitInterface);
-            this.topText = (() => Console.Write(""));
+            dynamicStorage = dynamicStorageManger;
+            habitInterface = new HabitInterface();
+            commands = new CommandExecutor(dynamicStorage, habitInterface);
+            topText = () => Console.Write("");
         }
 
         public void Run()
@@ -27,7 +27,7 @@ namespace Habit_Tracking_Console_App.Commander
 
             do
             {
-                this.topText.Invoke();
+                topText.Invoke();
                 userInput = CLIHelper.PromptForNotEmptyInput("Enter \"help\" to print a list of commands.");
             } while (ExecuteCommand(userInput));
         }
@@ -52,32 +52,32 @@ namespace Habit_Tracking_Console_App.Commander
                     {
                         // Following cases require 1 argument.
                         case "help":
-                            this.HelpInvoked();
+                            HelpInvoked();
                             break;
                         case "exit":
-                            this.ExitInvoked();
+                            ExitInvoked();
                             return false;
                         // Following cases require 2 arguments.
                         case "create":
-                            this.CreateInvoked(command, inputArgs);
+                            CreateInvoked(command, inputArgs);
                             break;
                         case "delete":
-                            this.DeleteInvoked(command, inputArgs);
+                            DeleteInvoked(command, inputArgs);
                             break;
                         case "view":
-                            this.ViewInvoked(command, inputArgs);
+                            ViewInvoked(command, inputArgs);
                             break;
                         case "edit":
-                            this.EditInvoked(command, inputArgs);
+                            EditInvoked(command, inputArgs);
                             break;
                         case "do":
-                            this.DoInvoked(command, inputArgs);
+                            DoInvoked(command, inputArgs);
                             break;
                         case "undo":
-                            this.UndoInvoked(command, inputArgs);
+                            UndoInvoked(command, inputArgs);
                             break;
                         default:
-                            this.commands.InvalidCommand(command);
+                            commands.InvalidCommand(command);
                             break;
                     }
                 }
@@ -113,10 +113,10 @@ namespace Habit_Tracking_Console_App.Commander
                 switch (inputArgs[1])
                 {
                     case "habit":
-                        this.commands.PromptAndCreateHabit();
+                        commands.PromptAndCreateHabit();
                         break;
                     default:
-                        this.commands.InvalidArgument(command, inputArgs, 1);
+                        commands.InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
@@ -134,10 +134,10 @@ namespace Habit_Tracking_Console_App.Commander
                 switch (inputArgs[1])
                 {
                     case "habit":
-                        this.commands.PromptAndDeleteHabit();
+                        commands.PromptAndDeleteHabit();
                         break;
                     default:
-                        this.commands.InvalidArgument(command, inputArgs, 1);
+                        commands.InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
@@ -156,10 +156,10 @@ namespace Habit_Tracking_Console_App.Commander
                 {
                     case "habit":
                     case "habits":
-                        this.topText = (() => this.habitInterface.DisplayAllHabits(this.dynamicStorage.getHabits()));
+                        topText = () => habitInterface.DisplayAllHabits(dynamicStorage.getHabits());
                         break;
                     default:
-                        this.commands.InvalidArgument(command, inputArgs, 1);
+                        commands.InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
@@ -177,10 +177,10 @@ namespace Habit_Tracking_Console_App.Commander
                 switch (inputArgs[1])
                 {
                     case "habit":
-                        this.commands.PromptAndEditHabit();
+                        commands.PromptAndEditHabit();
                         break;
                     default:
-                        this.commands.InvalidArgument(command, inputArgs, 1);
+                        commands.InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
@@ -198,10 +198,10 @@ namespace Habit_Tracking_Console_App.Commander
                 switch (inputArgs[1])
                 {
                     case "habit":
-                        this.commands.PromptAndDoHabit();
+                        commands.PromptAndDoHabit();
                         break;
                     default:
-                        this.commands.InvalidArgument(command, inputArgs, 1);
+                        commands.InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
@@ -219,10 +219,10 @@ namespace Habit_Tracking_Console_App.Commander
                 switch (inputArgs[1])
                 {
                     case "habit":
-                        this.commands.PromptAndUndoHabit();
+                        commands.PromptAndUndoHabit();
                         break;
                     default:
-                        this.commands.InvalidArgument(command, inputArgs, 1);
+                        commands.InvalidArgument(command, inputArgs, 1);
                         break;
                 }
             }
@@ -233,7 +233,7 @@ namespace Habit_Tracking_Console_App.Commander
         /// </summary>
         private void ExitInvoked()
         {
-            this.dynamicStorage.Save();
+            dynamicStorage.Save();
         }
     }
 }
