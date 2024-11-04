@@ -88,7 +88,7 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
         /// <param name="importance">Habits importance.</param>
         /// <param name="isGood">Habits isGood.</param>
         /// <param name="description">Habits description</param>
-        public void PromptForHabitCorrection(ref string name, ref int importance, ref bool isGood, ref string description, ref RecurrenceEnum recurrence, ref int occurrence)
+        public void PromptForHabitCorrection(ref string name, ref int importance, ref bool isGood, ref string description, ref string recurrenceAsString, ref int occurrence)
         {
             string? userInput;
 
@@ -98,7 +98,7 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
                 prompt.Add("(If a detail is incorrect, type it's name to change the property, otherwise press enter.)");
                 prompt.Add("Habit details:");
                 prompt.Add($"- Name: {name}");
-                prompt.Add($"- Recurrence: {recurrence}");
+                prompt.Add($"- Recurrence: {recurrenceAsString}");
                 prompt.Add($"- Occurrence: {occurrence}");
                 prompt.Add($"- Importance: {importance}");
                 prompt.Add($"- IsGood: {isGood}");
@@ -121,7 +121,7 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
                         importance = PromptForImportance();
                         break;
                     case "recurrence":
-                        recurrence = PromptForRecurrence();
+                        recurrenceAsString = PromptForRecurrence();
                         break;
                     case "occurrence":
                         occurrence = PromptForOccurrence();
@@ -139,21 +139,19 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
         /// Prompts the user for the recurrence of a habit.
         /// </summary>
         /// <returns>User input.</returns>
-        public RecurrenceEnum PromptForRecurrence()
+        public string PromptForRecurrence()
         {
             while (true)
             {
                 string intervalPrompt = "Enter daily, weekly, monthly, or yearly: ";
-                switch (CLIHelper.PromptForNotEmptyInput(intervalPrompt))
+                string userInput;
+                switch (userInput = CLIHelper.PromptForNotEmptyInput(intervalPrompt))
                 {
                     case "daily":
-                        return RecurrenceEnum.Daily;
                     case "weekly":
-                        return RecurrenceEnum.Weekly;
                     case "monthly":
-                        return RecurrenceEnum.Monthly;
                     case "yearly":
-                        return RecurrenceEnum.Yearly;
+                        return userInput;
                     default:
                         CLIHelper.Clear();
                         CLIHelper.Error("Input was not valid, try again!");

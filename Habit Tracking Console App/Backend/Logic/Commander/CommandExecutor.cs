@@ -29,12 +29,35 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             bool isGood = habitInterface.PromptForIsGood();
             int importance = habitInterface.PromptForImportance();
 
-            RecurrenceEnum recurrence = habitInterface.PromptForRecurrence();
+            RecurrenceEnum recurrence;
+            string recurrenceAsString;
+            recurrence = StringToRecurrence(recurrenceAsString = this.habitInterface.PromptForRecurrence());
+
             int occurrence = habitInterface.PromptForOccurrence();
 
-            habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrence);
+            // Prompt user to correct any mistakes in habit details.
+            this.habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrence);
+            recurrence = this.StringToRecurrence(recurrenceAsString);
 
+            // Create habit.
             return dynamicStorage.CreateHabit(name, importance, isGood, description, recurrence, occurrence);
+        }
+
+        private RecurrenceEnum StringToRecurrence(string recurrenceAsString)
+        {
+            switch (recurrenceAsString)
+            {
+                case "daily":
+                    return RecurrenceEnum.Daily;
+                case "weekly":
+                    return RecurrenceEnum.Weekly;
+                case "monthly":
+                    return RecurrenceEnum.Monthly;
+                case "yearly":
+                    return RecurrenceEnum.Yearly;
+                default:
+                    return RecurrenceEnum.Daily;
+            }
         }
 
         /// <summary>
@@ -84,9 +107,31 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             bool isGood = habit.IsGood;
             string description = habit.Description;
             RecurrenceEnum recurrence = habit.Recurrence;
+            string recurrenceAsString;
+            switch (recurrence)
+            {
+                case RecurrenceEnum.Daily:
+                    recurrenceAsString = "daily";
+                    break;
+                case RecurrenceEnum.Weekly:
+                    recurrenceAsString = "weekly";
+                    break;
+                case RecurrenceEnum.Monthly:
+                    recurrenceAsString = "monthly";
+                    break;
+                case RecurrenceEnum.Yearly:
+                    recurrenceAsString = "yearly";
+                    break;
+                default:
+                    recurrenceAsString = "daily";
+                    break;
+            }
+
             int occurrences = habit.Occurrence;
 
-            habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrences);
+            habitInterface.PromptForHabitCorrection(ref name, ref importance, ref isGood, ref description, ref recurrenceAsString, ref occurrences);
+
+            recurrence = StringToRecurrence(recurrenceAsString);
 
             habit.Edit(name, importance, isGood, description, recurrence, occurrences);
         }
