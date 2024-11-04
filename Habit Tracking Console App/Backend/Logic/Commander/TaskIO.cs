@@ -9,8 +9,6 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
     /// </summary>
     class TaskIO
     {
-        public TaskIO() { }
-
         /// <summary>
         /// Displays all tasks.
         /// </summary>
@@ -18,7 +16,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
         /// <param name="displayDescription">Determines if the description variable is displayed.</param>
         /// <param name="displayImportance">Determines if the importance variable is displayed.</param>
         /// <param name="displayCompletion">Determines if the completion variable is displayed.</param>
-        public void DisplayAllTasks(List<TaskObject> tasks, bool displayIsGood = true, bool displayImportance = true, bool displayCompletion = true, bool displayDescription = true, bool displayTimeLeft = true)
+        public static void DisplayAllTasks(List<TaskObject> tasks, bool displayIsGood = true, bool displayImportance = true, bool displayCompletion = true, bool displayDescription = true, bool displayTimeLeft = true)
         {
             if (tasks.Count > 0)
             {
@@ -100,12 +98,12 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             IO.MsgForWindow("+", "+", "+", '-');
         }
 
-        public string PromptAndGetNewTaskName()
+        public static string PromptAndGetNewTaskName()
         {
             return IO.PromptForNotEmptyInput("Enter the new task name: ");
         }
 
-        public void PromptAndGetTaskCorrection(ref string name, ref int importance, ref bool isGood, ref string description, ref RecurrenceEnum recurrence, ref int occurrence)
+        public static void PromptAndGetTaskCorrection(ref string name, ref int importance, ref bool isGood, ref string description, ref RecurrenceEnum recurrence, ref int occurrence)
         {
             string? userInput;
 
@@ -152,17 +150,17 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             }
         }
 
-        public DateTime PromptAndGetDueDate()
+        public static DateTime PromptAndGetDueDate()
         {
             return InputManager.GetDateInput("Enter task start/due date (mm/dd/yyyy): ");
         }
 
-        public RecurrenceEnum PromptAndGetRecurrence()
+        public static RecurrenceEnum PromptAndGetRecurrence()
         {
             return InputManager.GetRecurrenceInput("Enter recurrence; none, daily, weekly, monthly, or yearly: ");
         }
 
-        public int PromptAndGetOccurrence()
+        public static int PromptAndGetOccurrence()
         {
             int occurrence = 0;
             string occurrencePrompt = "Enter the amount of times you wish to do this task within the time interval: ";
@@ -179,7 +177,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
         /// Prompts the user for the name of a task.
         /// </summary>
         /// <returns>User input.</returns>
-        public string PromptAndGetExistingTaskName()
+        public static string PromptAndGetExistingTaskName()
         {
             return IO.PromptForNotEmptyInput("Enter the name of the task: ");
         }
@@ -188,7 +186,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
         /// Prompts the user for the description of a task.
         /// </summary>
         /// <returns>User input.</returns>
-        public string PromptAndGetDescription()
+        public static string PromptAndGetDescription()
         {
             return IO.PromptForNotEmptyInput("Enter the description of the task: ");
         }
@@ -197,7 +195,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
         /// Prompts the user for the polarity of a task.
         /// </summary>
         /// <returns>User input.</returns>
-        public bool PromptAndGetIsGood()
+        public static bool PromptAndGetIsGood()
         {
             string isGoodPrompt = "Is this a good task, enter true or false: ";
             return InputManager.GetBoolInput(isGoodPrompt);
@@ -207,7 +205,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
         /// Prompts the user for the importance of a task.
         /// </summary>
         /// <returns>User input.</returns>
-        public int PromptAndGetImportance()
+        public static int PromptAndGetImportance()
         {
             int importance;
             string importancePrompt = "If 1 is trivial and 5 is of utmost importance, enter the digit that represents the tasks importance: ";

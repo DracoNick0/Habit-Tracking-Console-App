@@ -18,7 +18,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
         {
             this.dynamicStorage = dynamicStorageManger;
             this.taskIO = new TaskIO();
-            this.commands = new CommandExecutor(this.dynamicStorage, this.taskIO);
+            this.commands = new CommandExecutor(this.dynamicStorage);
             this.topText = () => Console.Write("");
         }
 
@@ -156,7 +156,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
                 {
                     case "task":
                     case "tasks":
-                        topText = () => taskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
+                        topText = () => TaskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
                         break;
                     default:
                         this.commands.InvalidArgument(command, inputArgs, 1);

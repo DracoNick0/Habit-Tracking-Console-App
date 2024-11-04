@@ -9,12 +9,10 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
     class CommandExecutor
     {
         private DynamicStorageManager dynamicStorage;
-        private TaskIO taskIO;
 
-        public CommandExecutor(DynamicStorageManager dynamicStorage, TaskIO taskIO)
+        public CommandExecutor(DynamicStorageManager dynamicStorage)
         {
             this.dynamicStorage = dynamicStorage;
-            this.taskIO = taskIO;
         }
 
         /// <summary>
@@ -26,16 +24,16 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             IO.Info("You can make changes to the task after answering the following prompts.");
 
             // Get new task details.
-            string name = this.taskIO.PromptAndGetNewTaskName();
-            string description = this.taskIO.PromptAndGetDescription();
-            bool isGood = this.taskIO.PromptAndGetIsGood();
-            int importance = this.taskIO.PromptAndGetImportance();
-            DateTime dueDate = this.taskIO.PromptAndGetDueDate();
-            RecurrenceEnum recurrence = this.taskIO.PromptAndGetRecurrence();
-            int occurrence = this.taskIO.PromptAndGetOccurrence();
+            string name = TaskIO.PromptAndGetNewTaskName();
+            string description = TaskIO.PromptAndGetDescription();
+            bool isGood = TaskIO.PromptAndGetIsGood();
+            int importance = TaskIO.PromptAndGetImportance();
+            DateTime dueDate = TaskIO.PromptAndGetDueDate();
+            RecurrenceEnum recurrence = TaskIO.PromptAndGetRecurrence();
+            int occurrence = TaskIO.PromptAndGetOccurrence();
 
             // Prompt user to correct any mistakes in task details.
-            this.taskIO.PromptAndGetTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrence);
+            TaskIO.PromptAndGetTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrence);
 
             // Create task.
             return this.dynamicStorage.CreateTask(name, importance, isGood, description, recurrence, occurrence, dueDate);
@@ -57,7 +55,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
 
             while (true)
             {
-                this.taskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
+                TaskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
 
                 userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
 
@@ -79,7 +77,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
 
             while (task == null)
             {
-                this.taskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
+                TaskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
 
                 userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
                 if (this.dynamicStorage.TaskExists(userInput))
@@ -89,16 +87,16 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             }
 
             // Get new task details.
-            string name = this.taskIO.PromptAndGetNewTaskName();
-            string description = this.taskIO.PromptAndGetDescription();
-            bool isGood = this.taskIO.PromptAndGetIsGood();
-            int importance = this.taskIO.PromptAndGetImportance();
-            DateTime dueDate = this.taskIO.PromptAndGetDueDate();
-            RecurrenceEnum recurrence = this.taskIO.PromptAndGetRecurrence();
-            int occurrence = this.taskIO.PromptAndGetOccurrence();
+            string name = TaskIO.PromptAndGetNewTaskName();
+            string description = TaskIO.PromptAndGetDescription();
+            bool isGood = TaskIO.PromptAndGetIsGood();
+            int importance = TaskIO.PromptAndGetImportance();
+            DateTime dueDate = TaskIO.PromptAndGetDueDate();
+            RecurrenceEnum recurrence = TaskIO.PromptAndGetRecurrence();
+            int occurrence = TaskIO.PromptAndGetOccurrence();
 
             // Prompt user to correct any mistakes in task details.
-            this.taskIO.PromptAndGetTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrence);
+            TaskIO.PromptAndGetTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrence);
 
             task.Edit(name, importance, isGood, description, recurrence, occurrence);
         }
@@ -114,7 +112,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
 
             while (!this.dynamicStorage.DoTask(userInput))
             {
-                this.taskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
+                TaskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
                 userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
             }
 
@@ -132,7 +130,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
 
             while (!this.dynamicStorage.UndoTask(userInput))
             {
-                this.taskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
+                TaskIO.DisplayAllTasks(this.dynamicStorage.getTasks());
                 userInput = IO.PromptForNotEmptyInput("Enter the task name: ");
             }
 
