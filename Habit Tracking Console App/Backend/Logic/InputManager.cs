@@ -33,9 +33,19 @@ namespace Habit_Tracking_Console_App.Backend.Logic
             }
         }
 
-        public static int GetIntegerInput(params string[] prompt)
+        public static int GetIntInput(params string[] prompt)
         {
-            return 0;
+            string userInput;
+            int output;
+
+            while (!int.TryParse(userInput = IO.PromptForNotEmptyInput(prompt), out output))
+            {
+                IO.Clear();
+                IO.InvalidInput(userInput, "integer");
+            }
+
+            IO.Clear();
+            return output;
         }
 
         public static DateTime GetDateInput(params string[] prompt)

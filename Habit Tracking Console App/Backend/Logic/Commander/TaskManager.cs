@@ -203,7 +203,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             int occurence = -1;
 
             string occurencePrompt = "Enter the amount of times you wish to do this task within the time interval: ";
-            while (!((occurence = IO.PromptForIntInput(occurencePrompt)) > 0))
+            while (!((occurence = InputManager.GetIntInput(occurencePrompt)) > 0))
             {
                 IO.Clear();
                 IO.Error("Input was not valid, try again!");
@@ -239,7 +239,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
         public bool PromptForIsGood()
         {
             string isGoodPrompt = "Is this a good task, enter true or false: ";
-            return IO.PromptForBoolInput(isGoodPrompt);
+            return InputManager.GetBoolInput(isGoodPrompt);
         }
 
         /// <summary>
@@ -251,7 +251,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Commander
             int importance;
 
             string importancePrompt = "If 1 is trivial and 5 is of utmost importance, enter the digit that represents the tasks importance: ";
-            while (!((importance = IO.PromptForIntInput(importancePrompt)) >= 1 && importance <= 5))
+            while (!((importance = InputManager.GetIntInput(importancePrompt)) >= 1 && importance <= 5))
             {
                 IO.Clear();
                 IO.Error("Input was not valid, try again!");

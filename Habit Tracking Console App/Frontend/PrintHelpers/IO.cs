@@ -188,26 +188,6 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
         }
 
         /// <summary>
-        /// Prompts the user for input until given an integer input.
-        /// </summary>
-        /// <param name="prompt">One or more strings to display as the prompt.</param>
-        /// <returns>Integer user input.</returns>
-        public static int PromptForIntInput(params string[] prompt)
-        {
-            string userInput;
-            int output;
-
-            while (!int.TryParse(userInput = PromptForNotEmptyInput(prompt), out output))
-            {
-                Clear();
-                Error($"\"{userInput}\" is not a valid integer, try again!");
-            }
-
-            Clear();
-            return output;
-        }
-
-        /// <summary>
         /// Prompts the user for input until given mm/dd/yyyy input.
         /// </summary>
         /// <param name="prompt">One or more strings to display as the prompt.</param>
