@@ -11,7 +11,6 @@ TimeDependentVarUpdater updater = new TimeDependentVarUpdater();
 DynamicStorageManager dynamicStorageManager = new DynamicStorageManager();
 
 CLIHelper.Msg("Hello World!");
-Console.WriteLine(TimeHelper.TimeTillNextYear());
 
 // Run the main application.
 CommandHandler commandHandler = new CommandHandler(dynamicStorageManager);
