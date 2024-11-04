@@ -2,7 +2,7 @@
 using Habit_Tracking_Console_App.Frontend;
 using Task_Tracking_Console_App.Backend.Objects;
 
-namespace Habit_Tracking_Console_App.Backend.Logic.Commander
+namespace Habit_Tracking_Console_App.Backend.Logic
 {
     /// <summary>
     /// Contains functions that prompt for interactions with tasks.
