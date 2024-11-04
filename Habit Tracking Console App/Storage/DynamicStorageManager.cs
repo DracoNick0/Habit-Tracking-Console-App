@@ -113,7 +113,7 @@ namespace Habit_Tracking_Console_App.Storage
         /// <returns>If the habit was successfully marked.</returns>
         public bool UndoHabit(string habitName)
         {
-            if (habits.ContainsKey(habitName))
+            if (habits.ContainsKey(habitName) && habits[habitName].Completions > 0)
             {
                 --habits[habitName].Completions;
                 return true;
