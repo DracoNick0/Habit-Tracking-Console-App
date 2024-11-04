@@ -1,4 +1,5 @@
 ﻿using Habit_Tracking_Console_App.Backend.Logic;
+using Habit_Tracking_Console_App.Backend.Objects;
 using System.Globalization;
 
 namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
@@ -247,6 +248,35 @@ namespace Habit_Tracking_Console_App.Frontend.PrintHelpers
 
             Clear();
             return output;
+        }
+
+        /// <summary>
+        /// Prompts the user for the recurrence of a task.
+        /// </summary>
+        /// <returns>User input.</returns>
+        public RecurrenceEnum PromptForRecurrence(string prompt)
+        {
+            while (true)
+            {
+                string userInput;
+                switch (userInput = PromptForNotEmptyInput(prompt))
+                {
+                    case "none":
+                        return RecurrenceEnum.none;
+                    case "daily":
+                        return RecurrenceEnum.daily;
+                    case "weekly":
+                        return RecurrenceEnum.weekly;
+                    case "monthly":
+                        return RecurrenceEnum.monthly;
+                    case "yearly":
+                        return RecurrenceEnum.yearly;
+                    default:
+                        Clear();
+                        Error($"{userInput} was not a valid recurrence, try again!");
+                        break;
+                }
+            }
         }
     }
 }
