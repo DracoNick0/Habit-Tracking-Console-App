@@ -192,7 +192,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic
         /// Prompts the user for the due date of a task.
         /// </summary>
         /// <returns>User input.</returns>
-        public static DateTime PromptAndGetDueDate()
+        public static DateOnly PromptAndGetDueDate()
         {
             return InputManager.GetDateInput("Enter task start/due date (mm/dd/yyyy): ");
         }

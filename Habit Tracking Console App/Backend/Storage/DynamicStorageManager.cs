@@ -27,7 +27,7 @@ namespace Task_Tracking_Console_App.Backend.Storage
         /// <param name="recurrence">The recurrence of the task.</param>
         /// <param name="occurrence">The occurrences within the recurrence interval of the task.</param>
         /// <returns></returns>
-        public bool CreateTask(string name, int importance, string description, RecurrenceEnum recurrence, int occurrence, DateTime dueDate)
+        public bool CreateTask(string name, int importance, string description, RecurrenceEnum recurrence, int occurrence, DateOnly dueDate)
         {
             if (!tasks.ContainsKey(name))
             {

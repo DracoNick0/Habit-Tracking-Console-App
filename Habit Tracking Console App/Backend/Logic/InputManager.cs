@@ -60,12 +60,12 @@ namespace Habit_Tracking_Console_App.Backend.Logic
         /// </summary>
         /// <param name="prompt">One or more strings to display as the prompt.</param>
         /// <returns>DateTime user input.</returns>
-        public static DateTime GetDateInput(params string[] prompt)
+        public static DateOnly GetDateInput(params string[] prompt)
         {
             string userInput;
-            DateTime output;
+            DateOnly output;
 
-            while (!DateTime.TryParseExact(userInput = IO.PromptForNotEmptyInput(prompt), "mm/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out output))
+            while (!DateOnly.TryParseExact(userInput = IO.PromptForNotEmptyInput(prompt), "MM/dd/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out output))
             {
                 IO.Clear();
                 IO.InvalidInput(userInput, "date");

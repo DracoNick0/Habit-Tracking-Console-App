@@ -1,4 +1,5 @@
-﻿using Habit_Tracking_Console_App.Backend.Objects;
+﻿using System;
+using Habit_Tracking_Console_App.Backend.Objects;
 
 namespace Task_Tracking_Console_App.Backend.Objects
 {
@@ -9,8 +10,8 @@ namespace Task_Tracking_Console_App.Backend.Objects
         private string description;
         private int completions;
         private RecurrenceEnum recurrence;
-        private int occurrence;
-        private DateTime dueDate;
+        private int occurrence;  
+        private DateOnly dueDate;
 
         public TaskObject()
         {
@@ -20,10 +21,10 @@ namespace Task_Tracking_Console_App.Backend.Objects
             this.completions = 0;
             this.recurrence = RecurrenceEnum.none;
             this.occurrence = 1;
-            this.dueDate = DateTime.Now.AddDays(1);
+            this.dueDate = DateOnly.FromDateTime(DateTime.Now).AddDays(1);
         }
 
-        public TaskObject(string name, int difficulty, string description, RecurrenceEnum recurrence, int occurrence, DateTime dueDate)
+        public TaskObject(string name, int difficulty, string description, RecurrenceEnum recurrence, int occurrence, DateOnly dueDate)
         {
             this.name = name;
             this.difficulty = difficulty;
@@ -34,7 +35,7 @@ namespace Task_Tracking_Console_App.Backend.Objects
             this.dueDate = dueDate;
         }
 
-        public void Edit(string? name = null, int? difficulty = null, string? description = null, RecurrenceEnum? recurrence = null, int? occurrence = null, DateTime? dueDate = null)
+        public void Edit(string? name = null, int? difficulty = null, string? description = null, RecurrenceEnum? recurrence = null, int? occurrence = null, DateOnly? dueDate = null)
         {
             this.name = name ?? this.name;
             this.difficulty = difficulty ?? this.difficulty;
@@ -80,7 +81,7 @@ namespace Task_Tracking_Console_App.Backend.Objects
             set { this.occurrence = value; }
         }
 
-        public DateTime DueDate
+        public DateOnly DueDate
         {
             get { return this.dueDate; }
             set { this.dueDate = value; }

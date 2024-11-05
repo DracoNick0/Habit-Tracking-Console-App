@@ -25,7 +25,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Object_Manager
             string name = TaskIO.PromptAndGetNewTaskName();
             string description = TaskIO.PromptAndGetDescription();
             int difficulty = TaskIO.PromptAndGetDifficulty();
-            DateTime dueDate = TaskIO.PromptAndGetDueDate();
+            DateOnly dueDate = TaskIO.PromptAndGetDueDate();
             RecurrenceEnum recurrence = TaskIO.PromptAndGetRecurrence();
             int occurrence = TaskIO.PromptAndGetOccurrence();
 
@@ -82,7 +82,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Object_Manager
             string name = task.Name;
             string description = task.Description;
             int difficulty = task.Difficulty;
-            DateTime dueDate = task.DueDate;
+            DateOnly dueDate = task.DueDate;
             RecurrenceEnum recurrence = task.Recurrence;
             int occurrence = task.Occurrence;
 
