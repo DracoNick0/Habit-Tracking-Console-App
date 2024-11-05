@@ -94,7 +94,7 @@ namespace Task_Tracking_Console_App.Backend.Logic.Commander
             IO.Msg("Available Commands:");
             IO.MsgForWindow("", "", "", '-', int.MaxValue);
             IO.Msg("- exit: saves and exits the program");
-            IO.Msg("- show <item>: displays all items in category(eg. task, habit)");
+            IO.Msg("- view <item>: displays all items in category(eg. task, habit)");
             IO.Msg("- create <item>: creates an item(eg. task, habit)");
             IO.Msg("- delete <item>: deletes an item(eg. task, habit)");
             IO.Msg("- edit <item>: creates an item(eg. task, habit)");

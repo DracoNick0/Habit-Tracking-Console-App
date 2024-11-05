@@ -1,8 +1,7 @@
 ﻿using Habit_Tracking_Console_App.Backend.Objects;
 using Habit_Tracking_Console_App.Frontend;
-using System.Diagnostics;
-using System.Threading.Tasks;
 using Task_Tracking_Console_App.Backend.Objects;
+
 namespace Habit_Tracking_Console_App.Backend.Logic
 {
     /// <summary>
@@ -96,6 +95,9 @@ namespace Habit_Tracking_Console_App.Backend.Logic
             IO.MsgForWindow("+", "+", "+", '-');
         }
 
+        /// <summary>
+        /// Prints a completion bar within the task interface, representing the tasks completion.
+        /// </summary>
         private static void PrintInTaskCompletionBar(TaskObject task)
         {
             string preCompletionBar = "| Completion: [";
@@ -131,11 +133,18 @@ namespace Habit_Tracking_Console_App.Backend.Logic
             IO.MsgForWindowWOLogger($"{preCompletionBar}{completionBar}{postCompletionBar}", "..|");
         }
 
+        /// <summary>
+        /// Prompts the user for the name of a new task.
+        /// </summary>
+        /// <returns>User input.</returns>
         public static string PromptAndGetNewTaskName()
         {
             return IO.PromptForNotEmptyInput("Enter the new task name: ");
         }
 
+        /// <summary>
+        /// Prompts the user to change all task details, each detail is a reference to the actual object.
+        /// </summary>
         public static void PromptAndGetTaskCorrection(ref string name, ref int difficulty, ref string description, ref RecurrenceEnum recurrence, ref int occurrence)
         {
             string? userInput;
@@ -179,16 +188,28 @@ namespace Habit_Tracking_Console_App.Backend.Logic
             }
         }
 
+        /// <summary>
+        /// Prompts the user for the due date of a task.
+        /// </summary>
+        /// <returns>User input.</returns>
         public static DateTime PromptAndGetDueDate()
         {
             return InputManager.GetDateInput("Enter task start/due date (mm/dd/yyyy): ");
         }
 
+        /// <summary>
+        /// Prompts the user for the recurrence of a task.
+        /// </summary>
+        /// <returns>User input.</returns>
         public static RecurrenceEnum PromptAndGetRecurrence()
         {
             return InputManager.GetRecurrenceInput("Enter recurrence; none, daily, weekly, monthly, or yearly: ");
         }
 
+        /// <summary>
+        /// Prompts the user for the occurrences within a time period of a task.
+        /// </summary>
+        /// <returns>User input.</returns>
         public static int PromptAndGetOccurrence()
         {
             int occurrence = 0;
