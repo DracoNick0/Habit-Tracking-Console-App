@@ -24,7 +24,7 @@ namespace Habit_Tracking_Console_App.Backend.Threads
         private void MonitorConsoleResize()
         {
             int previousWidth = Console.WindowWidth;
-            bool checkIfBigger = true;
+            bool checkIfBigger = Console.WindowWidth <= IO.maxStringLength + 1;
 
             while (running)
             {
