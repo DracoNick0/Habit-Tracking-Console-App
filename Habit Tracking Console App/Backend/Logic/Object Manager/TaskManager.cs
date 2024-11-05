@@ -25,16 +25,16 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Object_Manager
             string name = TaskIO.PromptAndGetNewTaskName();
             string description = TaskIO.PromptAndGetDescription();
             bool isGood = TaskIO.PromptAndGetIsGood();
-            int importance = TaskIO.PromptAndGetImportance();
+            int difficulty = TaskIO.PromptAndGetDifficulty();
             DateTime dueDate = TaskIO.PromptAndGetDueDate();
             RecurrenceEnum recurrence = TaskIO.PromptAndGetRecurrence();
             int occurrence = TaskIO.PromptAndGetOccurrence();
 
             // Prompt user to correct any mistakes in task details.
-            TaskIO.PromptAndGetTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrence);
+            TaskIO.PromptAndGetTaskCorrection(ref name, ref difficulty, ref isGood, ref description, ref recurrence, ref occurrence);
 
             // Create task.
-            return this.dynamicStorage.CreateTask(name, importance, isGood, description, recurrence, occurrence, dueDate);
+            return this.dynamicStorage.CreateTask(name, difficulty, isGood, description, recurrence, occurrence, dueDate);
         }
 
         /// <summary>
@@ -83,15 +83,15 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Object_Manager
             string name = TaskIO.PromptAndGetNewTaskName();
             string description = TaskIO.PromptAndGetDescription();
             bool isGood = TaskIO.PromptAndGetIsGood();
-            int importance = TaskIO.PromptAndGetImportance();
+            int difficulty = TaskIO.PromptAndGetDifficulty();
             DateTime dueDate = TaskIO.PromptAndGetDueDate();
             RecurrenceEnum recurrence = TaskIO.PromptAndGetRecurrence();
             int occurrence = TaskIO.PromptAndGetOccurrence();
 
             // Prompt user to correct any mistakes in task details.
-            TaskIO.PromptAndGetTaskCorrection(ref name, ref importance, ref isGood, ref description, ref recurrence, ref occurrence);
+            TaskIO.PromptAndGetTaskCorrection(ref name, ref difficulty, ref isGood, ref description, ref recurrence, ref occurrence);
 
-            task.Edit(name, importance, isGood, description, recurrence, occurrence);
+            task.Edit(name, difficulty, isGood, description, recurrence, occurrence);
         }
 
         /// <summary>

@@ -23,10 +23,6 @@
                 TimeSpan timeTillTomorrow = tomorrowStart - now;
                 double msTillTomorrow = timeTillTomorrow.TotalMilliseconds;
 
-                // Debug messages
-                // Console.WriteLine(timeTillTomorrow);
-                // Console.WriteLine(now + timeTillTomorrow);
-
                 // Wait
                 Thread.Sleep((int)Math.Ceiling(msTillTomorrow) + 1000);
             }

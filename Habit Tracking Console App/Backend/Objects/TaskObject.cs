@@ -5,7 +5,7 @@ namespace Task_Tracking_Console_App.Backend.Objects
     class TaskObject
     {
         private string name;
-        private int importance;
+        private int difficulty;
         private bool isGood;
         private string description;
         private int completions;
@@ -16,7 +16,7 @@ namespace Task_Tracking_Console_App.Backend.Objects
         public TaskObject()
         {
             this.name = string.Empty;
-            this.importance = 0;
+            this.difficulty = 0;
             this.isGood = false;
             this.description = string.Empty;
             this.completions = 0;
@@ -25,10 +25,10 @@ namespace Task_Tracking_Console_App.Backend.Objects
             this.dueDate = DateTime.Now.AddDays(1);
         }
 
-        public TaskObject(string name, int importance, bool isGood, string description, RecurrenceEnum recurrence, int occurrence, DateTime dueDate)
+        public TaskObject(string name, int difficulty, bool isGood, string description, RecurrenceEnum recurrence, int occurrence, DateTime dueDate)
         {
             this.name = name;
-            this.importance = importance;
+            this.difficulty = difficulty;
             this.isGood = isGood;
             this.description = description;
             this.recurrence = recurrence;
@@ -37,10 +37,10 @@ namespace Task_Tracking_Console_App.Backend.Objects
             this.dueDate = dueDate;
         }
 
-        public void Edit(string? name = null, int? importance = null, bool? isGood = null, string? description = null, RecurrenceEnum? recurrence = null, int? occurrence = null, DateTime? dueDate = null)
+        public void Edit(string? name = null, int? difficulty = null, bool? isGood = null, string? description = null, RecurrenceEnum? recurrence = null, int? occurrence = null, DateTime? dueDate = null)
         {
             this.name = name ?? this.name;
-            this.importance = importance ?? this.importance;
+            this.difficulty = difficulty ?? this.difficulty;
             this.isGood = isGood ?? this.isGood;
             this.description = description ?? this.description;
             this.recurrence = recurrence ?? this.recurrence;
@@ -66,10 +66,10 @@ namespace Task_Tracking_Console_App.Backend.Objects
             set { this.description = value; }
         }
 
-        public int Importance
+        public int Difficulty
         {
-            get { return this.importance; }
-            set { this.importance = value; }
+            get { return this.difficulty; }
+            set { this.difficulty = value; }
         }
 
         public int Completions

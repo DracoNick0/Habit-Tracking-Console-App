@@ -15,26 +15,45 @@ namespace Habit_Tracking_Console_App.Backend.Logic
         /// </summary>
         /// <param name="displayIsGood">Determines if the isGood variable is displayed.</param>
         /// <param name="displayDescription">Determines if the description variable is displayed.</param>
-        /// <param name="displayImportance">Determines if the importance variable is displayed.</param>
+        /// <param name="displayDifficulty">Determines if the difficulty variable is displayed.</param>
         /// <param name="displayCompletion">Determines if the completion variable is displayed.</param>
-        public static void DisplayAllTasks(List<TaskObject> tasks, bool displayImportance = true, bool displayCompletion = true, bool displayDescription = true, bool displayTimeLeft = true)
+        public static void DisplayAllTasks(List<TaskObject> tasks, bool displayDifficulty = true, bool displayCompletion = true, bool displayDescription = true, bool displayTimeLeft = true)
         {
             if (tasks.Count > 0)
             {
-                string importance = "", completion = " ", timeLeft = "";
+                string difficulty = "", completion = " ", timeLeft = "";
                 foreach (TaskObject task in tasks)
                 {
                     IO.MsgForWindow("+", "+", "+", '-');
                     if (displayCompletion)
                     {
-                        completion = $"{task.Completions}/{task.Occurrence}";
+                        completion = $"[{task.Completions}/{task.Occurrence}] ";
                         ActionLogger.AddAction(() => PrintInTaskCompletionBar(task));
                         PrintInTaskCompletionBar(task);
                     }
 
-                    if (displayImportance)
+                    if (displayDifficulty)
                     {
-                        importance = $"<Value: {task.Importance.ToString()}> ";
+                        char difficultyChar = ' ';
+                        switch (task.Difficulty)
+                        {
+                            case 1:
+                                difficultyChar = '.';
+                                break;
+                            case 2:
+                                difficultyChar = '-';
+                                break;
+                            case 3:
+                                difficultyChar = '=';
+                                break;
+                            case 4:
+                                difficultyChar = '*';
+                                break;
+                            case 5:
+                                difficultyChar = '#';
+                                break;
+                        }
+                        difficulty = $"[{difficultyChar}] ";
                     }
 
                     if (displayTimeLeft)
@@ -45,22 +64,22 @@ namespace Habit_Tracking_Console_App.Backend.Logic
                                 // timeLeft = $"{TimeHelper.TimeTillNextDay().Hours.ToString()} hours left";
                                 break;
                             case RecurrenceEnum.daily:
-                                timeLeft = $"{TimeHelper.TimeTillNextDay().Hours.ToString()} hours left";
+                                timeLeft = $"{TimeHelper.TimeTillNextDay().Hours.ToString()} hours left ";
                                 break;
                             case RecurrenceEnum.weekly:
-                                timeLeft = $"{TimeHelper.TimeTillNextWeek().Days.ToString()} days left";
+                                timeLeft = $"{TimeHelper.TimeTillNextWeek().Days.ToString()} days left ";
                                 break;
                             case RecurrenceEnum.monthly:
-                                timeLeft = $"{TimeHelper.TimeTillNextMonth().Days.ToString()} days left";
+                                timeLeft = $"{TimeHelper.TimeTillNextMonth().Days.ToString()} days left ";
                                 break;
                             case RecurrenceEnum.yearly:
-                                timeLeft = $"{TimeHelper.TimeTillNextYear().Days.ToString()} days left";
+                                timeLeft = $"{TimeHelper.TimeTillNextYear().Days.ToString()} days left ";
                                 break;
                         }
                     }
 
-                    IO.MsgForWindow($"| {task.Name}", "..|", $"{importance}|");
-                    IO.MsgForWindow($"| [{completion}] {timeLeft}", "..|", $"|");
+                    IO.MsgForWindow($"| {task.Name}", "..|", $"|");
+                    IO.MsgForWindow($"| {difficulty}{completion}{timeLeft}", "..|", $"|");
 
                     if (displayDescription)
                     {
@@ -117,7 +136,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic
             return IO.PromptForNotEmptyInput("Enter the new task name: ");
         }
 
-        public static void PromptAndGetTaskCorrection(ref string name, ref int importance, ref bool isGood, ref string description, ref RecurrenceEnum recurrence, ref int occurrence)
+        public static void PromptAndGetTaskCorrection(ref string name, ref int difficulty, ref bool isGood, ref string description, ref RecurrenceEnum recurrence, ref int occurrence)
         {
             string? userInput;
 
@@ -129,7 +148,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic
                 prompt.Add($"- Name: {name}");
                 prompt.Add($"- Recurrence: {recurrence.ToString()}");
                 prompt.Add($"- Occurrence: {occurrence}");
-                prompt.Add($"- Importance: {importance}");
+                prompt.Add($"- Difficulty: {difficulty}");
                 prompt.Add($"- IsGood: {isGood}");
                 prompt.Add($"- Desc: {description}");
 
@@ -146,8 +165,8 @@ namespace Habit_Tracking_Console_App.Backend.Logic
                     case "isgood":
                         isGood = PromptAndGetIsGood();
                         break;
-                    case "importance":
-                        importance = PromptAndGetImportance();
+                    case "difficulty":
+                        difficulty = PromptAndGetDifficulty();
                         break;
                     case "recurrence":
                         recurrence = PromptAndGetRecurrence();
@@ -216,20 +235,22 @@ namespace Habit_Tracking_Console_App.Backend.Logic
         }
 
         /// <summary>
-        /// Prompts the user for the importance of a task.
+        /// Prompts the user for the difficulty of a task.
         /// </summary>
         /// <returns>User input.</returns>
-        public static int PromptAndGetImportance()
+        public static int PromptAndGetDifficulty()
         {
-            int importance;
-            string importancePrompt = "If 1 is trivial and 5 is of utmost importance, enter the digit that represents the tasks importance: ";
-            while (!((importance = InputManager.GetIntInput(importancePrompt)) >= 1 && importance <= 5))
+            int difficulty;
+            List<string> difficultyPrompt = new List<string>();
+            difficultyPrompt.Add("(1: Trivial[.], 2: Easy[-], 3: Medium[=], 4: Hard[*], 5: Impossible[#])");
+            difficultyPrompt.Add("Enter the digit that represents the tasks difficulty: ");
+            while (!((difficulty = InputManager.GetIntInput(difficultyPrompt.ToArray())) >= 1 && difficulty <= 5))
             {
                 IO.Clear();
-                IO.Error($"\"{importance}\" is not >= 1 && <= 5, try again!");
+                IO.Error($"\"{difficulty}\" is not >= 1 && <= 5, try again!");
             }
 
-            return importance;
+            return difficulty;
         }
     }
 }
