@@ -69,9 +69,9 @@ namespace Habit_Tracking_Console_App.Frontend
         /// <param name="maxLength">Optional. The maximum length of the output message. If set to -1, it is calculated based on the message length and trailing string.</param>
         public static void MsgForWindow(string message, string cutoff = "", string trail = "", char filler = ' ', int maxLength = maxStringLength)
         {
-            StorableMsgForWindow(message, cutoff, trail, filler, maxLength);
+            MsgForWindowWOLogger(message, cutoff, trail, filler, maxLength);
 
-            ActionLogger.AddAction(() => StorableMsgForWindow(message, cutoff, trail, filler, maxLength));
+            ActionLogger.AddAction(() => MsgForWindowWOLogger(message, cutoff, trail, filler, maxLength));
         }
 
         /// <summary>
@@ -82,7 +82,7 @@ namespace Habit_Tracking_Console_App.Frontend
         /// <param name="trail">Optional. A string to display at the end of the formatted message.</param>
         /// <param name="filler">Optional. A character used to fill the space if the message is shorter than the defined length.</param>
         /// <param name="maxLength">Optional. The maximum length of the output message. If set to -1, it is calculated based on the message length and trailing string.</param>
-        public static void StorableMsgForWindow(string message, string cutoff = "", string trail = "", char filler = ' ', int maxLength = maxStringLength)
+        public static void MsgForWindowWOLogger(string message, string cutoff = "", string trail = "", char filler = ' ', int maxLength = maxStringLength)
         {
             string finalMessage = message;
 

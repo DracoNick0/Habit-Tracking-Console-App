@@ -1,7 +1,8 @@
 ﻿using Habit_Tracking_Console_App.Backend.Objects;
 using Habit_Tracking_Console_App.Frontend;
+using System.Diagnostics;
+using System.Threading.Tasks;
 using Task_Tracking_Console_App.Backend.Objects;
-
 namespace Habit_Tracking_Console_App.Backend.Logic
 {
     /// <summary>
@@ -16,41 +17,24 @@ namespace Habit_Tracking_Console_App.Backend.Logic
         /// <param name="displayDescription">Determines if the description variable is displayed.</param>
         /// <param name="displayImportance">Determines if the importance variable is displayed.</param>
         /// <param name="displayCompletion">Determines if the completion variable is displayed.</param>
-        public static void DisplayAllTasks(List<TaskObject> tasks, bool displayIsGood = true, bool displayImportance = true, bool displayCompletion = true, bool displayDescription = true, bool displayTimeLeft = true)
+        public static void DisplayAllTasks(List<TaskObject> tasks, bool displayImportance = true, bool displayCompletion = true, bool displayDescription = true, bool displayTimeLeft = true)
         {
             if (tasks.Count > 0)
             {
-                string isGood = "", importance = "", completion = " ", timeLeft = "";
+                string importance = "", completion = " ", timeLeft = "";
                 foreach (TaskObject task in tasks)
                 {
                     IO.MsgForWindow("+", "+", "+", '-');
                     if (displayCompletion)
                     {
-                        if (task.Completions >= task.Occurrence)
-                        {
-                            completion = "x";
-                        }
-                        else
-                        {
-                            completion = $"{task.Completions}/{task.Occurrence}";
-                        }
-                    }
-
-                    if (displayIsGood)
-                    {
-                        if (task.IsGood)
-                        {
-                            isGood = "Positive";
-                        }
-                        else
-                        {
-                            isGood = "Negative";
-                        }
+                        completion = $"{task.Completions}/{task.Occurrence}";
+                        ActionLogger.AddAction(() => PrintInTaskCompletionBar(task));
+                        PrintInTaskCompletionBar(task);
                     }
 
                     if (displayImportance)
                     {
-                        importance = task.Importance.ToString();
+                        importance = $"<Value: {task.Importance.ToString()}> ";
                     }
 
                     if (displayTimeLeft)
@@ -75,13 +59,8 @@ namespace Habit_Tracking_Console_App.Backend.Logic
                         }
                     }
 
-                    //CLIHelper.MsgForWindow($"| Task: [{completion}] Task: {task.Name} ", "...|", "|");
-                    //CLIHelper.MsgForWindow($"| Importance: {importance} ", "...|", $"({isGood}) |");
-
-                    //CLIHelper.MsgForWindow($"| [{completion}] {task.Name} ", "..|", $"({importance} : {isGood}) |");
-
-                    IO.MsgForWindow($"| [{completion}] {task.Name} ", "..|", $"|");
-                    IO.MsgForWindow($"| {timeLeft}", "..|", $"({importance} : {isGood}) |");
+                    IO.MsgForWindow($"| {task.Name}", "..|", $"{importance}|");
+                    IO.MsgForWindow($"| [{completion}] {timeLeft}", "..|", $"|");
 
                     if (displayDescription)
                     {
@@ -96,6 +75,41 @@ namespace Habit_Tracking_Console_App.Backend.Logic
             }
 
             IO.MsgForWindow("+", "+", "+", '-');
+        }
+
+        private static void PrintInTaskCompletionBar(TaskObject task)
+        {
+            string preCompletionBar = "| Completion: [";
+            string postCompletionBar = "] |";
+
+            int sizeOfCompletionBar = 0;
+            if (Console.WindowWidth - 1 > IO.maxStringLength)
+            {
+                sizeOfCompletionBar = IO.maxStringLength - (preCompletionBar.Length + postCompletionBar.Length);
+            }
+            else
+            {
+                sizeOfCompletionBar = Console.WindowWidth - 1 - (preCompletionBar.Length + postCompletionBar.Length);
+            }
+
+            double completionFraction = 1;
+            if (task.Completions < task.Occurrence)
+            {
+                completionFraction = (double)task.Completions / (double)task.Occurrence;
+            }
+
+            int sizeOfCompletePart;
+            string completionBar = "";
+            if ((sizeOfCompletePart = (int)Math.Floor(sizeOfCompletionBar * completionFraction)) >= 0)
+            {
+                completionBar = new string('#', sizeOfCompletePart);
+                if (sizeOfCompletionBar - sizeOfCompletePart >= 0)
+                {
+                    completionBar += new string('.', sizeOfCompletionBar - sizeOfCompletePart);
+                }
+            }
+
+            IO.MsgForWindowWOLogger($"{preCompletionBar}{completionBar}{postCompletionBar}", "..|");
         }
 
         public static string PromptAndGetNewTaskName()
