@@ -80,13 +80,13 @@ namespace Habit_Tracking_Console_App.Backend.Logic.Object_Manager
             }
 
             // Get new task details.
-            string name = TaskIO.PromptAndGetNewTaskName();
-            string description = TaskIO.PromptAndGetDescription();
-            bool isGood = TaskIO.PromptAndGetIsGood();
-            int difficulty = TaskIO.PromptAndGetDifficulty();
-            DateTime dueDate = TaskIO.PromptAndGetDueDate();
-            RecurrenceEnum recurrence = TaskIO.PromptAndGetRecurrence();
-            int occurrence = TaskIO.PromptAndGetOccurrence();
+            string name = task.Name;
+            string description = task.Description;
+            bool isGood = task.IsGood;
+            int difficulty = task.Difficulty;
+            DateTime dueDate = task.DueDate;
+            RecurrenceEnum recurrence = task.Recurrence;
+            int occurrence = task.Occurrence;
 
             // Prompt user to correct any mistakes in task details.
             TaskIO.PromptAndGetTaskCorrection(ref name, ref difficulty, ref isGood, ref description, ref recurrence, ref occurrence);

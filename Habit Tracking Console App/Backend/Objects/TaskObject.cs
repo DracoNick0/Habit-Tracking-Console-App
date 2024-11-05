@@ -89,5 +89,11 @@ namespace Task_Tracking_Console_App.Backend.Objects
             get { return this.occurrence; }
             set { this.occurrence = value; }
         }
+
+        public DateTime DueDate
+        {
+            get { return this.dueDate; }
+            set { this.dueDate = value; }
+        }
     }
 }
