@@ -32,14 +32,9 @@ namespace Habit_Tracking_Console_App.Backend.Threads
                 {
                     previousWidth = Console.WindowWidth;
 
-                    if (Console.WindowWidth <= IO.maxStringLength + 1)
+                    if (Console.WindowWidth <= IO.maxStringLength + 1 || checkIfBigger && Console.WindowWidth > IO.maxStringLength + 1)
                     {
-                        checkIfBigger = true;
-                        ActionLogger.ExecuteStoredActions();
-                    }
-                    else if (checkIfBigger && Console.WindowWidth > IO.maxStringLength + 1)
-                    {
-                        checkIfBigger = false;
+                        checkIfBigger = Console.WindowWidth <= IO.maxStringLength + 1;
                         ActionLogger.ExecuteStoredActions();
                     }
                 }
