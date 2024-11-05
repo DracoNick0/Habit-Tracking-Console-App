@@ -17,14 +17,14 @@
                 UpdateTimeDependentVariables();
 
                 DateTime now = DateTime.Now;
-                DateTime dayFromNow = now.AddDays(1);
-                DateTime tomorrowStart = new DateTime(dayFromNow.Year, dayFromNow.Month, dayFromNow.Day, 0, 0, 0);
+                DateOnly today = DateOnly.FromDateTime(now);
+                DateTime midnight = today.ToDateTime(TimeOnly.MaxValue);
 
-                TimeSpan timeTillTomorrow = tomorrowStart - now;
-                double msTillTomorrow = timeTillTomorrow.TotalMilliseconds;
+                TimeSpan timeTillMidnight = midnight - now;
+                double msTillMidnight = timeTillMidnight.TotalMilliseconds;
 
                 // Wait
-                Thread.Sleep((int)Math.Ceiling(msTillTomorrow) + 1000);
+                Thread.Sleep((int)Math.Ceiling(msTillMidnight));
             }
         }
 
