@@ -1,4 +1,5 @@
 ﻿using Habit_Tracking_Console_App.Backend.Objects;
+using Habit_Tracking_Console_App.Frontend;
 
 namespace Habit_Tracking_Console_App.Backend.Threads
 {
@@ -23,19 +24,27 @@ namespace Habit_Tracking_Console_App.Backend.Threads
         private void MonitorConsoleResize()
         {
             int previousWidth = Console.WindowWidth;
-            int previousHeight = Console.WindowHeight;
+            bool checkIfBigger = true;
 
             while (running)
             {
-                if (Console.WindowWidth != previousWidth || Console.WindowHeight != previousHeight)
+                if (Console.WindowWidth != previousWidth)
                 {
                     previousWidth = Console.WindowWidth;
-                    previousHeight = Console.WindowHeight;
 
-                    ActionLogger.ExecuteStoredActions();
+                    if (Console.WindowWidth <= IO.maxStringLength + 1)
+                    {
+                        checkIfBigger = true;
+                        ActionLogger.ExecuteStoredActions();
+                    }
+                    else if (checkIfBigger && Console.WindowWidth > IO.maxStringLength + 1)
+                    {
+                        checkIfBigger = false;
+                        ActionLogger.ExecuteStoredActions();
+                    }
                 }
 
-                Thread.Sleep(100);
+                Thread.Sleep(200);
             }
         }
     }
