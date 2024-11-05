@@ -6,7 +6,6 @@ namespace Task_Tracking_Console_App.Backend.Objects
     {
         private string name;
         private int difficulty;
-        private bool isGood;
         private string description;
         private int completions;
         private RecurrenceEnum recurrence;
@@ -17,7 +16,6 @@ namespace Task_Tracking_Console_App.Backend.Objects
         {
             this.name = string.Empty;
             this.difficulty = 0;
-            this.isGood = false;
             this.description = string.Empty;
             this.completions = 0;
             this.recurrence = RecurrenceEnum.none;
@@ -25,11 +23,10 @@ namespace Task_Tracking_Console_App.Backend.Objects
             this.dueDate = DateTime.Now.AddDays(1);
         }
 
-        public TaskObject(string name, int difficulty, bool isGood, string description, RecurrenceEnum recurrence, int occurrence, DateTime dueDate)
+        public TaskObject(string name, int difficulty, string description, RecurrenceEnum recurrence, int occurrence, DateTime dueDate)
         {
             this.name = name;
             this.difficulty = difficulty;
-            this.isGood = isGood;
             this.description = description;
             this.recurrence = recurrence;
             this.occurrence = occurrence;
@@ -37,11 +34,10 @@ namespace Task_Tracking_Console_App.Backend.Objects
             this.dueDate = dueDate;
         }
 
-        public void Edit(string? name = null, int? difficulty = null, bool? isGood = null, string? description = null, RecurrenceEnum? recurrence = null, int? occurrence = null, DateTime? dueDate = null)
+        public void Edit(string? name = null, int? difficulty = null, string? description = null, RecurrenceEnum? recurrence = null, int? occurrence = null, DateTime? dueDate = null)
         {
             this.name = name ?? this.name;
             this.difficulty = difficulty ?? this.difficulty;
-            this.isGood = isGood ?? this.isGood;
             this.description = description ?? this.description;
             this.recurrence = recurrence ?? this.recurrence;
             this.occurrence = occurrence ?? this.occurrence;
@@ -52,12 +48,6 @@ namespace Task_Tracking_Console_App.Backend.Objects
         {
             get { return this.name; }
             set { this.name = value; }
-        }
-
-        public bool IsGood
-        {
-            get { return this.isGood; }
-            set { this.isGood = value; }
         }
 
         public string Description

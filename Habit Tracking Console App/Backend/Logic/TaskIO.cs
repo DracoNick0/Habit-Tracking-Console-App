@@ -136,7 +136,7 @@ namespace Habit_Tracking_Console_App.Backend.Logic
             return IO.PromptForNotEmptyInput("Enter the new task name: ");
         }
 
-        public static void PromptAndGetTaskCorrection(ref string name, ref int difficulty, ref bool isGood, ref string description, ref RecurrenceEnum recurrence, ref int occurrence)
+        public static void PromptAndGetTaskCorrection(ref string name, ref int difficulty, ref string description, ref RecurrenceEnum recurrence, ref int occurrence)
         {
             string? userInput;
 
@@ -149,7 +149,6 @@ namespace Habit_Tracking_Console_App.Backend.Logic
                 prompt.Add($"- Recurrence: {recurrence.ToString()}");
                 prompt.Add($"- Occurrence: {occurrence}");
                 prompt.Add($"- Difficulty: {difficulty}");
-                prompt.Add($"- IsGood: {isGood}");
                 prompt.Add($"- Desc: {description}");
 
                 userInput = IO.PromptForNotNullInput(prompt.ToArray()).ToLower();
@@ -161,9 +160,6 @@ namespace Habit_Tracking_Console_App.Backend.Logic
                         break;
                     case "desc":
                         description = PromptAndGetDescription();
-                        break;
-                    case "isgood":
-                        isGood = PromptAndGetIsGood();
                         break;
                     case "difficulty":
                         difficulty = PromptAndGetDifficulty();
@@ -222,16 +218,6 @@ namespace Habit_Tracking_Console_App.Backend.Logic
         public static string PromptAndGetDescription()
         {
             return IO.PromptForNotEmptyInput("Enter the description of the task: ");
-        }
-
-        /// <summary>
-        /// Prompts the user for the polarity of a task.
-        /// </summary>
-        /// <returns>User input.</returns>
-        public static bool PromptAndGetIsGood()
-        {
-            string isGoodPrompt = "Is this a good task, enter true or false: ";
-            return InputManager.GetBoolInput(isGoodPrompt);
         }
 
         /// <summary>

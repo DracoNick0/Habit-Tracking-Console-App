@@ -23,16 +23,15 @@ namespace Task_Tracking_Console_App.Backend.Storage
         /// </summary>
         /// <param name="name">The name of the task.</param>
         /// <param name="importance">The importance of the task.</param>
-        /// <param name="isGood">If the task is positive.</param>
         /// <param name="description">The description of the task.</param>
         /// <param name="recurrence">The recurrence of the task.</param>
         /// <param name="occurrence">The occurrences within the recurrence interval of the task.</param>
         /// <returns></returns>
-        public bool CreateTask(string name, int importance, bool isGood, string description, RecurrenceEnum recurrence, int occurrence, DateTime dueDate)
+        public bool CreateTask(string name, int importance, string description, RecurrenceEnum recurrence, int occurrence, DateTime dueDate)
         {
             if (!tasks.ContainsKey(name))
             {
-                TaskObject newTask = new TaskObject(name, importance, isGood, description, recurrence, occurrence, dueDate);
+                TaskObject newTask = new TaskObject(name, importance, description, recurrence, occurrence, dueDate);
                 Add(newTask);
                 return true;
             }
