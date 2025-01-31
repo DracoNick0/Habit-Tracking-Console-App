@@ -4,7 +4,7 @@ namespace Habit_Tracking_Console_App.Frontend
 {
     class IO
     {
-        public const int maxStringLength = 50;
+        public const int maxStringLength = 75;
 
         /// <summary>
         /// Writes a prompt to the console and logs the action.

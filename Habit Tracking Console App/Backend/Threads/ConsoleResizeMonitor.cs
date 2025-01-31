@@ -39,7 +39,7 @@ namespace Habit_Tracking_Console_App.Backend.Threads
                     }
                 }
 
-                Thread.Sleep(200);
+                Thread.Sleep(5);
             }
         }
     }
